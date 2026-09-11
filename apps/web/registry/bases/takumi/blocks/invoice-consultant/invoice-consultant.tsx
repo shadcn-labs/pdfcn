@@ -13,12 +13,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { InvoiceConsultantData } from "./invoice-consultant.types";
@@ -69,11 +63,11 @@ const InvoiceConsultantContent = ({
 }) => {
   const theme = usePdfcnTheme();
 
-  const styles = StyleSheet.create({
+  const styles = {
     calloutNote: {
       backgroundColor: theme.colors.muted,
       borderLeftColor: theme.colors.info,
-      borderLeftStyle: "solid",
+      borderLeftStyle: "solid" as const,
       borderLeftWidth: 3,
       marginTop: 16,
       paddingLeft: 12,
@@ -85,10 +79,10 @@ const InvoiceConsultantContent = ({
     headerRow: {
       alignItems: "flex-start",
       borderBottomColor: theme.colors.primary,
-      borderBottomStyle: "solid",
+      borderBottomStyle: "solid" as const,
       borderBottomWidth: 2,
-      flexDirection: "row",
-      justifyContent: "space-between",
+      flexDirection: "row" as const,
+      justifyContent: "space-between" as const,
       marginBottom: theme.spacing.sectionGap,
       paddingBottom: theme.spacing.componentGap,
     },
@@ -109,14 +103,14 @@ const InvoiceConsultantContent = ({
     },
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       padding: theme.spacing.page.marginTop,
       paddingBottom: theme.spacing.page.marginBottom,
-      position: "relative",
+      position: "relative" as const,
     },
     partiesRow: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       gap: 40,
       marginBottom: theme.spacing.sectionGap,
     },
@@ -125,7 +119,7 @@ const InvoiceConsultantContent = ({
     },
     partyLabel: {
       borderBottomColor: theme.colors.border,
-      borderBottomStyle: "solid",
+      borderBottomStyle: "solid" as const,
       borderBottomWidth: 1,
       color: theme.colors.primary,
       fontSize: 9,
@@ -139,26 +133,26 @@ const InvoiceConsultantContent = ({
       alignItems: "center",
       backgroundColor: theme.colors.muted,
       borderRadius: theme.primitives.borderRadius.sm,
-      flexDirection: "row",
+      flexDirection: "row" as const,
       gap: 8,
       marginBottom: theme.spacing.sectionGap,
       paddingHorizontal: 10,
       paddingVertical: 6,
     },
     summaryRow: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       marginTop: 20,
     },
     totalsBox: {
       width: 250,
     },
-  });
+  };
 
   return (
-    <Document title={`Invoice ${data.invoiceNumber}`}>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.headerRow}>
-          <View style={styles.companyInfo}>
+    <div data-pdf-document title={`Invoice ${data.invoiceNumber}`}>
+      <div data-pdf-page="A4" style={styles.page}>
+        <div style={styles.headerRow}>
+          <div style={styles.companyInfo}>
             <Text variant="xl" weight="bold" noMargin>
               {data.companyName}
             </Text>
@@ -168,8 +162,8 @@ const InvoiceConsultantContent = ({
             <Text variant="xs" color="mutedForeground" noMargin>
               {data.companyAddress}
             </Text>
-          </View>
-          <View style={styles.invoiceInfo}>
+          </div>
+          <div style={styles.invoiceInfo}>
             <Text
               variant="xs"
               color="mutedForeground"
@@ -187,10 +181,10 @@ const InvoiceConsultantContent = ({
             <Text variant="xs" color="mutedForeground" noMargin>
               Due: {data.dueDate}
             </Text>
-          </View>
-        </View>
+          </div>
+        </div>
         {data.projectRef && (
-          <View style={styles.projectRef}>
+          <div style={styles.projectRef}>
             <Text
               variant="xs"
               weight="semibold"
@@ -202,10 +196,10 @@ const InvoiceConsultantContent = ({
             <Text variant="xs" weight="bold" noMargin>
               {data.projectRef}
             </Text>
-          </View>
+          </div>
         )}
-        <View style={styles.partiesRow}>
-          <View style={styles.partyColumn}>
+        <div style={styles.partiesRow}>
+          <div style={styles.partyColumn}>
             <Text style={styles.partyLabel} noMargin>
               From (Consultant)
             </Text>
@@ -218,8 +212,8 @@ const InvoiceConsultantContent = ({
             <Text variant="xs" noMargin color="mutedForeground">
               {data.consultant.email}
             </Text>
-          </View>
-          <View style={styles.partyColumn}>
+          </div>
+          <div style={styles.partyColumn}>
             <Text style={styles.partyLabel} noMargin>
               Bill To (Client)
             </Text>
@@ -235,8 +229,8 @@ const InvoiceConsultantContent = ({
             <Text variant="xs" noMargin color="mutedForeground">
               {data.client.email}
             </Text>
-          </View>
-        </View>
+          </div>
+        </div>
         <Table variant="line">
           <TableHeader>
             <TableRow header>
@@ -259,8 +253,8 @@ const InvoiceConsultantContent = ({
           </TableBody>
         </Table>
         <Section noWrap style={styles.summaryRow}>
-          <View style={styles.hoursBox}>
-            <View style={styles.hoursBadge}>
+          <div style={styles.hoursBox}>
+            <div style={styles.hoursBadge}>
               <Text
                 style={{
                   color: theme.colors.primaryForeground,
@@ -271,12 +265,12 @@ const InvoiceConsultantContent = ({
               >
                 Total Hours: {data.summary.totalHours}
               </Text>
-            </View>
+            </div>
             <Text variant="xs" color="mutedForeground" style={{ marginTop: 8 }}>
               Payment: {data.paymentTerms.method}
             </Text>
-          </View>
-          <View style={styles.totalsBox}>
+          </div>
+          <div style={styles.totalsBox}>
             <KeyValue
               size="sm"
               dividerThickness={1}
@@ -299,14 +293,14 @@ const InvoiceConsultantContent = ({
               ]}
               divided
             />
-          </View>
+          </div>
         </Section>
         {data.notes && (
-          <View style={styles.calloutNote}>
+          <div style={styles.calloutNote}>
             <Text variant="xs" color="mutedForeground">
               {data.notes}
             </Text>
-          </View>
+          </div>
         )}
         <PageFooter
           leftText="Professional services invoice – Please retain for records"
@@ -314,8 +308,8 @@ const InvoiceConsultantContent = ({
           sticky
           pagePadding={25}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

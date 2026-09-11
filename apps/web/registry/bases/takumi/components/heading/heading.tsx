@@ -2,8 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import { Text, StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -52,7 +50,7 @@ const createHeadingStyles = (t: PdfcnTheme) => {
     fontWeight: fontWeights.bold,
     lineHeight: heading.lineHeight,
   };
-  return StyleSheet.create({
+  return {
     capitalize: { textTransform: "capitalize" },
     h1: {
       ...base,
@@ -105,7 +103,7 @@ const createHeadingStyles = (t: PdfcnTheme) => {
     weightMedium: { fontWeight: fontWeights.medium },
     weightNormal: { fontWeight: fontWeights.regular },
     weightSemibold: { fontWeight: fontWeights.semibold },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const Heading = ({
@@ -146,8 +144,8 @@ export const Heading = ({
     lowercase: styles.lowercase,
     uppercase: styles.uppercase,
   };
-  const styleArray: Style[] = [
-    styles[`h${safeLevel}` as keyof typeof styles] as Style,
+  const styleArray: React.CSSProperties[] = [
+    styles[`h${safeLevel}` as keyof typeof styles] as React.CSSProperties,
   ];
   if (weight && weight in weightMap) {
     styleArray.push(weightMap[weight]);
@@ -161,7 +159,7 @@ export const Heading = ({
   if (noMargin) {
     styleArray.push(styles.noMargin);
   }
-  const semantic = {} as Style;
+  const semantic = {} as React.CSSProperties;
   if (align) {
     semantic.textAlign = align;
   }
@@ -174,5 +172,5 @@ export const Heading = ({
   if (style) {
     styleArray.push(...[style].flat());
   }
-  return <Text style={styleArray}>{children}</Text>;
+  return <span style={Object.assign({}, ...styleArray)}>{children}</span>;
 };

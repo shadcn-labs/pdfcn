@@ -1,16 +1,21 @@
 import type { ReactNode } from "react";
 
-import { View } from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/types/pdf-components";
+import type { PDFComponentProps } from "@/registry/types/pdf-components";
 
 export interface KeepTogetherProps {
   children?: ReactNode;
   minPresenceAhead?: number;
-  style?: Style;
+  style?: PDFComponentProps["style"];
 }
 
 export const KeepTogether = ({ children, style }: KeepTogetherProps) => (
-  <View style={[{ breakInside: "avoid" }, style].filter(Boolean) as never}>
+  <div
+    style={Object.assign(
+      {},
+      { breakInside: "avoid" },
+      ...(style ? [style] : [])
+    )}
+  >
     {children}
-  </View>
+  </div>
 );

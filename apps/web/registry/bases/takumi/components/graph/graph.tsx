@@ -1,23 +1,10 @@
 import type React from "react";
+import type { CSSProperties } from "react";
 
 import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
-import {
-  Circle,
-  G,
-  Line,
-  Path,
-  Rect,
-  Svg,
-  SvgText,
-} from "@/registry/bases/takumi/lib/pdf-svg";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import { createGraphStyles } from "./graph.styles";
@@ -52,9 +39,9 @@ const renderGridAndYAxis = (
     {ticks.map((tick) => {
       const ty = toY(tick);
       return (
-        <G key={`grid-${tick}`}>
+        <g key={`grid-${tick}`}>
           {showGrid && (
-            <Line
+            <line
               x1={chartX}
               y1={ty}
               x2={chartX + chartW}
@@ -64,16 +51,16 @@ const renderGridAndYAxis = (
               strokeDasharray="3 3"
             />
           )}
-          <SvgText
+          <text
             x={chartX - 4}
             y={ty + 3}
             fill={textColor}
             textAnchor="end"
-            style={{ fontSize: 7 }}
+            fontSize={7}
           >
             {fmtNum(tick)}
-          </SvgText>
-        </G>
+          </text>
+        </g>
       );
     })}
   </>
@@ -112,7 +99,7 @@ const renderBarChart = (
         textColor
       )}
 
-      <Line
+      <line
         x1={chartX}
         y1={chartY + chartH}
         x2={chartX + chartW}
@@ -125,7 +112,7 @@ const renderBarChart = (
         const groupLeft = chartX + ci * groupW + groupW * (groupGap / 2);
         return (
           // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
-          <G key={`group-${ci}`}>
+          <g key={`group-${ci}`}>
             {series.map((s, si) => {
               const val = s.data[ci]?.value ?? 0;
               const color =
@@ -135,8 +122,8 @@ const renderBarChart = (
               const by = chartY + chartH - barH;
               return (
                 // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
-                <G key={`bar-${ci}-${si}`}>
-                  <Rect
+                <g key={`bar-${ci}-${si}`}>
+                  <rect
                     x={bx}
                     y={by}
                     width={barW - 1}
@@ -144,29 +131,29 @@ const renderBarChart = (
                     fill={color}
                   />
                   {showValues && barH > 10 && (
-                    <SvgText
+                    <text
                       x={bx + barW / 2 - 0.5}
                       y={by - 2}
                       fill={axisColor}
                       textAnchor="middle"
-                      style={{ fontSize: 6 }}
+                      fontSize={6}
                     >
                       {fmtNum(val)}
-                    </SvgText>
+                    </text>
                   )}
-                </G>
+                </g>
               );
             })}
-            <SvgText
+            <text
               x={groupLeft + (nSeries * barW) / 2}
               y={chartY + chartH + 10}
               fill={textColor}
               textAnchor="middle"
-              style={{ fontSize: 7 }}
+              fontSize={7}
             >
               {truncate(label, 10)}
-            </SvgText>
-          </G>
+            </text>
+          </g>
         );
       })}
     </>
@@ -202,17 +189,17 @@ const renderHorizontalBarChart = (
         const barW = (val / maxVal) * (chartW - labelW);
         return (
           // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
-          <G key={`hbar-${ci}`}>
-            <SvgText
+          <g key={`hbar-${ci}`}>
+            <text
               x={chartX + labelW - 4}
               y={rowY + rowH / 2 + 3}
               fill={textColor}
               textAnchor="end"
-              style={{ fontSize: 7 }}
+              fontSize={7}
             >
               {truncate(label, 14)}
-            </SvgText>
-            <Rect
+            </text>
+            <rect
               x={chartX + labelW}
               y={rowY + (rowH - barH) / 2}
               width={Math.max(barW, 1)}
@@ -220,20 +207,20 @@ const renderHorizontalBarChart = (
               fill={color}
             />
             {showValues && (
-              <SvgText
+              <text
                 x={chartX + labelW + barW + 3}
                 y={rowY + rowH / 2 + 3}
                 fill={axisColor}
                 textAnchor="start"
-                style={{ fontSize: 6 }}
+                fontSize={6}
               >
                 {fmtNum(val)}
-              </SvgText>
+              </text>
             )}
-          </G>
+          </g>
         );
       })}
-      <Line
+      <line
         x1={chartX + labelW}
         y1={chartY}
         x2={chartX + labelW}
@@ -279,7 +266,7 @@ const renderLineAreaChart = (
         textColor
       )}
 
-      <Line
+      <line
         x1={chartX}
         y1={chartY + chartH}
         x2={chartX + chartW}
@@ -305,15 +292,15 @@ const renderLineAreaChart = (
 
         return (
           // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
-          <G key={`series-${si}`}>
+          <g key={`series-${si}`}>
             {isArea && areaPath && (
-              <Path d={areaPath} fill={color} fillOpacity={0.2} stroke="none" />
+              <path d={areaPath} fill={color} fillOpacity={0.2} stroke="none" />
             )}
-            <Path d={lineDStr} stroke={color} strokeWidth={2} fill="none" />
+            <path d={lineDStr} stroke={color} strokeWidth={2} fill="none" />
             {showDots &&
               points.map((p, pi) => (
                 // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
-                <Circle
+                <circle
                   key={`dot-${pi}`}
                   cx={p.x}
                   cy={p.y}
@@ -323,33 +310,33 @@ const renderLineAreaChart = (
               ))}
             {showValues &&
               points.map((p, pi) => (
-                <SvgText
+                <text
                   // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
                   key={`val-${pi}`}
                   x={p.x}
                   y={p.y - 5}
                   fill={color}
                   textAnchor="middle"
-                  style={{ fontSize: 6 }}
+                  fontSize={6}
                 >
                   {fmtNum(s.data[pi].value)}
-                </SvgText>
+                </text>
               ))}
-          </G>
+          </g>
         );
       })}
 
       {xLabels.map((label, i) => (
-        <SvgText
+        <text
           key={`xlabel-${label}`}
           x={xFor(i)}
           y={chartY + chartH + 10}
           fill={textColor}
           textAnchor="middle"
-          style={{ fontSize: 7 }}
+          fontSize={7}
         >
           {truncate(label, 8)}
-        </SvgText>
+        </text>
       ))}
     </>
   );
@@ -397,36 +384,37 @@ const renderPieDonutChart = (
 
         return (
           // biome-ignore lint/suspicious/noArrayIndexKey: static PDF chart data — index is the stable identity
-          <G key={`slice-${i}`}>
-            <Path d={path} fill={color} stroke="white" strokeWidth={1} />
+          <g key={`slice-${i}`}>
+            <path d={path} fill={color} stroke="white" strokeWidth={1} />
             {/* Show label only if slice is large enough to label */}
             {sweep > 15 && (
-              <SvgText
+              <text
                 x={lp.x}
                 y={lp.y + 3}
                 fill={textColor}
                 textAnchor={anchor}
-                style={{ fontSize: 7 }}
+                fontSize={7}
               >
                 {truncate(d.label, 10)}
-              </SvgText>
+              </text>
             )}
-          </G>
+          </g>
         );
       })}
 
       {isDonut && centerLabel && (
         <>
-          <Circle cx={cx} cy={cy} r={innerR} fill="white" />
-          <SvgText
+          <circle cx={cx} cy={cy} r={innerR} fill="white" />
+          <text
             x={cx}
             y={cy + 4}
             fill={theme.colors.foreground}
             textAnchor="middle"
-            style={{ fontSize: 9, fontWeight: "bold" }}
+            fontSize={9}
+            fontWeight="bold"
           >
             {centerLabel}
-          </SvgText>
+          </text>
         </>
       )}
     </>
@@ -448,22 +436,22 @@ const Legend = ({
     position === "right" ? styles.legendColumn : styles.legendRow;
 
   return (
-    <View style={containerStyle}>
+    <div style={containerStyle}>
       {series.map((s, i) => (
-        <View key={s.name} style={styles.legendItem}>
-          <Svg width={10} height={10}>
-            <Rect
+        <div key={s.name} style={styles.legendItem}>
+          <svg width={10} height={10}>
+            <rect
               x={0}
               y={2}
               width={8}
               height={8}
               fill={s.color ?? palette[i % palette.length]}
             />
-          </Svg>
-          <PDFText style={styles.legendText}>{s.name}</PDFText>
-        </View>
+          </svg>
+          <span style={styles.legendText}>{s.name}</span>
+        </div>
       ))}
-    </View>
+    </div>
   );
 };
 
@@ -550,26 +538,20 @@ const renderAxisLabels = (
 ) => (
   <>
     {!isPieOrDonut && xLabel && (
-      <SvgText
+      <text
         x={chartX + chartW / 2}
         y={height - 2}
         fill={mutedForeground}
         textAnchor="middle"
-        style={{ fontSize: 8 }}
+        fontSize={8}
       >
         {xLabel}
-      </SvgText>
+      </text>
     )}
     {!isPieOrDonut && yLabel && (
-      <SvgText
-        x={2}
-        y={10}
-        fill={mutedForeground}
-        textAnchor="start"
-        style={{ fontSize: 8 }}
-      >
+      <text x={2} y={10} fill={mutedForeground} textAnchor="start" fontSize={8}>
         {yLabel}
-      </SvgText>
+      </text>
     )}
   </>
 );
@@ -591,8 +573,10 @@ const renderTextFallback = (
     let currentAngle = 0;
 
     return (
-      <View
+      <div
         style={{
+          display: "flex",
+          flexDirection: "column",
           height: layout.svgH,
           left: 0,
           position: "absolute",
@@ -610,7 +594,7 @@ const renderTextFallback = (
           const labelPoint = polarToCartesian(cx, cy, labelRadius, midAngle);
           const onRight = labelPoint.x > cx;
           return (
-            <PDFText
+            <span
               key={`fallback-pie-${point.label}-${index}`}
               style={{
                 color: textColor,
@@ -624,10 +608,10 @@ const renderTextFallback = (
               }}
             >
               {truncate(point.label, 10)}
-            </PDFText>
+            </span>
           );
         })}
-      </View>
+      </div>
     );
   }
 
@@ -662,8 +646,10 @@ const renderTextFallback = (
     );
 
     return (
-      <View
+      <div
         style={{
+          display: "flex",
+          flexDirection: "column",
           height: svgH,
           left: 0,
           position: "absolute",
@@ -675,8 +661,8 @@ const renderTextFallback = (
           const value = series[0]?.data[index]?.value ?? 0;
           const barWidth = (value / maxValue) * (chartW - labelWidth);
           return (
-            <View key={`fallback-horizontal-${label}`}>
-              <PDFText
+            <div key={`fallback-horizontal-${label}`}>
+              <span
                 style={{
                   ...labelStyle,
                   left: chartX,
@@ -686,9 +672,9 @@ const renderTextFallback = (
                 }}
               >
                 {truncate(label, 14)}
-              </PDFText>
+              </span>
               {showValues ? (
-                <PDFText
+                <span
                   style={{
                     ...labelStyle,
                     color: textColor,
@@ -699,12 +685,12 @@ const renderTextFallback = (
                   }}
                 >
                   {fmtNum(value)}
-                </PDFText>
+                </span>
               ) : null}
-            </View>
+            </div>
           );
         })}
-      </View>
+      </div>
     );
   }
 
@@ -718,8 +704,10 @@ const renderTextFallback = (
   );
 
   return (
-    <View
+    <div
       style={{
+        display: "flex",
+        flexDirection: "column",
         height: svgH,
         left: 0,
         position: "absolute",
@@ -728,7 +716,7 @@ const renderTextFallback = (
       }}
     >
       {yTicks.map((tick) => (
-        <PDFText
+        <span
           key={`fallback-y-${tick}`}
           style={{
             ...labelStyle,
@@ -739,11 +727,11 @@ const renderTextFallback = (
           }}
         >
           {fmtNum(tick)}
-        </PDFText>
+        </span>
       ))}
       {(variant === "line" || variant === "area") &&
         xLabels.map((label, index) => (
-          <PDFText
+          <span
             key={`fallback-x-${label}`}
             style={{
               ...labelStyle,
@@ -754,7 +742,7 @@ const renderTextFallback = (
             }}
           >
             {truncate(label, 8)}
-          </PDFText>
+          </span>
         ))}
       {variant === "bar" &&
         showValues &&
@@ -767,7 +755,7 @@ const renderTextFallback = (
               barGap +
               seriesIndex * (barWidth + barGap);
             return (
-              <PDFText
+              <span
                 key={`fallback-bar-${label}-${item.name}-${seriesIndex}`}
                 style={{
                   ...labelStyle,
@@ -779,11 +767,11 @@ const renderTextFallback = (
                 }}
               >
                 {fmtNum(value)}
-              </PDFText>
+              </span>
             );
           })
         )}
-    </View>
+    </div>
   );
 };
 
@@ -804,20 +792,20 @@ const renderGraphContent = (
   styles: ReturnType<typeof createGraphStyles>
 ) => (
   <>
-    {title && <PDFText style={styles.title}>{title}</PDFText>}
-    {subtitle && <PDFText style={styles.subtitle}>{subtitle}</PDFText>}
-    <View style={legend === "right" ? styles.chartWithRightLegend : undefined}>
-      <View style={{ height, position: "relative", width }}>
-        <Svg width={width} height={height}>
+    {title && <span style={styles.title}>{title}</span>}
+    {subtitle && <span style={styles.subtitle}>{subtitle}</span>}
+    <div style={legend === "right" ? styles.chartWithRightLegend : undefined}>
+      <div style={{ height, position: "relative", width }}>
+        <svg width={width} height={height}>
           {chartContent}
           {axisLabels}
-        </Svg>
+        </svg>
         {textFallback}
-      </View>
+      </div>
       {showLegend &&
         legend === "right" &&
         Legend({ palette, position: "right", series, styles })}
-    </View>
+    </div>
     {chartLabels}
     {showLegend &&
       legend === "bottom" &&
@@ -836,7 +824,7 @@ const renderBarLabels = (
   }
 
   return (
-    <View
+    <div
       style={{
         display: "flex",
         flexDirection: "row",
@@ -845,11 +833,11 @@ const renderBarLabels = (
       }}
     >
       {(series[0]?.data ?? []).map((point) => (
-        <View key={point.label} style={{ alignItems: "center", flex: 1 }}>
-          <PDFText style={{ fontSize: 7 }}>{truncate(point.label, 10)}</PDFText>
-        </View>
+        <div key={point.label} style={{ alignItems: "center", flex: 1 }}>
+          <span style={{ fontSize: 7 }}>{truncate(point.label, 10)}</span>
+        </div>
       ))}
-    </View>
+    </div>
   );
 };
 
@@ -858,7 +846,7 @@ const renderBarLabels = (
  * natively inside react-pdf documents using SVG primitives.
  *
  * No external chart libraries are required or used — all rendering is done via
- * react-pdf's built-in SVG support (`<Svg>`, `<Rect>`, `<Path>`, `<Line>`, etc.).
+ * react-pdf's built-in SVG support (`<svg>`, `<rect>`, `<path>`, `<line>`, etc.).
  *
  * @example Bar chart
  * ```tsx
@@ -947,13 +935,13 @@ export const PdfGraph = ({
   const showLegend = legend !== "none" && !isPieOrDonut;
   const chartLabels = renderBarLabels(variant, series, chartX, chartW);
 
-  const containerStyles: Style[] = [styles.container];
+  const containerStyles: CSSProperties[] = [styles.container];
   if (style) {
     containerStyles.push(style);
   }
 
   const content = (
-    <View style={containerStyles}>
+    <div style={Object.assign({}, ...containerStyles)}>
       {renderGraphContent(
         title,
         subtitle,
@@ -984,13 +972,19 @@ export const PdfGraph = ({
         palette,
         styles
       )}
-    </View>
+    </div>
   );
 
   return noWrap ? (
-    <View style={[{ breakInside: "avoid" as const }].filter(Boolean)}>
+    <div
+      style={{
+        breakInside: "avoid",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {content}
-    </View>
+    </div>
   ) : (
     content
   );

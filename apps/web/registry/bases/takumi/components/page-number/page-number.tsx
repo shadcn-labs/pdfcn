@@ -7,13 +7,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-  flatten,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
@@ -50,9 +43,21 @@ export interface PageNumberProps extends Omit<PDFComponentProps, "children"> {
   children?: never;
 }
 
+const flatten = (
+  style?: React.CSSProperties | React.CSSProperties[]
+): React.CSSProperties | undefined => {
+  if (!style) {
+    return undefined;
+  }
+  if (Array.isArray(style)) {
+    return Object.assign({}, ...style.filter(Boolean));
+  }
+  return style;
+};
+
 const createPageNumberStyles = (t: PdfcnTheme) => {
   const { typography, colors, primitives } = t;
-  return StyleSheet.create({
+  return {
     alignCenter: { textAlign: "center" },
     alignLeft: { textAlign: "left" },
     alignRight: { textAlign: "right" },
@@ -70,7 +75,7 @@ const createPageNumberStyles = (t: PdfcnTheme) => {
     sizeSm: { fontSize: primitives.typography.sm },
     sizeXs: { fontSize: primitives.typography.xs },
     text: { fontFamily: typography.body.fontFamily },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const PageNumber = ({
@@ -86,18 +91,18 @@ export const PageNumber = ({
     center: styles.alignCenter,
     left: styles.alignLeft,
     right: styles.alignRight,
-  } as Record<PageNumberAlign, Style>;
+  } as Record<PageNumberAlign, React.CSSProperties>;
   const sizeMap = {
     md: styles.sizeMd,
     sm: styles.sizeSm,
     xs: styles.sizeXs,
-  } as Record<PageNumberSize, Style>;
+  } as Record<PageNumberSize, React.CSSProperties>;
   const justifyMap = {
     center: styles.justifyCenter,
     left: styles.justifyLeft,
     right: styles.justifyRight,
-  } as Record<PageNumberAlign, Style>;
-  const textStyles: Style[] = [
+  } as Record<PageNumberAlign, React.CSSProperties>;
+  const textStyles: React.CSSProperties[] = [
     styles.text,
     alignMap[align],
     sizeMap[size],
@@ -107,7 +112,7 @@ export const PageNumber = ({
     textStyles.push(...[style].flat());
   }
   return (
-    <View style={[styles.container, justifyMap[align]]}>
+    <div style={{ ...styles.container, ...justifyMap[align] }}>
       {format.split(/({page}|{total})/).map((part, index) => {
         if (part === "{page}") {
           return (
@@ -126,11 +131,11 @@ export const PageNumber = ({
           );
         }
         return (
-          <PDFText key={`text-${index}`} style={textStyles}>
+          <span key={`text-${index}`} style={Object.assign({}, ...textStyles)}>
             {part}
-          </PDFText>
+          </span>
         );
       })}
-    </View>
+    </div>
   );
 };

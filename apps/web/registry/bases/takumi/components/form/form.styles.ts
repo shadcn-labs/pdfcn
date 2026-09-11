@@ -1,4 +1,3 @@
-import { StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { PdfFormVariant } from "./form.types";
@@ -42,7 +41,7 @@ export const createFormStyles = (
   const hasPadding =
     variant === "box" || variant === "outlined" || variant === "ghost";
 
-  return StyleSheet.create({
+  return {
     column: {
       flex: 1,
     },
@@ -140,5 +139,5 @@ export const createFormStyles = (
       marginBottom: t.spacing.componentGap,
       width: "100%",
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };

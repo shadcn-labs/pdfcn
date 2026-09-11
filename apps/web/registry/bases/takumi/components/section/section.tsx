@@ -2,8 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import { View, StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -41,17 +39,17 @@ export interface SectionProps extends PDFComponentProps {
 
 const createSectionStyles = (t: PdfcnTheme) => {
   const { spacing, borderRadius } = t.primitives;
-  return StyleSheet.create({
-    base: { flexDirection: "column" },
+  return {
+    base: { display: "flex", flexDirection: "column" },
     border: {
       borderColor: t.colors.border,
       borderRadius: borderRadius.md,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: spacing[0.5],
     },
     callout: {
       borderLeftColor: t.colors.primary,
-      borderLeftStyle: "solid",
+      borderLeftStyle: "solid" as const,
       borderLeftWidth: spacing[1],
       paddingLeft: spacing[4],
       paddingVertical: spacing[2],
@@ -59,14 +57,14 @@ const createSectionStyles = (t: PdfcnTheme) => {
     card: {
       borderColor: t.colors.border,
       borderRadius: borderRadius.md,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: spacing[0.5],
       padding: spacing[4],
     },
     highlight: {
       backgroundColor: t.colors.muted,
       borderLeftColor: t.colors.primary,
-      borderLeftStyle: "solid",
+      borderLeftStyle: "solid" as const,
       borderLeftWidth: spacing[1],
       padding: spacing[4],
     },
@@ -79,7 +77,7 @@ const createSectionStyles = (t: PdfcnTheme) => {
     spacingNone: { marginVertical: spacing[0] },
     spacingSm: { marginVertical: spacing[4] },
     spacingXl: { marginVertical: spacing[12] },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const Section = ({
@@ -107,13 +105,13 @@ export const Section = ({
     none: styles.paddingNone,
     sm: styles.paddingSm,
   };
-  const variantMap: Record<SectionVariant, Style | null> = {
+  const variantMap: Record<SectionVariant, React.CSSProperties | null> = {
     callout: styles.callout,
     card: styles.card,
     default: null,
     highlight: styles.highlight,
   };
-  const styleArray: Style[] = [styles.base, spacingMap[spacing]];
+  const styleArray: React.CSSProperties[] = [styles.base, spacingMap[spacing]];
   const variantStyle = variantMap[variant];
   if (variantStyle) {
     styleArray.push(variantStyle);
@@ -137,5 +135,5 @@ export const Section = ({
   if (style) {
     styleArray.push(...[style].flat());
   }
-  return <View style={styleArray}>{children}</View>;
+  return <div style={Object.assign({}, ...styleArray)}>{children}</div>;
 };

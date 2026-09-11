@@ -4,12 +4,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  Text as PDFText,
-  StyleSheet,
-  View,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -59,7 +53,7 @@ const createPageHeaderStyles = (t: PdfcnTheme) => {
   const c = t.colors;
   const { heading, body } = t.typography;
 
-  return StyleSheet.create({
+  return {
     brandedContainer: {
       alignItems: "center",
       backgroundColor: c.primary,
@@ -82,7 +76,7 @@ const createPageHeaderStyles = (t: PdfcnTheme) => {
       fontFamily: body.fontFamily,
       fontSize: t.primitives.typography.xs,
       marginTop: spacing[0.5],
-      textAlign: "right",
+      textAlign: "right" as const,
     },
 
     logoContainer: {
@@ -149,14 +143,14 @@ const createPageHeaderStyles = (t: PdfcnTheme) => {
       fontFamily: body.fontFamily,
       fontSize: t.primitives.typography.xs,
       marginTop: spacing[1],
-      textAlign: "right",
+      textAlign: "right" as const,
     },
     rightText: {
       color: c.foreground,
       fontFamily: body.fontFamily,
       fontSize: body.fontSize,
       fontWeight: fontWeights.medium,
-      textAlign: "right",
+      textAlign: "right" as const,
     },
     simpleContainer: {
       alignItems: "flex-start",
@@ -192,7 +186,7 @@ const createPageHeaderStyles = (t: PdfcnTheme) => {
       marginTop: spacing[1],
     },
     subtitleCentered: {
-      textAlign: "center",
+      textAlign: "center" as const,
     },
 
     title: {
@@ -207,7 +201,7 @@ const createPageHeaderStyles = (t: PdfcnTheme) => {
       color: c.primaryForeground,
     },
     titleCentered: {
-      textAlign: "center",
+      textAlign: "center" as const,
     },
 
     titleMinimal: {
@@ -234,20 +228,20 @@ const createPageHeaderStyles = (t: PdfcnTheme) => {
       display: "flex",
       flexDirection: "column",
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 type Styles = ReturnType<typeof createPageHeaderStyles>;
 
 const buildContainerStyles = (
-  base: Style,
+  base: React.CSSProperties,
   mb: number,
   background: string | undefined,
   theme: PdfcnTheme,
-  style: Style | undefined,
-  ...extras: Style[]
-): Style[] => {
-  const result: Style[] = [base, { marginBottom: mb }, ...extras];
+  style: React.CSSProperties | undefined,
+  ...extras: React.CSSProperties[]
+): React.CSSProperties[] => {
+  const result: React.CSSProperties[] = [base, { marginBottom: mb }, ...extras];
   if (background) {
     result.push({ backgroundColor: resolveColor(background, theme.colors) });
   }
@@ -258,10 +252,10 @@ const buildContainerStyles = (
 };
 
 const buildTitleStyles = (
-  base: Style[],
+  base: React.CSSProperties[],
   titleColor: string | undefined,
   theme: PdfcnTheme
-): Style[] => {
+): React.CSSProperties[] => {
   if (!titleColor) {
     return base;
   }
@@ -270,162 +264,162 @@ const buildTitleStyles = (
 
 const renderBranded = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <PDFText style={titleStyles}>{title}</PDFText>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <span style={Object.assign({}, ...titleStyles)}>{title}</span>
     {subtitle && (
-      <PDFText style={[styles.subtitle, styles.subtitleBranded]}>
+      <span style={{ ...styles.subtitle, ...styles.subtitleBranded }}>
         {subtitle}
-      </PDFText>
+      </span>
     )}
-  </View>
+  </div>
 );
 
 const renderCentered = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <PDFText style={titleStyles}>{title}</PDFText>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <span style={Object.assign({}, ...titleStyles)}>{title}</span>
     {subtitle && (
-      <PDFText style={[styles.subtitle, styles.subtitleCentered]}>
+      <span style={{ ...styles.subtitle, ...styles.subtitleCentered }}>
         {subtitle}
-      </PDFText>
+      </span>
     )}
-  </View>
+  </div>
 );
 
 const renderLogoRight = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
   logo: ReactNode | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <View style={styles.logoRightContent}>
-      <PDFText style={titleStyles}>{title}</PDFText>
-      {subtitle && <PDFText style={styles.subtitle}>{subtitle}</PDFText>}
-    </View>
-    {logo && <View style={styles.logoRightLogoContainer}>{logo}</View>}
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <div style={styles.logoRightContent}>
+      <span style={Object.assign({}, ...titleStyles)}>{title}</span>
+      {subtitle && <span style={styles.subtitle}>{subtitle}</span>}
+    </div>
+    {logo && <div style={styles.logoRightLogoContainer}>{logo}</div>}
+  </div>
 );
 
 const renderLogoLeft = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
   logo: ReactNode | undefined,
   rightText: string | undefined,
   rightSubText: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    {logo && <View style={styles.logoContainer}>{logo}</View>}
-    <View style={styles.logoContent}>
-      <PDFText style={titleStyles}>{title}</PDFText>
-      {subtitle && <PDFText style={styles.subtitle}>{subtitle}</PDFText>}
-    </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    {logo && <div style={styles.logoContainer}>{logo}</div>}
+    <div style={styles.logoContent}>
+      <span style={Object.assign({}, ...titleStyles)}>{title}</span>
+      {subtitle && <span style={styles.subtitle}>{subtitle}</span>}
+    </div>
     {(rightText || rightSubText) && (
-      <View style={styles.simpleRight}>
-        {rightText && <PDFText style={styles.rightText}>{rightText}</PDFText>}
+      <div style={styles.simpleRight}>
+        {rightText && <span style={styles.rightText}>{rightText}</span>}
         {rightSubText && (
-          <PDFText style={styles.rightSubText}>{rightSubText}</PDFText>
+          <span style={styles.rightSubText}>{rightSubText}</span>
         )}
-      </View>
+      </div>
     )}
-  </View>
+  </div>
 );
 
 const renderTwoColumn = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
   address: string | undefined,
   phone: string | undefined,
   email: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <View style={styles.twoColumnLeft}>
-      <PDFText style={titleStyles}>{title}</PDFText>
-      {subtitle && <PDFText style={styles.subtitle}>{subtitle}</PDFText>}
-    </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <div style={styles.twoColumnLeft}>
+      <span style={Object.assign({}, ...titleStyles)}>{title}</span>
+      {subtitle && <span style={styles.subtitle}>{subtitle}</span>}
+    </div>
     {(address || phone || email) && (
-      <View style={styles.twoColumnRight}>
-        {address && <PDFText style={styles.contactInfo}>{address}</PDFText>}
-        {phone && <PDFText style={styles.contactInfo}>{phone}</PDFText>}
-        {email && <PDFText style={styles.contactInfo}>{email}</PDFText>}
-      </View>
+      <div style={styles.twoColumnRight}>
+        {address && <span style={styles.contactInfo}>{address}</span>}
+        {phone && <span style={styles.contactInfo}>{phone}</span>}
+        {email && <span style={styles.contactInfo}>{email}</span>}
+      </div>
     )}
-  </View>
+  </div>
 );
 
 const renderMinimal = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
   rightText: string | undefined,
   rightSubText: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <View style={styles.minimalLeft}>
-      <PDFText style={titleStyles}>{title}</PDFText>
-      {subtitle && <PDFText style={styles.subtitle}>{subtitle}</PDFText>}
-    </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <div style={styles.minimalLeft}>
+      <span style={Object.assign({}, ...titleStyles)}>{title}</span>
+      {subtitle && <span style={styles.subtitle}>{subtitle}</span>}
+    </div>
     {(rightText || rightSubText) && (
-      <View style={styles.minimalRight}>
-        {rightText && <PDFText style={styles.rightText}>{rightText}</PDFText>}
+      <div style={styles.minimalRight}>
+        {rightText && <span style={styles.rightText}>{rightText}</span>}
         {rightSubText && (
-          <PDFText style={styles.rightSubText}>{rightSubText}</PDFText>
+          <span style={styles.rightSubText}>{rightSubText}</span>
         )}
-      </View>
+      </div>
     )}
-  </View>
+  </div>
 );
 
 const renderSimple = (
   styles: Styles,
-  containerStyles: Style[],
-  titleStyles: Style[],
+  containerStyles: React.CSSProperties[],
+  titleStyles: React.CSSProperties[],
   title: string,
   subtitle: string | undefined,
   rightText: string | undefined,
   rightSubText: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <View style={styles.simpleLeft}>
-      <PDFText style={titleStyles}>{title}</PDFText>
-      {subtitle && <PDFText style={styles.subtitle}>{subtitle}</PDFText>}
-    </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <div style={styles.simpleLeft}>
+      <span style={Object.assign({}, ...titleStyles)}>{title}</span>
+      {subtitle && <span style={styles.subtitle}>{subtitle}</span>}
+    </div>
     {(rightText || rightSubText) && (
-      <View style={styles.simpleRight}>
-        {rightText && <PDFText style={styles.rightText}>{rightText}</PDFText>}
+      <div style={styles.simpleRight}>
+        {rightText && <span style={styles.rightText}>{rightText}</span>}
         {rightSubText && (
-          <PDFText style={styles.rightSubText}>{rightSubText}</PDFText>
+          <span style={styles.rightSubText}>{rightSubText}</span>
         )}
-      </View>
+      </div>
     )}
-  </View>
+  </div>
 );
 
 export const PageHeader = ({

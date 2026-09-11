@@ -14,12 +14,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { InvoiceCreativeData } from "./invoice-creative.types";
@@ -68,11 +62,11 @@ const sampleData: InvoiceCreativeData = {
 const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
   const theme = usePdfcnTheme();
 
-  const styles = StyleSheet.create({
+  const styles = {
     accentBlock: {
       backgroundColor: theme.colors.muted,
       borderLeftColor: theme.colors.accent,
-      borderLeftStyle: "solid",
+      borderLeftStyle: "solid" as const,
       borderLeftWidth: 4,
       marginBottom: theme.spacing.sectionGap,
       paddingLeft: 14,
@@ -92,16 +86,16 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
       fontWeight: "bold",
     },
     heroSection: {
-      alignItems: "center",
-      flexDirection: "row",
-      justifyContent: "space-between",
+      alignItems: "center" as const,
+      flexDirection: "row" as const,
+      justifyContent: "space-between" as const,
       marginBottom: theme.spacing.sectionGap,
     },
     infoColumn: {
       flex: 1,
     },
     infoGrid: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       gap: 32,
     },
     invoiceBadge: {
@@ -113,11 +107,11 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
     },
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       padding: theme.spacing.page.marginTop,
       paddingBottom: theme.spacing.page.marginBottom,
-      position: "relative",
+      position: "relative" as const,
     },
     sectionLabel: {
       color: theme.colors.accent,
@@ -138,35 +132,35 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
       width: 240,
     },
     summarySection: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       marginTop: 24,
     },
-  });
+  };
 
   return (
-    <Document title={`Invoice ${data.invoiceNumber}`}>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.heroSection}>
-          <View style={{ flex: 1 }}>
+    <div data-pdf-document title={`Invoice ${data.invoiceNumber}`}>
+      <div data-pdf-page="A4" style={styles.page}>
+        <div style={styles.heroSection}>
+          <div style={{ flex: 1 }}>
             <PageHeader
               variant="centered"
               title={data.companyName}
               subtitle={`${data.subtitle}  ·  ${data.companyAddress}`}
               marginBottom={0}
             />
-          </View>
-          <View style={styles.invoiceBadge}>
+          </div>
+          <div style={styles.invoiceBadge}>
             <Text style={styles.badgeLabel} noMargin>
               Invoice
             </Text>
             <Text style={styles.badgeNumber} noMargin>
               {data.invoiceNumber}
             </Text>
-          </View>
-        </View>
-        <View style={styles.accentBlock}>
-          <View style={styles.infoGrid}>
-            <View style={styles.infoColumn}>
+          </div>
+        </div>
+        <div style={styles.accentBlock}>
+          <div style={styles.infoGrid}>
+            <div style={styles.infoColumn}>
               <Text style={styles.sectionLabel} noMargin>
                 Billed To
               </Text>
@@ -179,8 +173,8 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
               <Text variant="xs" noMargin color="mutedForeground">
                 {data.billTo.email} · {data.billTo.phone}
               </Text>
-            </View>
-            <View style={styles.infoColumn}>
+            </div>
+            <div style={styles.infoColumn}>
               <Text style={styles.sectionLabel} noMargin>
                 Invoice Info
               </Text>
@@ -192,9 +186,9 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
                   { key: "Payment", value: data.paymentTerms.method },
                 ]}
               />
-            </View>
-          </View>
-        </View>
+            </div>
+          </div>
+        </div>
         <Table variant="striped" zebraStripe>
           <TableHeader>
             <TableRow header>
@@ -217,7 +211,7 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
           </TableBody>
         </Table>
         <Section noWrap style={styles.summarySection}>
-          <View style={styles.summaryLeft}>
+          <div style={styles.summaryLeft}>
             <Text style={styles.sectionLabel} noMargin>
               Notes & Terms
             </Text>
@@ -227,8 +221,8 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
             <Text variant="xs" color="mutedForeground" style={{ marginTop: 4 }}>
               GST: {data.paymentTerms.gst}
             </Text>
-          </View>
-          <View style={styles.summaryRight}>
+          </div>
+          <div style={styles.summaryRight}>
             <KeyValue
               size="sm"
               dividerThickness={1}
@@ -251,7 +245,7 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
               ]}
               divided
             />
-          </View>
+          </div>
         </Section>
         <PageFooter
           variant="centered"
@@ -259,8 +253,8 @@ const InvoiceCreativeContent = ({ data }: { data: InvoiceCreativeData }) => {
           sticky
           pagePadding={25}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

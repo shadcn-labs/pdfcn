@@ -4,12 +4,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  Text as PDFText,
-  StyleSheet,
-  View,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -72,7 +66,7 @@ const createPageFooterStyles = (t: PdfcnTheme) => {
     lineHeight: body.lineHeight,
   };
 
-  return StyleSheet.create({
+  return {
     brandedContainer: {
       alignItems: "center",
       backgroundColor: c.primary,
@@ -109,7 +103,7 @@ const createPageFooterStyles = (t: PdfcnTheme) => {
       ...textBase,
       fontSize: t.primitives.typography.xs - 1,
       marginTop: spacing[0.5],
-      textAlign: "center",
+      textAlign: "center" as const,
     },
     detailedContainer: {
       borderTopColor: c.border,
@@ -130,7 +124,7 @@ const createPageFooterStyles = (t: PdfcnTheme) => {
       borderTopStyle: "solid",
       borderTopWidth: spacing[0.5],
       paddingTop: spacing[2],
-      textAlign: "center",
+      textAlign: "center" as const,
     },
     detailedRight: {
       alignItems: "flex-end",
@@ -171,17 +165,17 @@ const createPageFooterStyles = (t: PdfcnTheme) => {
     textBrandedRight: {
       ...textBase,
       color: c.primaryForeground,
-      textAlign: "right",
+      textAlign: "right" as const,
     },
     textCenter: {
       ...textBase,
       flex: 1,
-      textAlign: "center",
+      textAlign: "center" as const,
     },
     textCenteredVariant: {
       ...textBase,
       marginBottom: spacing[1],
-      textAlign: "center",
+      textAlign: "center" as const,
     },
 
     textLeft: {
@@ -190,7 +184,7 @@ const createPageFooterStyles = (t: PdfcnTheme) => {
     },
     textRight: {
       ...textBase,
-      textAlign: "right",
+      textAlign: "right" as const,
     },
     threeColumnCenter: {
       alignItems: "center",
@@ -219,15 +213,15 @@ const createPageFooterStyles = (t: PdfcnTheme) => {
       flex: 1,
       flexDirection: "column",
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 type Styles = ReturnType<typeof createPageFooterStyles>;
 
 const applyTextColor = (
-  styles: Style[],
+  styles: React.CSSProperties[],
   color: string | undefined
-): Style[] => {
+): React.CSSProperties[] => {
   if (!color) {
     return styles;
   }
@@ -236,125 +230,167 @@ const applyTextColor = (
 
 const renderBranded = (
   styles: Styles,
-  containerStyles: Style[],
-  leftStyle: Style[],
-  rightStyle: Style[],
+  containerStyles: React.CSSProperties[],
+  leftStyle: React.CSSProperties[],
+  rightStyle: React.CSSProperties[],
   leftText: ReactNode,
   rightText: ReactNode,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    {leftText && <PDFText style={leftStyle}>{leftText}</PDFText>}
-    {rightText && <PDFText style={rightStyle}>{rightText}</PDFText>}
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    {leftText && (
+      <span style={Object.assign({}, ...leftStyle)}>{leftText}</span>
+    )}
+    {rightText && (
+      <span style={Object.assign({}, ...rightStyle)}>{rightText}</span>
+    )}
+  </div>
 );
 
 const renderCentered = (
   styles: Styles,
-  containerStyles: Style[],
-  textStyle: Style[],
+  containerStyles: React.CSSProperties[],
+  textStyle: React.CSSProperties[],
   leftText: ReactNode,
   rightText: ReactNode,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    {leftText && <PDFText style={textStyle}>{leftText}</PDFText>}
-    {rightText && <PDFText style={textStyle}>{rightText}</PDFText>}
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    {leftText && (
+      <span style={Object.assign({}, ...textStyle)}>{leftText}</span>
+    )}
+    {rightText && (
+      <span style={Object.assign({}, ...textStyle)}>{rightText}</span>
+    )}
+  </div>
 );
 
 const renderThreeColumn = (
   styles: Styles,
-  containerStyles: Style[],
-  leftStyle: Style[],
-  centerStyle: Style[],
-  rightStyle: Style[],
+  containerStyles: React.CSSProperties[],
+  leftStyle: React.CSSProperties[],
+  centerStyle: React.CSSProperties[],
+  rightStyle: React.CSSProperties[],
   leftText: ReactNode,
   rightText: ReactNode,
   address: string | undefined,
   phone: string | undefined,
   email: string | undefined,
   website: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <View style={styles.threeColumnLeft}>
-      {leftText && <PDFText style={leftStyle}>{leftText}</PDFText>}
-      {address && <PDFText style={styles.textLeft}>{address}</PDFText>}
-    </View>
-    <View style={styles.threeColumnCenter}>
-      {phone && <PDFText style={centerStyle}>{phone}</PDFText>}
-      {email && <PDFText style={centerStyle}>{email}</PDFText>}
-      {website && <PDFText style={centerStyle}>{website}</PDFText>}
-    </View>
-    <View style={styles.threeColumnRight}>
-      {rightText && <PDFText style={rightStyle}>{rightText}</PDFText>}
-    </View>
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <div style={styles.threeColumnLeft}>
+      {leftText && (
+        <span style={Object.assign({}, ...leftStyle)}>{leftText}</span>
+      )}
+      {address && <span style={styles.textLeft}>{address}</span>}
+    </div>
+    <div style={styles.threeColumnCenter}>
+      {phone && <span style={Object.assign({}, ...centerStyle)}>{phone}</span>}
+      {email && <span style={Object.assign({}, ...centerStyle)}>{email}</span>}
+      {website && (
+        <span style={Object.assign({}, ...centerStyle)}>{website}</span>
+      )}
+    </div>
+    <div style={styles.threeColumnRight}>
+      {rightText && (
+        <span style={Object.assign({}, ...rightStyle)}>{rightText}</span>
+      )}
+    </div>
+  </div>
 );
 
 const renderDetailed = (
   styles: Styles,
-  containerStyles: Style[],
-  companyStyle: Style[],
-  addrStyle: Style[],
-  contactStyle: Style[],
-  pageNumStyle: Style[],
+  containerStyles: React.CSSProperties[],
+  companyStyle: React.CSSProperties[],
+  addrStyle: React.CSSProperties[],
+  contactStyle: React.CSSProperties[],
+  pageNumStyle: React.CSSProperties[],
   leftText: ReactNode,
   rightText: ReactNode,
   address: string | undefined,
   phone: string | undefined,
   email: string | undefined,
   website: string | undefined,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    <View style={styles.detailedTopRow}>
-      <View style={styles.detailedLeft}>
-        {leftText && <PDFText style={companyStyle}>{leftText}</PDFText>}
-        {address && <PDFText style={addrStyle}>{address}</PDFText>}
-      </View>
-      <View style={styles.detailedRight}>
-        {phone && <PDFText style={contactStyle}>{`Phone: ${phone}`}</PDFText>}
-        {email && <PDFText style={contactStyle}>{`Email: ${email}`}</PDFText>}
-        {website && <PDFText style={contactStyle}>{`Web: ${website}`}</PDFText>}
-      </View>
-    </View>
-    {rightText && <PDFText style={pageNumStyle}>{rightText}</PDFText>}
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    <div style={styles.detailedTopRow}>
+      <div style={styles.detailedLeft}>
+        {leftText && (
+          <span style={Object.assign({}, ...companyStyle)}>{leftText}</span>
+        )}
+        {address && (
+          <span style={Object.assign({}, ...addrStyle)}>{address}</span>
+        )}
+      </div>
+      <div style={styles.detailedRight}>
+        {phone && (
+          <span
+            style={Object.assign({}, ...contactStyle)}
+          >{`Phone: ${phone}`}</span>
+        )}
+        {email && (
+          <span
+            style={Object.assign({}, ...contactStyle)}
+          >{`Email: ${email}`}</span>
+        )}
+        {website && (
+          <span
+            style={Object.assign({}, ...contactStyle)}
+          >{`Web: ${website}`}</span>
+        )}
+      </div>
+    </div>
+    {rightText && (
+      <span style={Object.assign({}, ...pageNumStyle)}>{rightText}</span>
+    )}
+  </div>
 );
 
 const renderMinimal = (
   styles: Styles,
-  containerStyles: Style[],
-  leftStyle: Style[],
-  rightStyle: Style[],
+  containerStyles: React.CSSProperties[],
+  leftStyle: React.CSSProperties[],
+  rightStyle: React.CSSProperties[],
   leftText: ReactNode,
   rightText: ReactNode,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    {leftText && <PDFText style={leftStyle}>{leftText}</PDFText>}
-    {rightText && <PDFText style={rightStyle}>{rightText}</PDFText>}
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    {leftText && (
+      <span style={Object.assign({}, ...leftStyle)}>{leftText}</span>
+    )}
+    {rightText && (
+      <span style={Object.assign({}, ...rightStyle)}>{rightText}</span>
+    )}
+  </div>
 );
 
 const renderSimple = (
   styles: Styles,
-  containerStyles: Style[],
-  leftStyle: Style[],
-  centerStyle: Style[],
-  rightStyle: Style[],
+  containerStyles: React.CSSProperties[],
+  leftStyle: React.CSSProperties[],
+  centerStyle: React.CSSProperties[],
+  rightStyle: React.CSSProperties[],
   leftText: ReactNode,
   centerText: ReactNode,
   rightText: ReactNode,
-  noWrap: boolean
+  _noWrap: boolean
 ) => (
-  <View wrap={!noWrap} style={containerStyles}>
-    {leftText && <PDFText style={leftStyle}>{leftText}</PDFText>}
-    {centerText && <PDFText style={centerStyle}>{centerText}</PDFText>}
-    {rightText && <PDFText style={rightStyle}>{rightText}</PDFText>}
-  </View>
+  <div style={Object.assign({}, ...containerStyles)}>
+    {leftText && (
+      <span style={Object.assign({}, ...leftStyle)}>{leftText}</span>
+    )}
+    {centerText && (
+      <span style={Object.assign({}, ...centerStyle)}>{centerText}</span>
+    )}
+    {rightText && (
+      <span style={Object.assign({}, ...rightStyle)}>{rightText}</span>
+    )}
+  </div>
 );
 
 export const PageFooter = ({
@@ -384,7 +420,7 @@ export const PageFooter = ({
     : undefined;
   // A footer passed as a render option lays out at full page width, so the
   // page padding has to come from the footer itself to line up with the content.
-  const placement: Style = sticky
+  const placement: React.CSSProperties = sticky
     ? {
         bottom: pagePadding,
         left: pagePadding,
@@ -393,7 +429,9 @@ export const PageFooter = ({
       }
     : { paddingLeft: pagePadding, paddingRight: pagePadding };
 
-  const applyOverrides = (base: Style[]): Style[] => {
+  const applyOverrides = (
+    base: React.CSSProperties[]
+  ): React.CSSProperties[] => {
     if (background) {
       base.push({ backgroundColor: resolveColor(background, theme.colors) });
     }

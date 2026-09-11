@@ -1,4 +1,4 @@
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
+import type { CSSProperties } from "react";
 
 /**
  * Options for calculating graph width based on theme page margins and container context.
@@ -102,7 +102,7 @@ export interface GraphProps {
    * @default true
    */
   noWrap?: boolean;
-  style?: Style;
+  style?: CSSProperties;
 }
 
 /** Internal chart layout dimensions computed from props and data. */

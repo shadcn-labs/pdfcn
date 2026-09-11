@@ -2,12 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 export type SignatureVariant = "single" | "double" | "inline";
@@ -40,12 +34,12 @@ export interface PdfSignatureBlockProps {
   title?: string;
   date?: string;
   signers?: [SignatureSigner, SignatureSigner];
-  style?: Style;
+  style?: React.CSSProperties;
 }
 
 const createSignatureStyles = (t: PdfcnTheme) => {
   const { spacing, fontWeights, typography } = t.primitives;
-  return StyleSheet.create({
+  return {
     block: { flex: 1, minWidth: 140 },
     container: {
       marginBottom: t.spacing.componentGap,
@@ -58,6 +52,7 @@ const createSignatureStyles = (t: PdfcnTheme) => {
       marginTop: 1,
     },
     doubleRow: {
+      display: "flex",
       flexDirection: "row",
       gap: spacing[8],
       justifyContent: "space-between",
@@ -82,6 +77,7 @@ const createSignatureStyles = (t: PdfcnTheme) => {
     },
     inlineRow: {
       alignItems: "center",
+      display: "flex",
       flexDirection: "row",
       flexWrap: "wrap",
       gap: spacing[3],
@@ -98,6 +94,7 @@ const createSignatureStyles = (t: PdfcnTheme) => {
       borderBottomWidth: 1,
       marginBottom: spacing[1],
       minHeight: spacing[6],
+      paddingHorizontal: spacing[2],
     },
     name: {
       color: t.colors.foreground,
@@ -110,26 +107,20 @@ const createSignatureStyles = (t: PdfcnTheme) => {
       fontFamily: t.typography.body.fontFamily,
       fontSize: typography.sm,
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 const renderSignerBlock = (
   signer: SignatureSigner,
   styles: ReturnType<typeof createSignatureStyles>
 ) => (
-  <View style={styles.block}>
-    {signer.label ? (
-      <PDFText style={styles.label}>{signer.label}</PDFText>
-    ) : null}
-    <View style={styles.line} />
-    {signer.name ? <PDFText style={styles.name}>{signer.name}</PDFText> : null}
-    {signer.title ? (
-      <PDFText style={styles.titleText}>{signer.title}</PDFText>
-    ) : null}
-    {signer.date ? (
-      <PDFText style={styles.dateText}>{signer.date}</PDFText>
-    ) : null}
-  </View>
+  <div style={styles.block}>
+    {signer.label ? <span style={styles.label}>{signer.label}</span> : null}
+    <div style={styles.line} />
+    {signer.name ? <span style={styles.name}>{signer.name}</span> : null}
+    {signer.title ? <span style={styles.titleText}>{signer.title}</span> : null}
+    {signer.date ? <span style={styles.dateText}>{signer.date}</span> : null}
+  </div>
 );
 
 export const PdfSignatureBlock = ({
@@ -143,24 +134,26 @@ export const PdfSignatureBlock = ({
 }: PdfSignatureBlockProps) => {
   const theme = usePdfcnTheme();
   const styles = useSafeMemo(() => createSignatureStyles(theme), [theme]);
-  const containerStyles: Style[] = [styles.container];
+  const containerStyles: React.CSSProperties[] = [styles.container];
   if (style) {
     containerStyles.push(style);
   }
 
   if (variant === "inline") {
     return (
-      <View
-        style={[{ breakInside: "avoid" as const }, containerStyles]
-          .flat()
-          .filter(Boolean)}
+      <div
+        style={Object.assign(
+          {},
+          { breakInside: "avoid" as const },
+          ...containerStyles
+        )}
       >
-        <View style={styles.inlineRow}>
-          <PDFText style={styles.inlineLabel}>{`${label}:`}</PDFText>
-          <View style={styles.inlineLine} />
-          {name ? <PDFText style={styles.inlineName}>{name}</PDFText> : null}
-        </View>
-      </View>
+        <div style={styles.inlineRow}>
+          <span style={styles.inlineLabel}>{`${label}:`}</span>
+          <div style={styles.inlineLine} />
+          {name ? <span style={styles.inlineName}>{name}</span> : null}
+        </div>
+      </div>
     );
   }
 
@@ -170,26 +163,30 @@ export const PdfSignatureBlock = ({
       { date: "", label: "Approved by", name: "", title: "" },
     ];
     return (
-      <View
-        style={[{ breakInside: "avoid" as const }, containerStyles]
-          .flat()
-          .filter(Boolean)}
+      <div
+        style={Object.assign(
+          {},
+          { breakInside: "avoid" as const },
+          ...containerStyles
+        )}
       >
-        <View style={styles.doubleRow}>
+        <div style={styles.doubleRow}>
           {renderSignerBlock(first, styles)}
           {renderSignerBlock(second, styles)}
-        </View>
-      </View>
+        </div>
+      </div>
     );
   }
 
   return (
-    <View
-      style={[{ breakInside: "avoid" as const }, containerStyles]
-        .flat()
-        .filter(Boolean)}
+    <div
+      style={Object.assign(
+        {},
+        { breakInside: "avoid" as const },
+        ...containerStyles
+      )}
     >
       {renderSignerBlock({ date, label, name, title }, styles)}
-    </View>
+    </div>
   );
 };

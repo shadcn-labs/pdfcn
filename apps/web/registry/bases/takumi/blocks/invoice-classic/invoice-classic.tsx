@@ -15,12 +15,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { InvoiceClassicData } from "./invoice-classic.types";
@@ -62,20 +56,20 @@ const sampleData: InvoiceClassicData = {
 const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
   const theme = usePdfcnTheme();
 
-  const styles = StyleSheet.create({
+  const styles = {
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       padding: theme.spacing.page.marginTop,
       paddingBottom: theme.spacing.page.marginBottom,
-      position: "relative",
+      position: "relative" as const,
     },
-  });
+  };
 
   return (
-    <Document title={`Invoice ${data.invoiceNumber}`}>
-      <Page size="A4" style={styles.page}>
+    <div data-pdf-document title={`Invoice ${data.invoiceNumber}`}>
+      <div data-pdf-page="A4" style={styles.page}>
         <PageHeader
           variant="logo-left"
           logo={
@@ -88,7 +82,7 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
           style={{ marginBottom: 0 }}
         />
         <Section noWrap style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1, paddingRight: 15 }}>
+          <div style={{ flex: 1, paddingRight: 15 }}>
             <Text
               style={{ fontSize: 9, fontWeight: "bold", marginBottom: 2 }}
               color="mutedForeground"
@@ -106,8 +100,8 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
             <Text noMargin variant="xs">
               {data.companyEmail}
             </Text>
-          </View>
-          <View style={{ flex: 1, paddingRight: 15 }}>
+          </div>
+          <div style={{ flex: 1, paddingRight: 15 }}>
             <Text
               style={{ fontSize: 9, fontWeight: "bold", marginBottom: 2 }}
               color="mutedForeground"
@@ -125,8 +119,8 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
             <Text noMargin variant="xs">
               {data.billTo.email}
             </Text>
-          </View>
-          <View style={{ flex: 1, paddingRight: 15 }}>
+          </div>
+          <div style={{ flex: 1, paddingRight: 15 }}>
             <Text
               style={{ fontSize: 9, fontWeight: "bold", marginBottom: 2 }}
               color="mutedForeground"
@@ -144,7 +138,7 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
             <Text noMargin variant="xs">
               {data.paymentTerms.dueDate}
             </Text>
-          </View>
+          </div>
         </Section>
         <Table variant="grid" zebraStripe>
           <TableHeader>
@@ -168,7 +162,7 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
           </TableBody>
         </Table>
         <Section noWrap style={{ flexDirection: "row", marginTop: 16 }}>
-          <View style={{ marginLeft: "auto", width: 220 }}>
+          <div style={{ marginLeft: "auto", width: 220 }}>
             <KeyValue
               size="sm"
               dividerThickness={1}
@@ -187,7 +181,7 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
               ]}
               divided
             />
-          </View>
+          </div>
         </Section>
         <PageFooter
           leftText={data.notes}
@@ -195,8 +189,8 @@ const InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {
           sticky
           pagePadding={25}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

@@ -2,8 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import { View, StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
@@ -46,7 +44,7 @@ export interface StackProps extends PDFComponentProps {
 
 const createStackStyles = (t: PdfcnTheme) => {
   const { spacing } = t.primitives;
-  return StyleSheet.create({
+  return {
     alignCenter: { alignItems: "center" },
     alignEnd: { alignItems: "flex-end" },
     alignStart: { alignItems: "flex-start" },
@@ -63,8 +61,8 @@ const createStackStyles = (t: PdfcnTheme) => {
     justifyEnd: { justifyContent: "flex-end" },
     justifyStart: { justifyContent: "flex-start" },
     vertical: { flexDirection: "column" },
-    wrap: { flexWrap: "wrap" },
-  });
+    wrap: { flexWrap: "wrap" as const },
+  } as Record<string, React.CSSProperties>;
 };
 
 export const Stack = ({
@@ -98,7 +96,8 @@ export const Stack = ({
     end: styles.justifyEnd,
     start: styles.justifyStart,
   };
-  const styleArray: Style[] = [
+  const styleArray: React.CSSProperties[] = [
+    { display: "flex", flexDirection: "column" },
     direction === "horizontal" ? styles.horizontal : styles.vertical,
     gapMap[gap],
   ];
@@ -114,5 +113,5 @@ export const Stack = ({
   if (style) {
     styleArray.push(...[style].flat());
   }
-  return <View style={styleArray}>{children}</View>;
+  return <div style={Object.assign({}, ...styleArray)}>{children}</div>;
 };

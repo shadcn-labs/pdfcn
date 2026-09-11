@@ -2,11 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  StyleSheet,
-  Link as PDFLink,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -44,7 +39,7 @@ const createLinkStyles = (t: PdfcnTheme) => {
     lineHeight: t.typography.body.lineHeight,
     marginBottom: t.spacing.paragraphGap,
   };
-  return StyleSheet.create({
+  return {
     default: {
       ...base,
       color: t.colors.accent,
@@ -65,7 +60,7 @@ const createLinkStyles = (t: PdfcnTheme) => {
     },
     underlineAlways: { textDecoration: "underline" },
     underlineNone: { textDecoration: "none" },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const Link = ({
@@ -88,11 +83,11 @@ export const Link = ({
     always: styles.underlineAlways,
     none: styles.underlineNone,
   };
-  const styleArray: Style[] = [variantMap[variant]];
+  const styleArray: React.CSSProperties[] = [variantMap[variant]];
   if (underline && underline in underlineMap) {
     styleArray.push(underlineMap[underline]);
   }
-  const semantic = {} as Style;
+  const semantic = {} as React.CSSProperties;
   if (align) {
     semantic.textAlign = align;
   }
@@ -106,8 +101,8 @@ export const Link = ({
     styleArray.push(...[style].flat());
   }
   return (
-    <PDFLink src={href} style={styleArray}>
+    <a href={href} style={Object.assign({}, ...styleArray)}>
       {children}
-    </PDFLink>
+    </a>
   );
 };

@@ -2,7 +2,6 @@ import { DataTable } from "@/registry/bases/takumi/components/data-table/data-ta
 import { Heading } from "@/registry/bases/takumi/components/heading/heading";
 import { Section } from "@/registry/bases/takumi/components/section/section";
 import { PdfcnThemeProvider } from "@/registry/bases/takumi/components/theme-provider";
-import { Document, Page } from "@/registry/bases/takumi/lib/pdf-primitives";
 
 const DemoBody = () => (
   <Section spacing="none">
@@ -31,13 +30,13 @@ const DemoBody = () => (
 );
 
 const Demo = () => (
-  <Document>
-    <Page size="A4">
+  <div data-pdf-document>
+    <div data-pdf-page style={{ display: "flex", flexDirection: "column" }}>
       <PdfcnThemeProvider>
         <DemoBody />
       </PdfcnThemeProvider>
-    </Page>
-  </Document>
+    </div>
+  </div>
 );
 
 export default Demo;

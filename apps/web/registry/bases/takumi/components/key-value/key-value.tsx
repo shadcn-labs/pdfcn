@@ -2,12 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -24,8 +18,8 @@ export interface KeyValueEntry {
   key: string;
   value: string;
   valueColor?: string;
-  valueStyle?: Style;
-  keyStyle?: Style;
+  valueStyle?: React.CSSProperties;
+  keyStyle?: React.CSSProperties;
 }
 
 /**
@@ -80,8 +74,8 @@ const createKeyValueStyles = (t: PdfcnTheme) => {
     fontFamily: body.fontFamily,
     fontWeight: fontWeights.regular,
   };
-  return StyleSheet.create({
-    container: { flexDirection: "column" },
+  return {
+    container: { display: "flex", flexDirection: "column" },
     divider: {
       borderBottomColor: c.border,
       borderBottomStyle: "solid",
@@ -103,7 +97,7 @@ const createKeyValueStyles = (t: PdfcnTheme) => {
     valueLg: { ...valueBase, fontSize: t.primitives.typography.base },
     valueMd: { ...valueBase, fontSize: body.fontSize },
     valueSm: { ...valueBase, fontSize: t.primitives.typography.xs },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const KeyValue = ({
@@ -115,7 +109,7 @@ export const KeyValue = ({
   labelColor,
   valueColor,
   boldValue = false,
-  noWrap = false,
+  _noWrap = false,
   dividerColor,
   dividerThickness,
   dividerMargin,
@@ -127,29 +121,29 @@ export const KeyValue = ({
     lg: styles.keyLg,
     md: styles.keyMd,
     sm: styles.keySm,
-  } as Record<KeyValueSize, Style>;
+  } as Record<KeyValueSize, React.CSSProperties>;
   const valueStyleMap = {
     lg: styles.valueLg,
     md: styles.valueMd,
     sm: styles.valueSm,
-  } as Record<KeyValueSize, Style>;
-  const containerStyles: Style[] = [styles.container];
+  } as Record<KeyValueSize, React.CSSProperties>;
+  const containerStyles: React.CSSProperties[] = [styles.container];
   if (style) {
     containerStyles.push(...[style].flat());
   }
 
   return (
-    <View wrap={!noWrap} style={containerStyles}>
+    <div style={Object.assign({}, ...containerStyles)}>
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
-        const keyStyles: Style[] = [keyStyleMap[size]];
+        const keyStyles: React.CSSProperties[] = [keyStyleMap[size]];
         if (labelColor) {
           keyStyles.push({ color: resolveColor(labelColor, theme.colors) });
         }
         if (item.keyStyle) {
           keyStyles.push(item.keyStyle);
         }
-        const valStyles: Style[] = [valueStyleMap[size]];
+        const valStyles: React.CSSProperties[] = [valueStyleMap[size]];
         if (boldValue) {
           valStyles.push(styles.valueBold);
         }
@@ -164,9 +158,9 @@ export const KeyValue = ({
         }
 
         if (direction === "horizontal") {
-          const rowStyles: Style[] = [styles.rowHorizontal];
+          const rowStyles: React.CSSProperties[] = [styles.rowHorizontal];
           if (divided && !isLast) {
-            const dividerStyle: Style = {};
+            const dividerStyle: React.CSSProperties = {};
             if (dividerColor) {
               dividerStyle.borderBottomColor = resolveColor(
                 dividerColor,
@@ -182,28 +176,35 @@ export const KeyValue = ({
             rowStyles.push({ ...styles.divider, ...dividerStyle });
           }
           return (
-            <View key={item.key} style={rowStyles}>
-              <PDFText style={[...keyStyles, { flex: labelFlex }]}>
+            <div key={item.key} style={Object.assign({}, ...rowStyles)}>
+              <span
+                style={Object.assign({}, ...keyStyles, { flex: labelFlex })}
+              >
                 {item.key}
-              </PDFText>
-              <PDFText style={[...valStyles, { flex: 1, textAlign: "right" }]}>
+              </span>
+              <span
+                style={Object.assign({}, ...valStyles, {
+                  flex: 1,
+                  textAlign: "right" as const,
+                })}
+              >
                 {item.value}
-              </PDFText>
-            </View>
+              </span>
+            </div>
           );
         }
 
-        const rowStyles: Style[] = [styles.rowVertical];
+        const rowStyles: React.CSSProperties[] = [styles.rowVertical];
         if (divided && !isLast) {
           rowStyles.push(styles.divider);
         }
         return (
-          <View key={item.key} style={rowStyles}>
-            <PDFText style={keyStyles}>{item.key}</PDFText>
-            <PDFText style={valStyles}>{item.value}</PDFText>
-          </View>
+          <div key={item.key} style={Object.assign({}, ...rowStyles)}>
+            <span style={Object.assign({}, ...keyStyles)}>{item.key}</span>
+            <span style={Object.assign({}, ...valStyles)}>{item.value}</span>
+          </div>
         );
       })}
-    </View>
+    </div>
   );
 };

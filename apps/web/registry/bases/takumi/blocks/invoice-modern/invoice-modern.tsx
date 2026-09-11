@@ -14,12 +14,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { InvoiceModernData } from "./invoice-modern.types";
@@ -60,7 +54,7 @@ const sampleData: InvoiceModernData = {
 const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
   const theme = usePdfcnTheme();
 
-  const styles = StyleSheet.create({
+  const styles = {
     dividerCol: {
       backgroundColor: theme.colors.border,
       marginRight: 12,
@@ -79,7 +73,7 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
       textTransform: "uppercase",
     },
     metaRow: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       marginBottom: theme.spacing.sectionGap,
     },
     metaValue: {
@@ -88,24 +82,24 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
     },
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       padding: theme.spacing.page.marginTop,
       paddingBottom: theme.spacing.page.marginBottom,
-      position: "relative",
+      position: "relative" as const,
     },
-  });
+  };
 
   return (
-    <Document title={`Invoice ${data.invoiceNumber}`}>
-      <Page size="A4" style={styles.page}>
+    <div data-pdf-document title={`Invoice ${data.invoiceNumber}`}>
+      <div data-pdf-page="A4" style={styles.page}>
         <PageHeader
           variant="branded"
           title={data.companyName}
           subtitle={`${data.subtitle}  ·  ${data.companyAddress}  ·  ${data.companyEmail}`}
         />
-        <View style={styles.metaRow}>
-          <View style={styles.metaCol}>
+        <div style={styles.metaRow}>
+          <div style={styles.metaCol}>
             <Text style={styles.metaLabel} noMargin>
               Invoice Number
             </Text>
@@ -115,25 +109,25 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
             >
               {data.invoiceNumber}
             </Text>
-          </View>
-          <View style={styles.metaCol}>
+          </div>
+          <div style={styles.metaCol}>
             <Text style={styles.metaLabel} noMargin>
               Invoice Date
             </Text>
             <Text style={styles.metaValue} noMargin>
               {data.invoiceDate}
             </Text>
-          </View>
-          <View style={styles.metaCol}>
+          </div>
+          <div style={styles.metaCol}>
             <Text style={styles.metaLabel} noMargin>
               Due Date
             </Text>
             <Text style={styles.metaValue} noMargin>
               {data.dueDate}
             </Text>
-          </View>
-          <View style={styles.dividerCol} />
-          <View style={{ flex: 2 }}>
+          </div>
+          <div style={styles.dividerCol} />
+          <div style={{ flex: 2 }}>
             <Text style={styles.metaLabel} noMargin>
               Billed To
             </Text>
@@ -167,8 +161,8 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
             >
               {data.billTo.phone}
             </Text>
-          </View>
-        </View>
+          </div>
+        </div>
         <Table variant="primary-header">
           <TableHeader>
             <TableRow header>
@@ -191,7 +185,7 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
           </TableBody>
         </Table>
         <Section noWrap style={{ flexDirection: "row", marginTop: 16 }}>
-          <View style={{ flex: 1, paddingRight: 20 }}>
+          <div style={{ flex: 1, paddingRight: 20 }}>
             <Text style={styles.metaLabel} noMargin>
               Payment Method
             </Text>
@@ -201,8 +195,8 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
             <Text variant="xs" noMargin color="mutedForeground">
               {data.paymentTerms.gst}
             </Text>
-          </View>
-          <View style={{ width: 220 }}>
+          </div>
+          <div style={{ width: 220 }}>
             <KeyValue
               size="sm"
               dividerThickness={1}
@@ -221,7 +215,7 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
               ]}
               divided
             />
-          </View>
+          </div>
         </Section>
         <PageFooter
           leftText={data.notes}
@@ -229,8 +223,8 @@ const InvoiceModernContent = ({ data }: { data: InvoiceModernData }) => {
           sticky
           pagePadding={25}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 /**
@@ -8,7 +7,7 @@ import type { PdfcnTheme } from "@/registry/types/pdf-themes";
  */
 export const createCompactStyles = (t: PdfcnTheme) => {
   const { spacing, fontWeights, lineHeights } = t.primitives;
-  return StyleSheet.create({
+  return {
     cell: {
       paddingHorizontal: spacing[2],
       paddingVertical: spacing[0.5],
@@ -33,7 +32,7 @@ export const createCompactStyles = (t: PdfcnTheme) => {
       fontSize: t.primitives.typography.xs,
       lineHeight: lineHeights.normal,
     },
-  });
+  };
 };
 
 /**

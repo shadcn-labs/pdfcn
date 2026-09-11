@@ -4,13 +4,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
-import { Circle, Line, Path, Svg } from "@/registry/bases/takumi/lib/pdf-svg";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
@@ -42,15 +35,15 @@ export interface PdfAlertProps extends Omit<PDFComponentProps, "children"> {
 const ICON_STROKE_WIDTH = 1.5;
 
 const SvgWrap = ({ children }: { children: ReactNode }) => (
-  <Svg width={16} height={16} viewBox="0 0 16 16">
+  <svg width={16} height={16} viewBox="0 0 16 16">
     {children}
-  </Svg>
+  </svg>
 );
 
 const ICON_MAP = {
   error: ({ color }: { color: string }) => (
     <SvgWrap>
-      <Circle
+      <circle
         cx={8}
         cy={8}
         r={7}
@@ -58,7 +51,7 @@ const ICON_MAP = {
         stroke={color}
         strokeWidth={ICON_STROKE_WIDTH}
       />
-      <Line
+      <line
         x1={5.5}
         y1={5.5}
         x2={10.5}
@@ -67,7 +60,7 @@ const ICON_MAP = {
         strokeWidth={ICON_STROKE_WIDTH}
         strokeLinecap="round"
       />
-      <Line
+      <line
         x1={10.5}
         y1={5.5}
         x2={5.5}
@@ -80,7 +73,7 @@ const ICON_MAP = {
   ),
   info: ({ color }: { color: string }) => (
     <SvgWrap>
-      <Circle
+      <circle
         cx={8}
         cy={8}
         r={7}
@@ -88,8 +81,8 @@ const ICON_MAP = {
         stroke={color}
         strokeWidth={ICON_STROKE_WIDTH}
       />
-      <Circle cx={8} cy={4.5} r={1} fill={color} />
-      <Line
+      <circle cx={8} cy={4.5} r={1} fill={color} />
+      <line
         x1={8}
         y1={7}
         x2={8}
@@ -102,7 +95,7 @@ const ICON_MAP = {
   ),
   success: ({ color }: { color: string }) => (
     <SvgWrap>
-      <Circle
+      <circle
         cx={8}
         cy={8}
         r={7}
@@ -110,7 +103,7 @@ const ICON_MAP = {
         stroke={color}
         strokeWidth={ICON_STROKE_WIDTH}
       />
-      <Path
+      <path
         d="M5 8 L7 10 L11 6"
         fill="none"
         stroke={color}
@@ -122,14 +115,14 @@ const ICON_MAP = {
   ),
   warning: ({ color }: { color: string }) => (
     <SvgWrap>
-      <Path
+      <path
         d="M8 1.5 L15 14.5 L1 14.5 Z"
         fill="none"
         stroke={color}
         strokeWidth={ICON_STROKE_WIDTH}
         strokeLinejoin="round"
       />
-      <Line
+      <line
         x1={8}
         y1={6}
         x2={8}
@@ -138,7 +131,7 @@ const ICON_MAP = {
         strokeWidth={ICON_STROKE_WIDTH}
         strokeLinecap="round"
       />
-      <Circle cx={8} cy={12.5} r={0.75} fill={color} />
+      <circle cx={8} cy={12.5} r={0.75} fill={color} />
     </SvgWrap>
   ),
 };
@@ -169,7 +162,7 @@ const createAlertStyles = (theme: PdfcnTheme) => {
     warning: colors.warning ?? "#F59E0B",
   } satisfies Record<AlertVariant, string>;
 
-  const sheet = StyleSheet.create({
+  return {
     bg: {
       backgroundColor: colors.muted,
     },
@@ -179,7 +172,8 @@ const createAlertStyles = (theme: PdfcnTheme) => {
     borderWarning: borderLeft(variantColors.warning),
     container: {
       borderRadius: 4,
-      flexDirection: "row",
+      display: "flex",
+      flexDirection: "row" as const,
       marginBottom: theme.spacing.componentGap,
       padding: 12,
     },
@@ -204,17 +198,6 @@ const createAlertStyles = (theme: PdfcnTheme) => {
       fontWeight: primitives.fontWeights.semibold,
       marginBottom: 4,
     },
-  });
-
-  return {
-    ...sheet,
-    borderMap: {
-      error: sheet.borderError,
-      info: sheet.borderInfo,
-      success: sheet.borderSuccess,
-      warning: sheet.borderWarning,
-    } as Record<AlertVariant, Style>,
-    /** Resolved hex colors for each variant — used to tint the SVG icons. */
     variantColors,
   };
 };
@@ -234,32 +217,41 @@ export const PdfAlert = ({
     return null;
   }
 
-  const containerStyles: Style[] = [
+  const borderMap = {
+    error: styles.borderError,
+    info: styles.borderInfo,
+    success: styles.borderSuccess,
+    warning: styles.borderWarning,
+  } as Record<AlertVariant, React.CSSProperties>;
+
+  const containerStyles: React.CSSProperties[] = [
     styles.container,
     styles.bg,
-    ...(showBorder ? [styles.borderMap[variant]] : []),
+    ...(showBorder ? [borderMap[variant]] : []),
     ...(style ? [style].flat() : []),
   ];
 
   return (
-    <View
-      style={[{ breakInside: "avoid" as const }, containerStyles]
-        .flat()
-        .filter(Boolean)}
+    <div
+      style={Object.assign(
+        {},
+        { breakInside: "avoid" as const },
+        ...containerStyles
+      )}
     >
       {showIcon && (
-        <View style={styles.iconContainer}>
+        <div style={styles.iconContainer}>
           <AlertIcon variant={variant} color={styles.variantColors[variant]} />
-        </View>
+        </div>
       )}
-      <View style={styles.contentContainer}>
-        {title && <PDFText style={styles.title}>{title}</PDFText>}
+      <div style={styles.contentContainer}>
+        {title && <span style={styles.title}>{title}</span>}
         {typeof children === "string" ? (
-          <PDFText style={styles.description}>{children}</PDFText>
+          <span style={styles.description}>{children}</span>
         ) : (
           children
         )}
-      </View>
-    </View>
+      </div>
+    </div>
   );
 };

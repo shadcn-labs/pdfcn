@@ -1,13 +1,8 @@
 import { Badge } from "@/registry/bases/takumi/components/badge/badge";
 import { PdfcnThemeProvider } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  Document,
-  Page,
-  View,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 
 const DemoBody = () => (
-  <View
+  <div
     style={{
       display: "flex",
       flexDirection: "row",
@@ -19,17 +14,25 @@ const DemoBody = () => (
     <Badge label="Small" variant="default" size="sm" />
     <Badge label="Medium" variant="default" size="md" />
     <Badge label="Large" variant="default" size="lg" />
-  </View>
+  </div>
 );
 
 const Demo = () => (
-  <Document>
-    <Page size={{ height: 200, width: 595 }}>
+  <div data-pdf-document>
+    <div
+      data-pdf-page
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: 200,
+        width: 595,
+      }}
+    >
       <PdfcnThemeProvider>
         <DemoBody />
       </PdfcnThemeProvider>
-    </Page>
-  </Document>
+    </div>
+  </div>
 );
 
 export default Demo;

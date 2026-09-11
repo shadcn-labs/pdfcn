@@ -2,12 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -38,7 +32,7 @@ const createWatermarkStyles = (t: PdfcnTheme) => {
   const { fontWeights } = t.primitives;
   // Use page margins as corner insets so watermark position adapts to the active theme.
   const { marginTop, marginBottom, marginLeft, marginRight } = t.spacing.page;
-  return StyleSheet.create({
+  return {
     container: {
       alignItems: "center",
       bottom: 0,
@@ -79,9 +73,9 @@ const createWatermarkStyles = (t: PdfcnTheme) => {
       fontFamily: t.typography.heading.fontFamily,
       fontWeight: fontWeights.bold,
       letterSpacing: 4,
-      textTransform: "uppercase",
+      textTransform: "uppercase" as const,
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const PdfWatermark = ({
@@ -95,18 +89,21 @@ export const PdfWatermark = ({
 }: PdfWatermarkProps) => {
   const theme = usePdfcnTheme();
   const styles = useSafeMemo(() => createWatermarkStyles(theme), [theme]);
-  const positionMap: Record<WatermarkPosition, Style> = {
+  const positionMap: Record<WatermarkPosition, React.CSSProperties> = {
     "bottom-left": styles.positionBottomLeft,
     "bottom-right": styles.positionBottomRight,
     center: styles.positionCenter,
     "top-left": styles.positionTopLeft,
     "top-right": styles.positionTopRight,
   };
-  const containerStyles: Style[] = [styles.container, positionMap[position]];
+  const containerStyles: React.CSSProperties[] = [
+    styles.container,
+    positionMap[position],
+  ];
   if (style) {
     containerStyles.push(...[style].flat());
   }
-  const textStyles: Style[] = [
+  const textStyles: React.CSSProperties[] = [
     styles.text,
     {
       color: resolveColor(color, theme.colors),
@@ -116,8 +113,8 @@ export const PdfWatermark = ({
     },
   ];
   return (
-    <View style={containerStyles}>
-      <PDFText style={textStyles}>{text}</PDFText>
-    </View>
+    <div style={Object.assign({}, ...containerStyles)}>
+      <span style={Object.assign({}, ...textStyles)}>{text}</span>
+    </div>
   );
 };

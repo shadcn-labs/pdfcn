@@ -14,12 +14,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { InvoiceCorporateData } from "./invoice-corporate.types";
@@ -70,12 +64,12 @@ const sampleData: InvoiceCorporateData = {
 const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
   const theme = usePdfcnTheme();
 
-  const styles = StyleSheet.create({
+  const styles = {
     infoColumn: {
       flex: 1,
     },
     infoGrid: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       gap: 24,
       marginBottom: theme.spacing.sectionGap,
     },
@@ -89,11 +83,11 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
     },
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       padding: theme.spacing.page.marginTop,
       paddingBottom: theme.spacing.page.marginBottom,
-      position: "relative",
+      position: "relative" as const,
     },
     summaryCard: {
       backgroundColor: theme.colors.muted,
@@ -102,14 +96,14 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
       padding: 16,
     },
     summaryRow: {
-      flexDirection: "row",
-      justifyContent: "flex-end",
+      flexDirection: "row" as const,
+      justifyContent: "flex-end" as const,
     },
-  });
+  };
 
   return (
-    <Document title={`Invoice ${data.invoiceNumber}`}>
-      <Page size="A4" style={styles.page}>
+    <div data-pdf-document title={`Invoice ${data.invoiceNumber}`}>
+      <div data-pdf-page="A4" style={styles.page}>
         <PageHeader
           variant="logo-right"
           logo={
@@ -124,8 +118,8 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
           subtitle={`${data.subtitle}  ·  ${data.companyAddress}`}
           style={{ marginBottom: theme.spacing.sectionGap }}
         />
-        <View style={styles.infoGrid}>
-          <View style={styles.infoColumn}>
+        <div style={styles.infoGrid}>
+          <div style={styles.infoColumn}>
             <Text style={styles.infoLabel} noMargin>
               Invoice Details
             </Text>
@@ -138,8 +132,8 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
                 { key: "Payment", value: data.paymentTerms.method },
               ]}
             />
-          </View>
-          <View style={styles.infoColumn}>
+          </div>
+          <div style={styles.infoColumn}>
             <Text style={styles.infoLabel} noMargin>
               Bill To
             </Text>
@@ -155,8 +149,8 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
             <Text variant="xs" noMargin color="mutedForeground">
               {data.billTo.phone}
             </Text>
-          </View>
-        </View>
+          </div>
+        </div>
         <Table variant="bordered">
           <TableHeader>
             <TableRow header>
@@ -178,9 +172,9 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
             ))}
           </TableBody>
         </Table>
-        <View style={styles.summaryCard}>
-          <View style={styles.summaryRow}>
-            <View style={{ width: 260 }}>
+        <div style={styles.summaryCard}>
+          <div style={styles.summaryRow}>
+            <div style={{ width: 260 }}>
               <KeyValue
                 size="md"
                 dividerThickness={1}
@@ -204,17 +198,17 @@ const InvoiceCorporateContent = ({ data }: { data: InvoiceCorporateData }) => {
                 ]}
                 divided
               />
-            </View>
-          </View>
-        </View>
+            </div>
+          </div>
+        </div>
         <PageFooter
           leftText={data.notes}
           rightText="Page 1 of 1"
           sticky
           pagePadding={25}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

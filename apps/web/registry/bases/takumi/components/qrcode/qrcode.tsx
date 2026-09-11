@@ -4,13 +4,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
-import { Rect, Svg } from "@/registry/bases/takumi/lib/pdf-svg";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -35,7 +28,7 @@ export interface PdfQRCodeProps extends Omit<PDFComponentProps, "children"> {
 
 const createQRCodeStyles = (t: PdfcnTheme) => {
   const { spacing } = t.primitives;
-  return StyleSheet.create({
+  return {
     caption: {
       color: t.colors.mutedForeground,
       fontFamily: t.typography.body.fontFamily,
@@ -43,8 +36,12 @@ const createQRCodeStyles = (t: PdfcnTheme) => {
       marginTop: spacing[1],
       textAlign: "center",
     },
-    container: { alignItems: "center" },
-  });
+    container: {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
+    },
+  } as Record<string, React.CSSProperties>;
 };
 
 const generateQRMatrix = (
@@ -97,16 +94,16 @@ export const PdfQRCode = ({
     backgroundColor === "transparent"
       ? undefined
       : resolveColor(backgroundColor, theme.colors);
-  const containerStyles: Style[] = [styles.container];
+  const containerStyles: React.CSSProperties[] = [styles.container];
   if (style) {
     containerStyles.push(...[style].flat());
   }
 
   return (
-    <View style={containerStyles}>
-      <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <div style={Object.assign({}, ...containerStyles)}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {resolvedBgColor !== undefined && (
-          <Rect x={0} y={0} width={size} height={size} fill={resolvedBgColor} />
+          <rect x={0} y={0} width={size} height={size} fill={resolvedBgColor} />
         )}
         {matrix
           .flatMap((row, y) =>
@@ -115,7 +112,7 @@ export const PdfQRCode = ({
               .filter((pos): pos is { x: number; y: number } => pos !== null)
           )
           .map((pos) => (
-            <Rect
+            <rect
               key={`qr-${pos.y}-${pos.x}`}
               x={pos.x * moduleSize}
               y={pos.y * moduleSize}
@@ -124,8 +121,8 @@ export const PdfQRCode = ({
               fill={resolvedColor}
             />
           ))}
-      </Svg>
-      {caption && <PDFText style={styles.caption}>{caption}</PDFText>}
-    </View>
+      </svg>
+      {caption && <span style={styles.caption}>{caption}</span>}
+    </div>
   );
 };
