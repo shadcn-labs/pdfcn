@@ -616,6 +616,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Gift Certificate PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/gift-certificate/gift-certificate.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/gift-certificate/gift-certificate.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/gift-certificate/gift-certificate.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/gift-certificate/gift-certificate.types.ts"
+        }
+      ],
+      "name": "takumi/gift-certificate",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Gift Certificate",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Report Financial PDF block (takumi)",
       "files": [
         {
