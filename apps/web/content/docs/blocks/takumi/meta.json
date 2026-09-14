@@ -1,6 +1,7 @@
 {
   "pages": [
     "!index",
+    "gift-certificate",
     "invoice-classic",
     "invoice-consultant",
     "invoice-corporate",

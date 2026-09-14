@@ -13,7 +13,7 @@
   "files": [
     {
       "path": "registry/bases/forme/components/page-break/page-break.tsx",
-      "content": "import { PageBreak as FormePageBreak } from \"@formepdf/react\";\n\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\n\nexport interface PageBreakProps extends Omit<PDFComponentProps, \"children\"> {\n  children?: never;\n}\n\nexport const PageBreak = (_props: PageBreakProps) => <FormePageBreak />;\n",
+      "content": "import { PageBreak as FormePageBreak } from \"@formepdf/react\";\r\n\r\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\r\n\r\nexport interface PageBreakProps extends Omit<PDFComponentProps, \"children\"> {\r\n  children?: never;\r\n}\r\n\r\nexport const PageBreak = (_props: PageBreakProps) => <FormePageBreak />;\r\n",
       "type": "registry:component",
       "target": "components/pdf/page-break/page-break.tsx"
     }
