@@ -759,6 +759,37 @@
       "type": "registry:block"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Medical Intake Form PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/medical-intake-form/medical-intake-form.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/medical-intake-form/medical-intake-form.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/medical-intake-form/medical-intake-form.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/medical-intake-form/medical-intake-form.types.ts"
+        }
+      ],
+      "name": "takumi/medical-intake-form",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/form",
+        "@pdfcn/takumi/list",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/page-header",
+        "@pdfcn/takumi/pdf-image",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/signature",
+        "@pdfcn/takumi/table",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Medical Intake Form",
+      "type": "registry:block"
+    },
+    {
       "description": "professional theme tokens",
       "files": [
         {
