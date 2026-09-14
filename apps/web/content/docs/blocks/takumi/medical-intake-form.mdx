@@ -1,0 +1,78 @@
+---
+title: "Medical Intake Form"
+description: "Printable PDF block for patient intake and registration forms."
+---
+
+<ComponentPreview base="takumi" name="medical-intake-form" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/medical-intake-form
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/medical-intake-form/medical-intake-form.tsx"
+  base="takumi"
+  title="components/pdf/blocks/medical-intake-form/medical-intake-form.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/medical-intake-form/medical-intake-form.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/medical-intake-form/medical-intake-form.types.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { MedicalIntakeForm } from "@/components/pdf/blocks/medical-intake-form/medical-intake-form";
+```
+
+```tsx
+<MedicalIntakeForm
+  clinicName="Sunrise Family Medicine"
+  clinicAddress="200 Health Plaza, Denver, CO 80202"
+  clinicPhone="(303) 555-0180"
+  personalInfo
+  emergencyContact
+  insurance
+  medicalHistory
+  medications
+  allergies
+  reasonForVisit
+  consent
+  accentColor="#0d9488"
+/>
+```
