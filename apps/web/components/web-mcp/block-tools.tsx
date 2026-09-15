@@ -114,6 +114,16 @@ const BLOCKS: BlockInfo[] = [
     title: "Security Report",
     type: "report",
   },
+  {
+    bases: ["takumi"],
+    description:
+      "Printable patient intake form with personal info, emergency contact, insurance, medical history checklist, and consent.",
+    installCommand:
+      'npx shadcn@latest add "https://pdfcn.vercel.app/r/takumi/medical-intake-form.json"',
+    name: "medical-intake-form",
+    title: "Medical Intake Form",
+    type: "report",
+  },
 ];
 
 const BLOCK_SCHEMAS: Record<string, object> = {

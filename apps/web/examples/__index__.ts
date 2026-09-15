@@ -50,6 +50,7 @@ import takumi_invoice_minimal from "@/examples/takumi/invoice-minimal";
 import takumi_invoice_modern from "@/examples/takumi/invoice-modern";
 import takumi_keep_together from "@/examples/takumi/keep-together";
 import takumi_key_value from "@/examples/takumi/key-value";
+import takumi_medical_intake_form from "@/examples/takumi/medical-intake-form";
 import takumi_link from "@/examples/takumi/link";
 import takumi_list from "@/examples/takumi/list";
 import takumi_page_break from "@/examples/takumi/page-break";
@@ -126,6 +127,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "invoice-modern": takumi_invoice_modern,
     "keep-together": takumi_keep_together,
     "key-value": takumi_key_value,
+    "medical-intake-form": takumi_medical_intake_form,
     link: takumi_link,
     list: takumi_list,
     "page-break": takumi_page_break,
