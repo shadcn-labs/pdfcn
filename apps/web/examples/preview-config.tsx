@@ -11,6 +11,7 @@ const BLOCK_NAMES = new Set([
   "invoice-creative",
   "invoice-minimal",
   "invoice-modern",
+  "packing-slip",
   "report-financial",
   "report-marketing",
   "report-operations",

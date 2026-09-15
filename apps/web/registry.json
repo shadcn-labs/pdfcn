@@ -616,6 +616,35 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Packing Slip PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/packing-slip/packing-slip.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/packing-slip/packing-slip.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/packing-slip/packing-slip.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/packing-slip/packing-slip.types.ts"
+        }
+      ],
+      "name": "takumi/packing-slip",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/key-value",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/page-header",
+        "@pdfcn/takumi/pdf-image",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/table",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Packing Slip",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Report Financial PDF block (takumi)",
       "files": [
         {
@@ -1625,6 +1654,35 @@
         "@pdfcn/forme/text"
       ],
       "title": "Invoice Modern",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Packing Slip PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/packing-slip/packing-slip.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/packing-slip/packing-slip.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/packing-slip/packing-slip.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/packing-slip/packing-slip.types.ts"
+        }
+      ],
+      "name": "forme/packing-slip",
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/key-value",
+        "@pdfcn/forme/page-footer",
+        "@pdfcn/forme/page-header",
+        "@pdfcn/forme/pdf-image",
+        "@pdfcn/forme/section",
+        "@pdfcn/forme/table",
+        "@pdfcn/forme/text"
+      ],
+      "title": "Packing Slip",
       "type": "registry:block"
     },
     {

@@ -1,0 +1,129 @@
+---
+title: "Packing Slip"
+description: "Printable packing slip document with order details, itemized list, and shipping info."
+---
+
+<ComponentPreview base="forme" name="packing-slip" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/packing-slip
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/packing-slip/packing-slip.tsx"
+  base="forme"
+  title="components/pdf/blocks/packing-slip/packing-slip.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { PackingSlipDocument } from "@/components/pdf/packing-slip";
+```
+
+```tsx
+<PackingSlipDocument
+  companyName="Acme Store"
+  orderNumber="ORD-2026-0891"
+  orderDate="Sep 10, 2026"
+  shipTo={{
+    name: "Jane Doe",
+    address: "456 Oak Ave",
+    city: "Portland",
+    state: "OR",
+    zip: "97201",
+  }}
+  shipFrom={{
+    name: "Acme Warehouse",
+    address: "100 Industrial Blvd",
+    city: "Seattle",
+    state: "WA",
+    zip: "98101",
+  }}
+  items={[
+    {
+      name: "Widget Pro",
+      sku: "WP-001",
+      qtyPacked: 2,
+      qtyOrdered: 2,
+      unitPrice: 49.99,
+    },
+  ]}
+  shipping={{
+    carrier: "UPS",
+    trackingNumber: "1Z999AA10123456784",
+    method: "Ground",
+    estimatedDelivery: "Sep 15, 2026",
+  }}
+  accentColor="#059669"
+/>
+```

@@ -119,7 +119,7 @@ const Page = async (props: { params: Promise<{ slug?: string[] }> }) => {
                     <div className="docs-nav flex items-center gap-2">
                       <div className="hidden sm:block">
                         <DocsCopyPage
-                          markdownUrl={absoluteUrl(markdownUrl)}
+                          markdownUrl={markdownUrl}
                           url={absoluteUrl(page.url)}
                         />
                       </div>
