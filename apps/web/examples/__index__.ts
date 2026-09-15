@@ -5,6 +5,7 @@ import forme_badge from "@/examples/forme/badge";
 import forme_card from "@/examples/forme/card";
 import forme_data_table from "@/examples/forme/data-table";
 import forme_divider from "@/examples/forme/divider";
+import forme_event_agenda from "@/examples/forme/event-agenda";
 import forme_form from "@/examples/forme/form";
 import forme_graph from "@/examples/forme/graph";
 import forme_heading from "@/examples/forme/heading";
@@ -39,6 +40,7 @@ import takumi_badge from "@/examples/takumi/badge";
 import takumi_card from "@/examples/takumi/card";
 import takumi_data_table from "@/examples/takumi/data-table";
 import takumi_divider from "@/examples/takumi/divider";
+import takumi_event_agenda from "@/examples/takumi/event-agenda";
 import takumi_form from "@/examples/takumi/form";
 import takumi_graph from "@/examples/takumi/graph";
 import takumi_heading from "@/examples/takumi/heading";
@@ -79,6 +81,7 @@ export const demos: Record<BaseName, DemoMap> = {
     card: forme_card,
     "data-table": forme_data_table,
     divider: forme_divider,
+    "event-agenda": forme_event_agenda,
     form: forme_form,
     graph: forme_graph,
     heading: forme_heading,
@@ -115,6 +118,7 @@ export const demos: Record<BaseName, DemoMap> = {
     card: takumi_card,
     "data-table": takumi_data_table,
     divider: takumi_divider,
+    "event-agenda": takumi_event_agenda,
     form: takumi_form,
     graph: takumi_graph,
     heading: takumi_heading,

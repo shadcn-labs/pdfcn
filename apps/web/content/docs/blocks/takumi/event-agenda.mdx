@@ -1,0 +1,129 @@
+---
+title: "Event Agenda"
+description: "Print-ready conference, summit, or meeting agenda template with multi-day support, track legend, and concurrent sessions."
+---
+
+<ComponentPreview base="takumi" name="event-agenda" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/event-agenda
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/event-agenda/event-agenda.tsx"
+  base="takumi"
+  title="components/pdf/blocks/event-agenda/event-agenda.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/event-agenda/event-agenda.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/event-agenda/event-agenda.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { EventAgendaDocument } from "@/components/pdf/event-agenda";
+```
+
+```tsx
+<EventAgendaDocument />
+```
+
+## API Reference
+
+### EventAgendaProps
+
+| Prop               | Type            | Description                                                     |
+| ------------------ | --------------- | --------------------------------------------------------------- |
+| `eventName`        | `string`        | The title or name of the event or conference.                   |
+| `date`             | `string`        | Start date of the event (e.g. "October 20, 2026").              |
+| `endDate`          | `string?`       | Optional end date for multi-day events.                         |
+| `venue`            | `string`        | Venue name or physical address.                                 |
+| `days`             | `DaySchedule[]` | Array of day schedules, each containing sessions.               |
+| `tracks`           | `Track[]?`      | Color-coded conference tracks for the legend and session pills. |
+| `wifiInfo`         | `string?`       | Network credentials displayed in the footer.                    |
+| `emergencyContact` | `string?`       | Important contact info displayed in the footer.                 |
+| `accentColor`      | `string?`       | Accent color for headers, badges, and highlights.               |

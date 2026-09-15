@@ -448,6 +448,32 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Event Agenda PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/event-agenda/event-agenda.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/event-agenda/event-agenda.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/event-agenda/event-agenda.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/event-agenda/event-agenda.types.ts"
+        }
+      ],
+      "name": "takumi/event-agenda",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/badge",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Event Agenda",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Invoice Classic PDF block (takumi)",
       "files": [
         {
@@ -1458,6 +1484,31 @@
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Watermark",
       "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Event Agenda PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/event-agenda/event-agenda.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/event-agenda/event-agenda.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/event-agenda/event-agenda.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/event-agenda/event-agenda.types.ts"
+        }
+      ],
+      "name": "forme/event-agenda",
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/page-footer",
+        "@pdfcn/forme/section",
+        "@pdfcn/forme/text"
+      ],
+      "title": "Event Agenda",
+      "type": "registry:block"
     },
     {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
