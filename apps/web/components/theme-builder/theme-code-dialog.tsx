@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Copy, Download } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -35,6 +36,7 @@ export const ThemeCodeDialog = ({
   open,
   theme,
 }: ThemeCodeDialogProps) => {
+  const content = useIntlayer("theme-code-dialog");
   const [copied, setCopied] = useState(false);
   const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
   const [tab, setTab] = useState<CodeTab>("full");
@@ -94,9 +96,9 @@ export const ThemeCodeDialog = ({
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
-      toast.success("Theme code copied");
+      toast.success(content.themeCodeCopied);
     } catch {
-      toast.error("Could not copy theme code");
+      toast.error(content.couldNotCopyThemeCode);
     }
   };
 
@@ -115,13 +117,13 @@ export const ThemeCodeDialog = ({
     <Dialog onOpenChange={handleOpenChange} open={open}>
       <DialogContent className="flex max-h-[85svh] flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
         <DialogHeader className="border-b p-5 pr-12">
-          <DialogTitle>Generated theme code</DialogTitle>
+          <DialogTitle>{content.generatedThemeCode}</DialogTitle>
           <DialogDescription>
-            Copy into{" "}
+            {content.copyInto}{" "}
             <code className="rounded bg-muted px-1 py-0.5 font-mono text-[10px]">
               src/lib/{safeName}.ts
             </code>{" "}
-            in your project and pass it to any themed pdfcn document.
+            {content.inYourProjectAndPassItToAnyThemedPdfcnDocument}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-wrap items-center justify-between gap-2 border-b bg-muted/40 px-4 py-2">
@@ -137,7 +139,7 @@ export const ThemeCodeDialog = ({
               size="sm"
               variant="ghost"
             >
-              Full theme
+              {content.fullTheme}
             </Button>
             <Button
               className={cn(
@@ -150,28 +152,28 @@ export const ThemeCodeDialog = ({
               size="sm"
               variant="ghost"
             >
-              Delta from <span className="capitalize">{basePreset}</span>
+              {content.deltaFrom}{" "}
+              <span className="capitalize">{basePreset}</span>
             </Button>
           </div>
           <div className="flex items-center gap-2">
             <Button onClick={downloadCode} size="sm" variant="ghost">
               <Download />
-              Download .ts
+              {content.downloadTs}
             </Button>
             <Button onClick={copyCode} size="sm" variant="outline">
               {copied ? <Check /> : <Copy />}
-              {copied ? "Copied" : "Copy"}
+              {copied ? content.copied : content.copy}
             </Button>
           </div>
         </div>
         {tab === "full" && remoteFonts.length > 0 ? (
           <div className="border-b border-amber-500/20 bg-amber-500/10 px-5 py-3">
             <p className="text-[11px] text-amber-900 dark:text-amber-200">
-              <strong className="font-semibold">Production note:</strong> this
-              theme uses {remoteFonts.map((font) => `'${font}'`).join(" and ")}{" "}
-              from jsDelivr at runtime. For offline or restricted deployments,
-              self-host those font files or switch to built-in fonts before
-              release.
+              <strong className="font-semibold">
+                {content.productionNote}
+              </strong>{" "}
+              {content.productionNoteDescription}
             </p>
           </div>
         ) : null}
@@ -189,10 +191,8 @@ export const ThemeCodeDialog = ({
         </div>
         <div className="border-t bg-muted/20 px-5 py-3">
           <p className="text-[11px] text-muted-foreground">
-            <strong className="text-foreground/70">Tip:</strong> use the{" "}
-            <strong className="text-foreground/70">Delta</strong> tab if you
-            only changed a few values — it shows a minimal override to merge
-            with your base preset.
+            <strong className="text-foreground/70">{content.tip}</strong>{" "}
+            {content.deltaTip}
           </p>
         </div>
       </DialogContent>

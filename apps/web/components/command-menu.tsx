@@ -8,6 +8,7 @@ import {
   DollarSignIcon,
   FileTextIcon,
 } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -165,6 +166,7 @@ export const CommandMenu = ({
   navItems: { href: string; label: string }[];
   tree: PageTreeRoot;
 }) => {
+  const content = useIntlayer("command-menu");
   const router = useRouter();
   const pathname = usePathname();
   const isMac = useIsMac();
@@ -305,8 +307,10 @@ export const CommandMenu = ({
           onClick={handleOpenClick}
           {...props}
         >
-          <span className="hidden lg:inline-flex">Search documentation...</span>
-          <span className="inline-flex lg:hidden">Search...</span>
+          <span className="hidden lg:inline-flex">
+            {content.searchDocumentation}
+          </span>
+          <span className="inline-flex lg:hidden">{content.search}</span>
           <div className="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
             <Kbd>{isMac ? "⌘" : "Ctrl"}</Kbd>
             <Kbd className="aspect-square">K</Kbd>
@@ -318,20 +322,23 @@ export const CommandMenu = ({
         className="rounded-xl border-none bg-clip-padding p-2 pb-11 shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"
       >
         <DialogHeader className="sr-only">
-          <DialogTitle>Search documentation...</DialogTitle>
-          <DialogDescription>Search for a command to run...</DialogDescription>
+          <DialogTitle>{content.searchDocumentation}</DialogTitle>
+          <DialogDescription>{content.searchForCommand}</DialogDescription>
         </DialogHeader>
         <Command
           className="**:data-[slot=command-input-wrapper]:bg-input/50 **:data-[slot=command-input-wrapper]:border-input rounded-none bg-transparent **:data-[slot=command-input]:h-9! **:data-[slot=command-input]:py-0 **:data-[slot=command-input-wrapper]:mb-0 **:data-[slot=command-input-wrapper]:h-9! **:data-[slot=command-input-wrapper]:rounded-md **:data-[slot=command-input-wrapper]:border"
           filter={handleFilter}
         >
-          <CommandInput placeholder="Search documentation..." />
+          <CommandInput placeholder={String(content.searchDocumentation)} />
           <CommandList className="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
             <CommandEmpty className="text-muted-foreground py-12 text-center text-sm">
-              No results found.
+              {content.noResultsFound}
             </CommandEmpty>
             {navItems && navItems.length > 0 && (
-              <CommandGroup heading="Pages" className={GROUP_HEADING_CLS}>
+              <CommandGroup
+                heading={String(content.pages)}
+                className={GROUP_HEADING_CLS}
+              >
                 {navItems.map((item) => (
                   <CommandMenuItem
                     key={item.href}
@@ -374,7 +381,7 @@ export const CommandMenu = ({
               <CornerDownLeftIcon />
             </Kbd>{" "}
             {showGoToPage ? (
-              <span className="min-w-0 truncate">Go to Page</span>
+              <span className="min-w-0 truncate">{content.goToPage}</span>
             ) : null}
           </div>
           {copyPayload && (

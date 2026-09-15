@@ -1,5 +1,7 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
+
 import { GithubIcon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -18,6 +20,7 @@ export const GitHubStars = ({
 }: {
   stargazersCount: number;
 }) => {
+  const content = useIntlayer("github-stars");
   const play = useFeedback({ sound: "success" });
 
   return (
@@ -42,7 +45,7 @@ export const GitHubStars = ({
         </a>
       </TooltipTrigger>
       <TooltipContent>
-        {new Intl.NumberFormat("en-US").format(stargazersCount)} stars
+        {new Intl.NumberFormat("en-US").format(stargazersCount)} {content.stars}
       </TooltipContent>
     </Tooltip>
   );

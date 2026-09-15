@@ -1,5 +1,6 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
 
@@ -12,6 +13,7 @@ import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
 const GetStartedButton = () => {
+  const content = useIntlayer("home-ctas");
   const arrowRightRef = useRef<ArrowRightIconHandle>(null);
 
   const handleMouseEnter = useCallback(() => {
@@ -31,7 +33,7 @@ const GetStartedButton = () => {
       onMouseLeave={handleMouseLeave}
     >
       <Link href={ROUTES.DOCS_INSTALLATION} transitionTypes={["nav-forward"]}>
-        Get Started
+        {content.getStarted}
         <ArrowRightIcon className="hidden sm:inline" ref={arrowRightRef} />
       </Link>
     </Button>
@@ -39,6 +41,7 @@ const GetStartedButton = () => {
 };
 
 const BrowseComponentsButton = () => {
+  const content = useIntlayer("home-ctas");
   const componentIconRef = useRef<ComponentIconHandle>(null);
 
   const handleMouseEnter = useCallback(() => {
@@ -64,7 +67,7 @@ const BrowseComponentsButton = () => {
           ref={componentIconRef}
           size={22}
         />
-        Browse Components
+        {content.browseComponents}
       </Link>
     </Button>
   );

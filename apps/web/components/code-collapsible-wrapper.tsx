@@ -1,5 +1,6 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ export const CodeCollapsibleWrapper = ({
 }: React.ComponentProps<typeof Collapsible> & {
   navTriggerClassName?: string;
 }) => {
+  const content = useIntlayer("code-collapsible-wrapper");
   const [isOpened, setIsOpened] = useState(false);
 
   return (
@@ -41,7 +43,7 @@ export const CodeCollapsibleWrapper = ({
             size="sm"
             className="text-muted-foreground h-7 rounded-md px-2"
           >
-            {isOpened ? "Collapse" : "Expand"}
+            {isOpened ? content.collapse : content.expand}
           </Button>
           <Separator orientation="vertical" className="mx-1.5 h-4!" />
         </div>
@@ -56,7 +58,7 @@ export const CodeCollapsibleWrapper = ({
       <div className="absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-code/70 to-code group-data-[state=open]/collapsible:hidden">
         <CollapsibleTrigger asChild>
           <Button variant="outline" size="sm">
-            Expand
+            {content.expand}
           </Button>
         </CollapsibleTrigger>
       </div>

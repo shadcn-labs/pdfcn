@@ -1,6 +1,7 @@
 "use client";
 
 import { DownloadIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { createElement, useEffect, useRef, useState } from "react";
 import takumiWasmUrl from "takumi-pdf/wasm-url";
 
@@ -98,6 +99,7 @@ export const PdfPreview = ({
   height = 640,
   onUrlChange,
 }: PdfPreviewProps) => {
+  const content = useIntlayer("pdf-preview");
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const isMobile = useIsMobile();
@@ -200,7 +202,7 @@ export const PdfPreview = ({
           setError(
             renderError instanceof Error
               ? renderError.message
-              : "Failed to render PDF"
+              : content.failedToRenderPdf
           );
         }
       }
@@ -213,7 +215,7 @@ export const PdfPreview = ({
         onUrlChange?.(null);
       }
     };
-  }, [base, name, onUrlChange, theme]);
+  }, [base, content.failedToRenderPdf, name, onUrlChange, theme]);
 
   return (
     <div
@@ -235,7 +237,7 @@ export const PdfPreview = ({
           className="flex items-center justify-center p-8 text-sm text-muted-foreground"
           style={{ minHeight: height }}
         >
-          Rendering PDF…
+          {content.renderingPdf}
         </div>
       ) : null}
       {pdfUrl && isMobile ? (
@@ -244,12 +246,12 @@ export const PdfPreview = ({
           style={{ minHeight: height }}
         >
           <p className="text-sm text-muted-foreground text-center">
-            PDF preview is optimized for larger screens.
+            {content.pdfPreviewOptimizedForLargerScreens}
           </p>
           <Button asChild>
             <a href={pdfUrl} download={`${name}.pdf`}>
               <DownloadIcon />
-              Download PDF
+              {content.downloadPdf}
             </a>
           </Button>
         </div>

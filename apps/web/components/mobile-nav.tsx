@@ -1,6 +1,7 @@
 "use client";
 
 import type { Root as PageTreeRoot } from "fumadocs-core/page-tree";
+import { useIntlayer } from "next-intlayer";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -17,6 +18,29 @@ import { ROUTES } from "@/constants/routes";
 import { useFeedback } from "@/hooks/use-feedback";
 import { getCurrentBase, getTreeGroups } from "@/lib/page-tree";
 import { cn } from "@/lib/utils";
+
+const TOP_LEVEL_SECTION_KEYS: Record<
+  string,
+  | "introduction"
+  | "installation"
+  | "components"
+  | "blocks"
+  | "theming"
+  | "mcp"
+  | "registry"
+  | "llmsTxt"
+  | "changelog"
+> = {
+  Blocks: "blocks",
+  Changelog: "changelog",
+  Components: "components",
+  Installation: "installation",
+  Introduction: "introduction",
+  MCP: "mcp",
+  Registry: "registry",
+  Theming: "theming",
+  "llms.txt": "llmsTxt",
+};
 
 const MobileLink = ({
   href,
@@ -85,6 +109,7 @@ export const MobileNav = ({
   tree: PageTreeRoot;
   className?: string;
 }) => {
+  const content = useIntlayer("mobile-nav");
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const currentBase = getCurrentBase(pathname);
@@ -118,7 +143,7 @@ export const MobileNav = ({
                 )}
               />
             </div>
-            <span className="sr-only">Toggle Menu</span>
+            <span className="sr-only">{content.toggleMenu}</span>
           </div>
         </Button>
       </PopoverTrigger>
@@ -132,11 +157,11 @@ export const MobileNav = ({
         <div className="flex flex-col gap-12 overflow-auto px-6 py-6">
           <div className="flex flex-col gap-4">
             <div className="text-sm font-medium text-muted-foreground">
-              Menu
+              {content.menu}
             </div>
             <div className="flex flex-col gap-3">
               <MobileLink href={ROUTES.HOME} onOpenChange={setOpen}>
-                Home
+                {content.home}
               </MobileLink>
               {items.map((item) => (
                 <MobileLink
@@ -151,12 +176,14 @@ export const MobileNav = ({
           </div>
           <div className="flex flex-col gap-4">
             <div className="text-sm font-medium text-muted-foreground">
-              Sections
+              {content.sections}
             </div>
             <div className="flex flex-col gap-3">
               {TOP_LEVEL_SECTIONS.map(({ name, href }) => (
                 <MobileLink key={name} href={href} onOpenChange={setOpen}>
-                  {name}
+                  {TOP_LEVEL_SECTION_KEYS[name]
+                    ? content[TOP_LEVEL_SECTION_KEYS[name]]
+                    : name}
                 </MobileLink>
               ))}
             </div>

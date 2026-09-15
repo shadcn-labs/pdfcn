@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { useIntlayer } from "next-intlayer";
 
 import { cn } from "@/lib/utils";
 
@@ -85,12 +86,13 @@ export const DaikanoidPreview = ({
   style,
   ...props
 }: DaikanoidPreviewProps) => {
+  const content = useIntlayer("daikanoid-preview");
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.button
       type="button"
-      aria-label="Play the 404 brick breaker game"
+      aria-label={content.playThe404BrickBreakerGame}
       initial="idle"
       whileHover={shouldReduceMotion ? "idle" : "hover"}
       whileFocus={shouldReduceMotion ? "idle" : "hover"}
@@ -114,7 +116,7 @@ export const DaikanoidPreview = ({
         }}
         className="absolute top-1/2 left-1/2 z-10 inline-flex min-h-14 min-w-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-foreground/70 px-6 font-mono text-background text-base transition-colors duration-150 group-hover:bg-foreground/85 group-focus-visible:bg-foreground/85"
       >
-        Play
+        {content.play}
       </motion.span>
     </motion.button>
   );

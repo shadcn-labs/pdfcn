@@ -1,6 +1,7 @@
 "use client";
 
 import { EllipsisIcon, LinkIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useCallback, useMemo, useRef } from "react";
 import { toast } from "sonner";
 
@@ -24,6 +25,7 @@ export const DocsShareMenu = ({
   url: string;
 }) => {
   const shareIconRef = useRef<ShareIconHandle>(null);
+  const content = useIntlayer("docs-share-menu");
   const { copyToClipboard } = useCopyToClipboard();
 
   const absoluteUrl = useMemo(() => {
@@ -70,11 +72,11 @@ export const DocsShareMenu = ({
           sound="copy"
           onClick={() => {
             copyToClipboard(absoluteUrl);
-            toast.success("Link copied");
+            toast.success(String(content.linkCopied));
           }}
         >
           <LinkIcon />
-          Copy link
+          {content.copyLink}
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild sound="click">
@@ -84,7 +86,7 @@ export const DocsShareMenu = ({
             rel="noopener"
           >
             <XIcon />
-            Share on X
+            {content.shareOnX}
           </a>
         </DropdownMenuItem>
 
@@ -95,7 +97,7 @@ export const DocsShareMenu = ({
             rel="noopener"
           >
             <LinkedInIcon />
-            Share on LinkedIn
+            {content.shareOnLinkedIn}
           </a>
         </DropdownMenuItem>
 
@@ -108,7 +110,7 @@ export const DocsShareMenu = ({
             }}
           >
             <EllipsisIcon />
-            Other app
+            {content.otherApp}
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

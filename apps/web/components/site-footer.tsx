@@ -1,5 +1,7 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
+
 import { LINK } from "@/constants/links";
 import { SITE, UTM_PARAMS } from "@/constants/site";
 import { useFeedback } from "@/hooks/use-feedback";
@@ -7,6 +9,7 @@ import { addQueryParams } from "@/lib/url";
 
 export const SiteFooter = () => {
   const playClick = useFeedback({ sound: "click" });
+  const content = useIntlayer("site-footer");
 
   return (
     <footer
@@ -16,7 +19,7 @@ export const SiteFooter = () => {
       <div className="container-wrapper px-4 xl:px-6">
         <div className="flex h-(--footer-height) items-center justify-between">
           <div className="text-muted-foreground w-full px-1 text-center text-xs leading-loose sm:text-sm">
-            Built by{" "}
+            {content.builtBy}{" "}
             <a
               href={addQueryParams(LINK.PORTFOLIO, UTM_PARAMS.SOURCE)}
               target="_blank"
@@ -26,7 +29,7 @@ export const SiteFooter = () => {
             >
               {SITE.AUTHOR.NAME}
             </a>
-            . The source code is available on{" "}
+            {content.sourceAvailableOn}{" "}
             <a
               href={addQueryParams(LINK.GITHUB, UTM_PARAMS.SOURCE)}
               target="_blank"
@@ -36,7 +39,7 @@ export const SiteFooter = () => {
             >
               GitHub
             </a>
-            .
+            {content.trailingPeriod}
           </div>
         </div>
       </div>

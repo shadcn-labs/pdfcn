@@ -1,6 +1,7 @@
 "use client";
 
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useTheme } from "next-themes";
 
 import { useFeedback } from "@/hooks/use-feedback";
@@ -14,6 +15,7 @@ const THEME_OPTIONS = [
 ] as const;
 
 export const ModeSwitcher = () => {
+  const content = useIntlayer("mode-switcher");
   const { theme, setTheme } = useTheme();
   const isMounted = useMounted();
   const feedbackOn = useFeedback({ sound: "toggleOn" });
@@ -27,7 +29,7 @@ export const ModeSwitcher = () => {
     <div
       className="inline-flex items-center rounded-full bg-background inset-ring-1 inset-ring-border"
       role="radiogroup"
-      aria-label="Theme"
+      aria-label={content.theme}
     >
       {THEME_OPTIONS.map((option) => {
         const Icon = option.icon;
@@ -43,7 +45,7 @@ export const ModeSwitcher = () => {
             )}
             role="radio"
             aria-checked={isActive}
-            aria-label={`Switch to ${option.value} theme`}
+            aria-label={content.switchToTheme({ value: option.value })}
             onClick={() => {
               if (option.value === "dark") {
                 feedbackOff();

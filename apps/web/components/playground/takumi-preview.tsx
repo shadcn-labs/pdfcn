@@ -1,5 +1,6 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -19,6 +20,7 @@ export const TakumiPreview = ({
   className,
   height = 640,
 }: TakumiPreviewProps) => {
+  const content = useIntlayer("takumi-preview");
   const [pdfView, setPdfView] = useState<PdfView>("preview");
   const { isReady, lastSuccess, renderError } = useRenderWorker(code);
 
@@ -28,7 +30,7 @@ export const TakumiPreview = ({
       style={{ minHeight: height }}
     >
       <div className="flex h-6 shrink-0 items-center gap-1.5 border-b px-3 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-        <span>PDF Preview</span>
+        <span>{content.pdfPreview}</span>
         {lastSuccess?.outputKind === "pdf" && (
           <div className="ml-auto flex items-center gap-1">
             {(["preview", "document"] as const).map((id) => (
@@ -49,7 +51,7 @@ export const TakumiPreview = ({
                 href={lastSuccess.outputUrl}
                 target="_blank"
                 rel="noreferrer"
-                title="Open PDF in new tab"
+                title={content.openPdfInNewTab}
                 className="rounded-sm px-1 py-0.5 transition-colors hover:text-foreground"
               >
                 ↗

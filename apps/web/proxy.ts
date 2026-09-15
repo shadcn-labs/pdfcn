@@ -1,4 +1,5 @@
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
+import { intlayerProxy, multipleProxies } from "next-intlayer/proxy";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -14,7 +15,7 @@ const { rewrite: rewriteSuffix } = rewritePath(
   `${docsContentRoute}{/*path}/content.md`
 );
 
-const proxy = (request: NextRequest) => {
+const docsMarkdownProxy = (request: NextRequest) => {
   if (
     request.nextUrl.pathname === ROUTES.HOME &&
     (request.method === "GET" || request.method === "HEAD") &&
@@ -42,4 +43,9 @@ const proxy = (request: NextRequest) => {
   return NextResponse.next();
 };
 
-export default proxy;
+export default multipleProxies([intlayerProxy, docsMarkdownProxy]);
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
