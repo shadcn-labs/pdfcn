@@ -1,4 +1,3 @@
-import { StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 /**
@@ -8,7 +7,7 @@ import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 export const createListStyles = (t: PdfcnTheme) => {
   const { borderRadius, spacing, fontWeights, typography } = t.primitives;
 
-  return StyleSheet.create({
+  return {
     checkBox: {
       alignItems: "center",
       backgroundColor: t.colors.background,
@@ -153,5 +152,5 @@ export const createListStyles = (t: PdfcnTheme) => {
       fontSize: typography.xs,
       fontWeight: fontWeights.bold,
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };

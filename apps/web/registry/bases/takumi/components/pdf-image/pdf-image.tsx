@@ -2,13 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-  Image,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 /** HTTP method used when fetching the image from a URL. */
@@ -65,7 +58,7 @@ export interface PdfImageProps {
    * @default true
    */
   noWrap?: boolean;
-  style?: Style;
+  style?: React.CSSProperties;
 }
 
 interface VariantDefaults {
@@ -109,7 +102,7 @@ const warnIfUnsupported = (src: PdfImageSrc): void => {
 
 const createImageStyles = (t: PdfcnTheme) => {
   const { spacing } = t.primitives;
-  return StyleSheet.create({
+  return {
     caption: {
       color: t.colors.mutedForeground,
       fontFamily: t.typography.body.fontFamily,
@@ -117,14 +110,14 @@ const createImageStyles = (t: PdfcnTheme) => {
       marginTop: spacing[1],
       textAlign: "center",
     },
-    container: { flexDirection: "column" },
+    container: { display: "flex", flexDirection: "column" },
     image: {},
     imageBordered: {
       borderColor: t.colors.border,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: 1,
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const PdfImage = ({
@@ -161,19 +154,21 @@ export const PdfImage = ({
   const resolvedFit = fit ?? defaults.fit;
   const resolvedRadius = borderRadius ?? defaults.borderRadius;
 
-  const imageStyles: Style[] = [styles.image];
+  const resolvedSrc = typeof src === "string" ? src : src.uri;
+
+  const imageStyles: React.CSSProperties[] = [styles.image];
   if (resolvedWidth !== undefined) {
-    imageStyles.push({ width: resolvedWidth } as Style);
+    imageStyles.push({ width: resolvedWidth } as React.CSSProperties);
   }
   if (resolvedHeight !== undefined) {
-    imageStyles.push({ height: resolvedHeight } as Style);
+    imageStyles.push({ height: resolvedHeight } as React.CSSProperties);
   }
   imageStyles.push({
     objectFit: resolvedFit,
     objectPosition: position,
-  } as Style);
+  } as React.CSSProperties);
   if (resolvedRadius !== undefined) {
-    imageStyles.push({ borderRadius: resolvedRadius } as Style);
+    imageStyles.push({ borderRadius: resolvedRadius } as React.CSSProperties);
   }
   if (variant === "bordered") {
     imageStyles.push(styles.imageBordered);
@@ -183,16 +178,14 @@ export const PdfImage = ({
   }
 
   const content = (
-    <View style={styles.container}>
-      <Image src={src} style={imageStyles} />
-      {caption ? <PDFText style={styles.caption}>{caption}</PDFText> : null}
-    </View>
+    <div style={styles.container}>
+      <img src={resolvedSrc} style={Object.assign({}, ...imageStyles)} alt="" />
+      {caption ? <span style={styles.caption}>{caption}</span> : null}
+    </div>
   );
 
   return noWrap ? (
-    <View style={[{ breakInside: "avoid" as const }].filter(Boolean)}>
-      {content}
-    </View>
+    <div style={{ breakInside: "avoid" as const }}>{content}</div>
   ) : (
     content
   );

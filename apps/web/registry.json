@@ -15,16 +15,6 @@
           "path": "registry/bases/takumi/components/theme-provider.tsx",
           "type": "registry:lib",
           "target": "components/pdf/theme-provider.tsx"
-        },
-        {
-          "path": "registry/bases/takumi/lib/pdf-primitives.tsx",
-          "type": "registry:lib",
-          "target": "lib/pdf-primitives.tsx"
-        },
-        {
-          "path": "registry/bases/takumi/lib/pdf-svg.tsx",
-          "type": "registry:lib",
-          "target": "lib/pdf-svg.tsx"
         }
       ],
       "name": "takumi/utils",

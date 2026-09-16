@@ -1,7 +1,6 @@
 import { PREVIEW_IMAGE_DATA_URI } from "@/examples/preview-assets";
 import { PdfImage } from "@/registry/bases/takumi/components/pdf-image/pdf-image";
 import { PdfcnThemeProvider } from "@/registry/bases/takumi/components/theme-provider";
-import { Document, Page } from "@/registry/bases/takumi/lib/pdf-primitives";
 
 const DemoBody = () => (
   <PdfImage
@@ -14,13 +13,13 @@ const DemoBody = () => (
 );
 
 const Demo = () => (
-  <Document>
-    <Page size="A4">
+  <div data-pdf-document>
+    <div data-pdf-page style={{ display: "flex", flexDirection: "column" }}>
       <PdfcnThemeProvider>
         <DemoBody />
       </PdfcnThemeProvider>
-    </Page>
-  </Document>
+    </div>
+  </div>
 );
 
 export default Demo;

@@ -12,8 +12,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import { Text as PDFText } from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 
 import { createCompactStyles, formatValue } from "./data-table.styles";
 import type { DataTableProps } from "./data-table.types";
@@ -45,14 +43,19 @@ export const DataTable = <T extends Record<string, unknown>>({
               style={isCompact ? compact.cell : undefined}
             >
               {isCompact ? (
-                <PDFText
-                  style={[
-                    compact.headerText,
-                    col.align ? ({ textAlign: col.align } as Style) : {},
-                  ]}
+                <span
+                  style={{
+                    ...compact.headerText,
+                    ...(col.align
+                      ? {
+                          textAlign:
+                            col.align as React.CSSProperties["textAlign"],
+                        }
+                      : {}),
+                  }}
                 >
                   {col.header}
-                </PDFText>
+                </span>
               ) : (
                 col.header
               )}
@@ -78,16 +81,19 @@ export const DataTable = <T extends Record<string, unknown>>({
                   >
                     {isCompact
                       ? (rendered ?? (
-                          <PDFText
-                            style={[
-                              compact.text,
-                              col.align
-                                ? ({ textAlign: col.align } as Style)
-                                : {},
-                            ]}
+                          <span
+                            style={{
+                              ...compact.text,
+                              ...(col.align
+                                ? {
+                                    textAlign:
+                                      col.align as React.CSSProperties["textAlign"],
+                                  }
+                                : {}),
+                            }}
                           >
                             {text}
-                          </PDFText>
+                          </span>
                         ))
                       : (rendered ?? text)}
                   </TableCell>
@@ -116,16 +122,19 @@ export const DataTable = <T extends Record<string, unknown>>({
                 >
                   {isCompact
                     ? (rendered ?? (
-                        <PDFText
-                          style={[
-                            value ? compact.footerText : compact.text,
-                            col.align
-                              ? ({ textAlign: col.align } as Style)
-                              : {},
-                          ]}
+                        <span
+                          style={{
+                            ...(value ? compact.footerText : compact.text),
+                            ...(col.align
+                              ? {
+                                  textAlign:
+                                    col.align as React.CSSProperties["textAlign"],
+                                }
+                              : {}),
+                          }}
                         >
                           {text}
-                        </PDFText>
+                        </span>
                       ))
                     : (rendered ?? text)}
                 </TableCell>

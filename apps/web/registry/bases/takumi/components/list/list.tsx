@@ -4,11 +4,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 
 import { createListStyles } from "./list.styles";
 import type { ListItem, ListVariant, PdfListProps } from "./list.types";
@@ -16,7 +11,7 @@ import type { ListItem, ListVariant, PdfListProps } from "./list.types";
 type Styles = ReturnType<typeof createListStyles>;
 type GapProp = "xs" | "sm" | "md";
 
-const getGapStyle = (gap: GapProp, styles: Styles): Style => {
+const getGapStyle = (gap: GapProp, styles: Styles): React.CSSProperties => {
   if (gap === "xs") {
     return styles.itemRowGapXs;
   }
@@ -32,8 +27,8 @@ const buildRowStyles = (
   gap: GapProp,
   styles: Styles,
   align: "start" | "center" = "start"
-): Style[] => {
-  const row: Style[] = [
+): React.CSSProperties[] => {
+  const row: React.CSSProperties[] = [
     align === "center" ? styles.itemRowCenter : styles.itemRow,
   ];
   if (index !== total - 1) {
@@ -45,13 +40,13 @@ const buildRowStyles = (
 /** Bullet dot marker — solid filled for level 0, outline ring for nested levels. */
 const dotMarker = (level: number, styles: Styles): React.ReactElement =>
   level === 0 ? (
-    <View style={styles.markerBulletWrap}>
-      <View style={styles.markerBulletDot} />
-    </View>
+    <div style={styles.markerBulletWrap}>
+      <div style={styles.markerBulletDot} />
+    </div>
   ) : (
-    <View style={styles.markerBulletSubWrap}>
-      <View style={styles.markerBulletSubDot} />
-    </View>
+    <div style={styles.markerBulletSubWrap}>
+      <div style={styles.markerBulletSubDot} />
+    </div>
   );
 
 // eslint-disable-next-line no-use-before-define, prefer-const
@@ -80,14 +75,20 @@ const renderNumberedItem = (
   gap: GapProp,
   styles: Styles
 ): React.ReactElement => (
-  <View key={index} style={buildRowStyles(index, total, gap, styles, "center")}>
-    <View style={styles.markerNumberBadge}>
-      <PDFText style={styles.markerNumberText}>{`${index + 1}`}</PDFText>
-    </View>
-    <View style={styles.itemTextWrap}>
-      <PDFText style={styles.itemText}>{item.text}</PDFText>
-    </View>
-  </View>
+  <div
+    key={index}
+    style={Object.assign(
+      {},
+      ...buildRowStyles(index, total, gap, styles, "center")
+    )}
+  >
+    <div style={styles.markerNumberBadge}>
+      <span style={styles.markerNumberText}>{`${index + 1}`}</span>
+    </div>
+    <div style={styles.itemTextWrap}>
+      <span style={styles.itemText}>{item.text}</span>
+    </div>
+  </div>
 );
 
 const renderChecklistItem = (
@@ -99,17 +100,23 @@ const renderChecklistItem = (
 ): React.ReactElement => {
   const isChecked = item.checked ?? true;
   return (
-    <View
+    <div
       key={index}
-      style={buildRowStyles(index, total, gap, styles, "center")}
+      style={Object.assign(
+        {},
+        ...buildRowStyles(index, total, gap, styles, "center")
+      )}
     >
-      <View
-        style={[styles.checkBox, isChecked ? styles.checkBoxChecked : {}]}
-      ></View>
-      <View style={styles.itemTextWrap}>
-        <PDFText style={styles.itemText}>{item.text}</PDFText>
-      </View>
-    </View>
+      <div
+        style={{
+          ...styles.checkBox,
+          ...(isChecked ? styles.checkBoxChecked : {}),
+        }}
+      ></div>
+      <div style={styles.itemTextWrap}>
+        <span style={styles.itemText}>{item.text}</span>
+      </div>
+    </div>
   );
 };
 
@@ -120,14 +127,20 @@ const renderIconItem = (
   gap: GapProp,
   styles: Styles
 ): React.ReactElement => (
-  <View key={index} style={buildRowStyles(index, total, gap, styles, "center")}>
-    <View style={styles.iconBox}>
-      <PDFText style={styles.iconMark}>★</PDFText>
-    </View>
-    <View style={styles.itemTextWrap}>
-      <PDFText style={styles.itemText}>{item.text}</PDFText>
-    </View>
-  </View>
+  <div
+    key={index}
+    style={Object.assign(
+      {},
+      ...buildRowStyles(index, total, gap, styles, "center")
+    )}
+  >
+    <div style={styles.iconBox}>
+      <span style={styles.iconMark}>★</span>
+    </div>
+    <div style={styles.itemTextWrap}>
+      <span style={styles.itemText}>{item.text}</span>
+    </div>
+  </div>
 );
 
 const renderDescriptiveItem = (
@@ -137,15 +150,18 @@ const renderDescriptiveItem = (
   gap: GapProp,
   styles: Styles
 ): React.ReactElement => (
-  <View key={index} style={buildRowStyles(index, total, gap, styles)}>
-    <View style={styles.descriptiveAccent} />
-    <View style={styles.descriptiveContent}>
-      <PDFText style={styles.descriptiveTitle}>{item.text}</PDFText>
+  <div
+    key={index}
+    style={Object.assign({}, ...buildRowStyles(index, total, gap, styles))}
+  >
+    <div style={styles.descriptiveAccent} />
+    <div style={styles.descriptiveContent}>
+      <span style={styles.descriptiveTitle}>{item.text}</span>
       {item.description ? (
-        <PDFText style={styles.descriptiveDesc}>{item.description}</PDFText>
+        <span style={styles.descriptiveDesc}>{item.description}</span>
       ) : null}
-    </View>
-  </View>
+    </div>
+  </div>
 );
 
 const renderItem = (
@@ -190,46 +206,50 @@ const renderItemList = (
   styles: Styles,
   level: number
 ): React.ReactElement => (
-  <View style={level > 0 ? styles.childrenContainer : undefined}>
+  <div style={level > 0 ? styles.childrenContainer : undefined}>
     {items.map((item, index) =>
       renderItem(item, index, items.length, variant, gap, styles, level)
     )}
-  </View>
+  </div>
 );
 
 renderBulletItem = (item, index, total, gap, styles, level) => (
-  <View key={index}>
-    <View style={buildRowStyles(index, total, gap, styles)}>
+  <div key={index}>
+    <div
+      style={Object.assign({}, ...buildRowStyles(index, total, gap, styles))}
+    >
       {dotMarker(level, styles)}
-      <View style={styles.itemTextWrap}>
-        <PDFText style={styles.itemText}>{item.text}</PDFText>
-      </View>
-    </View>
+      <div style={styles.itemTextWrap}>
+        <span style={styles.itemText}>{item.text}</span>
+      </div>
+    </div>
     {item.children && item.children.length > 0
       ? renderItemList(item.children, "bullet", gap, styles, level + 1)
       : null}
-  </View>
+  </div>
 );
 
 renderMultiLevelItem = (item, index, total, gap, styles, level) => (
-  <View key={index}>
-    <View style={buildRowStyles(index, total, gap, styles)}>
+  <div key={index}>
+    <div
+      style={Object.assign({}, ...buildRowStyles(index, total, gap, styles))}
+    >
       {dotMarker(level, styles)}
-      <View style={styles.itemTextWrap}>
-        <PDFText
-          style={[
-            level === 0 ? styles.itemText : styles.itemTextSub,
-            level === 0 ? styles.itemTextBold : {},
-          ]}
+      <div style={styles.itemTextWrap}>
+        <span
+          style={{
+            ...(level === 0 ? styles.itemText : styles.itemTextSub),
+            ...(level === 0 ? styles.itemTextBold : {}),
+          }}
         >
           {item.text}
-        </PDFText>
-      </View>
-    </View>
+        </span>
+      </div>
+    </div>
     {item.children && item.children.length > 0
       ? renderItemList(item.children, "multi-level", gap, styles, level + 1)
       : null}
-  </View>
+  </div>
 );
 
 export const PdfList = ({
@@ -237,23 +257,23 @@ export const PdfList = ({
   variant = "bullet",
   gap = "sm",
   style,
-  noWrap = false,
+  _noWrap = false,
   _level = 0,
 }: PdfListProps) => {
   const theme = usePdfcnTheme();
   const styles = useSafeMemo(() => createListStyles(theme), [theme]);
 
-  const containerStyles: Style[] = [styles.container];
+  const containerStyles: React.CSSProperties[] = [styles.container];
   if (_level > 0) {
     containerStyles.push(styles.childrenContainer);
   }
   const styleArray = style ? [...containerStyles, style] : containerStyles;
 
   return (
-    <View wrap={!noWrap} style={styleArray}>
+    <div style={Object.assign({}, ...styleArray)}>
       {items.map((item, index) =>
         renderItem(item, index, items.length, variant, gap, styles, _level)
       )}
-    </View>
+    </div>
   );
 };

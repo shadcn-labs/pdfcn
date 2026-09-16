@@ -4,12 +4,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
@@ -40,7 +34,7 @@ export interface PdfCardProps extends Omit<PDFComponentProps, "children"> {
 
 const createCardStyles = (t: PdfcnTheme) => {
   const { spacing, borderRadius, fontWeights } = t.primitives;
-  return StyleSheet.create({
+  return {
     body: {
       color: t.colors.foreground,
       fontFamily: t.typography.body.fontFamily,
@@ -51,8 +45,10 @@ const createCardStyles = (t: PdfcnTheme) => {
       backgroundColor: t.colors.background,
       borderColor: t.colors.border,
       borderRadius: borderRadius.sm,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: 1,
+      display: "flex" as const,
+      flexDirection: "column" as const,
       marginBottom: t.spacing.componentGap,
     },
     cardBordered: { borderWidth: 2 },
@@ -62,7 +58,7 @@ const createCardStyles = (t: PdfcnTheme) => {
     paddingSm: { padding: spacing[2] },
     title: {
       borderBottomColor: t.colors.border,
-      borderBottomStyle: "solid",
+      borderBottomStyle: "solid" as const,
       borderBottomWidth: 1,
       color: t.colors.foreground,
       fontFamily: t.typography.heading.fontFamily,
@@ -72,7 +68,7 @@ const createCardStyles = (t: PdfcnTheme) => {
       marginBottom: spacing[2],
       paddingBottom: spacing[1] + 2,
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const PdfCard = ({
@@ -90,7 +86,7 @@ export const PdfCard = ({
     md: styles.paddingMd,
     sm: styles.paddingSm,
   };
-  const cardStyles: Style[] = [styles.card];
+  const cardStyles: React.CSSProperties[] = [styles.card];
   if (variant === "bordered") {
     cardStyles.push(styles.cardBordered);
   }
@@ -98,17 +94,20 @@ export const PdfCard = ({
     cardStyles.push(styles.cardMuted);
   }
   cardStyles.push(paddingMap[padding]);
+  if (!wrap) {
+    cardStyles.push({ breakInside: "avoid" });
+  }
   if (style) {
     cardStyles.push(style);
   }
   return (
-    <View wrap={wrap} style={cardStyles}>
-      {title ? <PDFText style={styles.title}>{title}</PDFText> : null}
+    <div style={Object.assign({}, ...cardStyles) as React.CSSProperties}>
+      {title ? <span style={styles.title}>{title}</span> : null}
       {typeof children === "string" ? (
-        <PDFText style={styles.body}>{children}</PDFText>
+        <span style={styles.body}>{children}</span>
       ) : (
         children
       )}
-    </View>
+    </div>
   );
 };

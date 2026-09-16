@@ -1,4 +1,4 @@
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
+import type { CSSProperties } from "react";
 
 /** List visual style variant. */
 export type ListVariant =
@@ -36,7 +36,7 @@ export interface PdfListProps {
    * @default 'sm'
    */
   gap?: "xs" | "sm" | "md";
-  style?: Style;
+  style?: CSSProperties;
   _level?: number;
   /**
    * @default false

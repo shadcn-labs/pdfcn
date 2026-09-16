@@ -12,12 +12,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { BaseReportData } from "./report.types";
@@ -104,7 +98,7 @@ export const ReportLayout = ({
     line: 0,
     pie: 0,
   };
-  const styles = StyleSheet.create({
+  const styles = {
     col: {
       flex: 1,
     },
@@ -112,7 +106,7 @@ export const ReportLayout = ({
       backgroundColor: theme.colors.background,
       borderColor: theme.colors.border,
       borderRadius: theme.primitives.borderRadius.md,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: 1,
       padding: 12,
     },
@@ -120,7 +114,7 @@ export const ReportLayout = ({
       backgroundColor: theme.colors.background,
       borderColor: theme.colors.border,
       borderRadius: theme.primitives.borderRadius.md,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: 1,
       padding: 8,
       width: "48.6%",
@@ -143,39 +137,39 @@ export const ReportLayout = ({
       marginBottom: 2,
     },
     metricsGrid: {
-      flexDirection: "row",
-      flexWrap: "wrap",
+      flexDirection: "row" as const,
+      flexWrap: "wrap" as const,
       gap: 8,
     },
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       paddingBottom: theme.spacing.page.marginBottom,
       paddingLeft: theme.spacing.page.marginLeft,
       paddingRight: theme.spacing.page.marginRight,
       paddingTop: theme.spacing.page.marginTop,
-      position: "relative",
+      position: "relative" as const,
     },
     pageBreak: {
-      breakAfter: "page",
+      breakAfter: "page" as const,
     },
     toolbar: {
-      alignItems: "center",
-      flexDirection: "row",
-      justifyContent: "space-between",
+      alignItems: "center" as const,
+      flexDirection: "row" as const,
+      justifyContent: "space-between" as const,
       marginBottom: 8,
     },
     twoColumn: {
-      alignItems: "flex-start",
-      flexDirection: "row",
+      alignItems: "flex-start" as const,
+      flexDirection: "row" as const,
       gap: 10,
     },
-  });
+  };
 
   return (
-    <Document title={`${titlePrefix} ${data.period}`}>
-      <Page size="A4" style={[styles.page, styles.pageBreak]}>
+    <div data-pdf-document title={`${titlePrefix} ${data.period}`}>
+      <div data-pdf-page="A4" style={{ ...styles.page, ...styles.pageBreak }}>
         <PageHeader
           variant="two-column"
           title={data.title}
@@ -185,30 +179,28 @@ export const ReportLayout = ({
           marginBottom={14}
         />
 
-        <View style={styles.toolbar}>
+        <div style={styles.toolbar}>
           <Badge label={statusLabel} variant={statusTone} size="sm" />
           <Text variant="xs" color="mutedForeground" noMargin>
             Author: {data.author}
           </Text>
-        </View>
+        </div>
 
         <Section variant="card" padding="md" noWrap>
           <Text variant="sm" transform="uppercase" color="mutedForeground">
             Executive Summary
           </Text>
-          <View style={styles.metricsGrid}>
+          <div style={styles.metricsGrid}>
             {data.summary.map((metric) => (
-              <View
+              <div
                 key={metric.label}
-                style={[
-                  styles.metricCard,
-                  {
-                    borderLeftColor: metric.tone
-                      ? toneColor(theme, metric.tone)
-                      : accent,
-                    borderLeftWidth: 3,
-                  },
-                ]}
+                style={{
+                  ...styles.metricCard,
+                  borderLeftColor: metric.tone
+                    ? toneColor(theme, metric.tone)
+                    : accent,
+                  borderLeftWidth: 3,
+                }}
               >
                 <Text style={styles.metricLabel} noMargin>
                   {metric.label}
@@ -223,9 +215,9 @@ export const ReportLayout = ({
                     variant={metric.tone ?? "info"}
                   />
                 ) : null}
-              </View>
+              </div>
             ))}
-          </View>
+          </div>
         </Section>
 
         <PageFooter
@@ -236,9 +228,9 @@ export const ReportLayout = ({
           sticky
           pagePadding={theme.spacing.page.marginLeft}
         />
-      </Page>
+      </div>
 
-      <Page size="A4" style={[styles.page, styles.pageBreak]}>
+      <div data-pdf-page="A4" style={{ ...styles.page, ...styles.pageBreak }}>
         <Section
           padding="md"
           noWrap
@@ -249,15 +241,13 @@ export const ReportLayout = ({
           <Text variant="sm" transform="uppercase" color="mutedForeground">
             Performance Trend
           </Text>
-          <View
-            style={[
-              styles.graphShell,
-              {
-                marginTop: graphVariant === "horizontal-bar" ? 34 : 0,
-                position: "relative",
-                top: graphOffset[graphVariant],
-              },
-            ]}
+          <div
+            style={{
+              ...styles.graphShell,
+              marginTop: graphVariant === "horizontal-bar" ? 34 : 0,
+              position: "relative" as const,
+              top: graphOffset[graphVariant],
+            }}
           >
             <PdfGraph
               variant={graphVariant}
@@ -277,13 +267,13 @@ export const ReportLayout = ({
               wrapperPadding={12}
               style={{ marginBottom: 0 }}
             />
-          </View>
+          </div>
         </Section>
 
         <Section
           padding="md"
           style={{
-            position: "relative",
+            position: "relative" as const,
             top: deliveryOffset[graphVariant],
           }}
         >
@@ -328,15 +318,15 @@ export const ReportLayout = ({
           sticky
           pagePadding={theme.spacing.page.marginLeft}
         />
-      </Page>
+      </div>
 
-      <Page size="A4" style={styles.page}>
+      <div data-pdf-page="A4" style={styles.page}>
         <Section padding="md" variant="card" noWrap>
           <Text variant="sm" transform="uppercase" color="mutedForeground">
             Highlights & Risks
           </Text>
-          <View style={styles.twoColumn}>
-            <View style={styles.col}>
+          <div style={styles.twoColumn}>
+            <div style={styles.col}>
               <PdfList
                 variant="checklist"
                 items={data.highlights.map((item) => ({
@@ -345,8 +335,8 @@ export const ReportLayout = ({
                 }))}
                 gap="sm"
               />
-            </View>
-            <View style={styles.col}>
+            </div>
+            <div style={styles.col}>
               <KeyValue
                 size="sm"
                 divided
@@ -368,8 +358,8 @@ export const ReportLayout = ({
                   },
                 ]}
               />
-            </View>
-          </View>
+            </div>
+          </div>
         </Section>
 
         <PageFooter
@@ -380,8 +370,8 @@ export const ReportLayout = ({
           sticky
           pagePadding={theme.spacing.page.marginLeft}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

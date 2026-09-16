@@ -2,12 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -41,14 +35,20 @@ export interface DividerProps extends Omit<PDFComponentProps, "children"> {
 
 const createDividerStyles = (t: PdfcnTheme) => {
   const { spacing, fontWeights } = t.primitives;
-  return StyleSheet.create({
-    base: { borderBottomColor: t.colors.border, borderBottomStyle: "solid" },
-    dashed: { borderBottomStyle: "dashed" },
-    dotted: { borderBottomStyle: "dotted" },
-    labelContainer: { alignItems: "center", flexDirection: "row" },
+  return {
+    base: {
+      borderBottomColor: t.colors.border,
+      borderBottomStyle: "solid" as const,
+    },
+    dashed: { borderBottomStyle: "dashed" as const },
+    dotted: { borderBottomStyle: "dotted" as const },
+    labelContainer: {
+      alignItems: "center" as const,
+      flexDirection: "row" as const,
+    },
     labelLine: {
       borderBottomColor: t.colors.border,
-      borderBottomStyle: "solid",
+      borderBottomStyle: "solid" as const,
       flex: 1,
     },
     labelText: {
@@ -58,17 +58,17 @@ const createDividerStyles = (t: PdfcnTheme) => {
       fontWeight: fontWeights.medium,
       letterSpacing: t.primitives.letterSpacing.wider * 10,
       paddingHorizontal: spacing[3],
-      textTransform: "uppercase",
+      textTransform: "uppercase" as const,
     },
     medium: { borderBottomWidth: spacing[1] },
-    solid: { borderBottomStyle: "solid" },
+    solid: { borderBottomStyle: "solid" as const },
     spacingLg: { marginVertical: t.spacing.sectionGap },
     spacingMd: { marginVertical: t.spacing.componentGap },
     spacingNone: { marginVertical: spacing[0] },
     spacingSm: { marginVertical: t.spacing.paragraphGap },
     thick: { borderBottomWidth: spacing[2] },
     thin: { borderBottomWidth: spacing[0.5] },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const Divider = ({
@@ -100,7 +100,7 @@ export const Divider = ({
   };
 
   if (label) {
-    const lineStyle: Style[] = [
+    const lineStyle: React.CSSProperties[] = [
       styles.labelLine,
       thicknessMap[thickness],
       variantMap[variant],
@@ -108,30 +108,34 @@ export const Divider = ({
     if (color) {
       lineStyle.push({ borderBottomColor: resolveColor(color, theme.colors) });
     }
-    const containerStyles: Style[] = [
+    const containerStyles: React.CSSProperties[] = [
       styles.labelContainer,
       spacingMap[spacing],
     ];
     if (width !== undefined) {
-      containerStyles.push({ width } as Style);
+      containerStyles.push({ width } as React.CSSProperties);
     }
     if (style) {
       containerStyles.push(...[style].flat());
     }
-    const labelTextStyle: Style[] = [styles.labelText];
+    const labelTextStyle: React.CSSProperties[] = [styles.labelText];
     if (color) {
       labelTextStyle.push({ color: resolveColor(color, theme.colors) });
     }
     return (
-      <View style={containerStyles}>
-        <View style={lineStyle} />
-        <PDFText style={labelTextStyle}>{label}</PDFText>
-        <View style={lineStyle} />
-      </View>
+      <div style={Object.assign({}, ...containerStyles) as React.CSSProperties}>
+        <div style={Object.assign({}, ...lineStyle) as React.CSSProperties} />
+        <span
+          style={Object.assign({}, ...labelTextStyle) as React.CSSProperties}
+        >
+          {label}
+        </span>
+        <div style={Object.assign({}, ...lineStyle) as React.CSSProperties} />
+      </div>
     );
   }
 
-  const styleArray: Style[] = [
+  const styleArray: React.CSSProperties[] = [
     styles.base,
     spacingMap[spacing],
     variantMap[variant],
@@ -141,10 +145,12 @@ export const Divider = ({
     styleArray.push({ borderBottomColor: resolveColor(color, theme.colors) });
   }
   if (width !== undefined) {
-    styleArray.push({ width } as Style);
+    styleArray.push({ width } as React.CSSProperties);
   }
   if (style) {
     styleArray.push(...[style].flat());
   }
-  return <View style={styleArray} />;
+  return (
+    <div style={Object.assign({}, ...styleArray) as React.CSSProperties} />
+  );
 };

@@ -14,12 +14,6 @@ import {
   PdfcnThemeProvider,
   usePdfcnTheme,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  StyleSheet,
-  Document,
-  Page,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 import type { InvoiceMinimalData } from "./invoice-minimal.types";
@@ -61,7 +55,7 @@ const sampleData: InvoiceMinimalData = {
 const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
   const theme = usePdfcnTheme();
 
-  const styles = StyleSheet.create({
+  const styles = {
     infoLabel: {
       color: theme.colors.primary,
       fontSize: 8,
@@ -71,48 +65,48 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
       textTransform: "uppercase",
     },
     infoRow: {
-      flexDirection: "row",
+      flexDirection: "row" as const,
       marginBottom: theme.spacing.sectionGap,
     },
     invoiceStamp: {
       alignSelf: "flex-start",
       borderColor: theme.colors.primary,
       borderRadius: theme.primitives.borderRadius.sm,
-      borderStyle: "solid",
+      borderStyle: "solid" as const,
       borderWidth: 2,
       paddingHorizontal: 12,
       paddingVertical: 8,
     },
     page: {
       backgroundColor: theme.colors.background,
-      boxSizing: "border-box",
+      boxSizing: "border-box" as const,
       minHeight: 841,
       padding: theme.spacing.page.marginTop,
       paddingBottom: theme.spacing.page.marginBottom,
-      position: "relative",
+      position: "relative" as const,
     },
-  });
+  };
 
   return (
-    <Document title={`Invoice ${data.invoiceNumber}`}>
-      <Page size="A4" style={styles.page}>
+    <div data-pdf-document title={`Invoice ${data.invoiceNumber}`}>
+      <div data-pdf-page="A4" style={styles.page}>
         <Section
           noWrap
           style={{
-            alignItems: "flex-start",
-            flexDirection: "row",
+            alignItems: "flex-start" as const,
+            flexDirection: "row" as const,
             marginBottom: theme.spacing.sectionGap,
           }}
         >
-          <View style={{ flex: 1 }}>
+          <div style={{ flex: 1 }}>
             <PageHeader
               variant="minimal"
               title={data.companyName}
               subtitle={`${data.companyAddress}  ·  ${data.companyEmail}`}
               marginBottom={0}
             />
-          </View>
-          <View style={styles.invoiceStamp}>
+          </div>
+          <div style={styles.invoiceStamp}>
             <Text
               style={{
                 color: theme.colors.primary,
@@ -146,10 +140,10 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
             >
               {data.invoiceDate}
             </Text>
-          </View>
+          </div>
         </Section>
-        <View style={styles.infoRow}>
-          <View style={{ paddingRight: 20, width: "50%" }}>
+        <div style={styles.infoRow}>
+          <div style={{ paddingRight: 20, width: "50%" }}>
             <Text style={styles.infoLabel} noMargin>
               Bill To
             </Text>
@@ -165,8 +159,8 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
             <Text variant="xs" noMargin color="mutedForeground">
               {data.billTo.phone}
             </Text>
-          </View>
-          <View style={{ width: "50%" }}>
+          </div>
+          <div style={{ width: "50%" }}>
             <Text style={styles.infoLabel} noMargin>
               Invoice Details
             </Text>
@@ -178,8 +172,8 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
                 { key: "GST", value: data.paymentTerms.gst },
               ]}
             />
-          </View>
-        </View>
+          </div>
+        </div>
         <Table variant="compact">
           <TableHeader>
             <TableRow header>
@@ -202,8 +196,8 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
           </TableBody>
         </Table>
         <Section noWrap style={{ flexDirection: "row", marginTop: 20 }}>
-          <View style={{ flex: 1 }} />
-          <View style={{ width: 240 }}>
+          <div style={{ flex: 1 }} />
+          <div style={{ width: 240 }}>
             <KeyValue
               size="sm"
               dividerThickness={1}
@@ -226,7 +220,7 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
               ]}
               divided
             />
-          </View>
+          </div>
         </Section>
         <PageFooter
           leftText={data.notes}
@@ -234,8 +228,8 @@ const InvoiceMinimalContent = ({ data }: { data: InvoiceMinimalData }) => {
           sticky
           pagePadding={25}
         />
-      </Page>
-    </Document>
+      </div>
+    </div>
   );
 };
 

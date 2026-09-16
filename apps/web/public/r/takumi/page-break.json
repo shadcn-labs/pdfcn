@@ -13,7 +13,7 @@
   "files": [
     {
       "path": "registry/bases/takumi/components/page-break/page-break.tsx",
-      "content": "import { View } from \"@/registry/bases/takumi/lib/pdf-primitives\";\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\n\nexport interface PageBreakProps extends Omit<PDFComponentProps, \"children\"> {\n  children?: never;\n}\n\nexport const PageBreak = ({ style }: PageBreakProps) => (\n  <View style={[{ breakBefore: \"page\" }, style].filter(Boolean) as never} />\n);\n",
+      "content": "import type { CSSProperties } from \"react\";\n\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\n\nexport interface PageBreakProps extends Omit<PDFComponentProps, \"children\"> {\n  children?: never;\n}\n\nexport const PageBreak = ({ style }: PageBreakProps) => (\n  <div style={Object.assign({}, { breakBefore: \"page\" as const }, ...(style ? [style] : []))} />\n);\n",
       "type": "registry:component",
       "target": "components/pdf/page-break/page-break.tsx"
     }

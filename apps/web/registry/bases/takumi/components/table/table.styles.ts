@@ -1,4 +1,3 @@
-import { StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 /**
@@ -26,7 +25,7 @@ export const createTableStyles = (t: PdfcnTheme) => {
     borderBottomWidth: hairline,
   };
 
-  return StyleSheet.create({
+  return {
     cell: {
       flex: 1,
       justifyContent: "center",
@@ -275,5 +274,5 @@ export const createTableStyles = (t: PdfcnTheme) => {
       borderTopStyle: "solid",
       borderTopWidth: hairline,
     },
-  });
+  } as Record<string, React.CSSProperties>;
 };

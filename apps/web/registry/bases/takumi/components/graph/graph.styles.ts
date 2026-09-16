@@ -1,8 +1,7 @@
-import { StyleSheet } from "@/registry/bases/takumi/lib/pdf-primitives";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
 
 export const createGraphStyles = (t: PdfcnTheme) =>
-  StyleSheet.create({
+  ({
     chartWithRightLegend: {
       alignItems: "flex-start",
       display: "flex",
@@ -52,4 +51,4 @@ export const createGraphStyles = (t: PdfcnTheme) =>
       fontWeight: t.primitives.fontWeights.semibold,
       marginBottom: 2,
     },
-  });
+  }) as const;

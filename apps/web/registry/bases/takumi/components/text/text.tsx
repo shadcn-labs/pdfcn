@@ -2,11 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -58,7 +53,7 @@ const createTextStyles = (t: PdfcnTheme) => {
     marginBottom: t.spacing.paragraphGap,
     marginTop: 0,
   };
-  return StyleSheet.create({
+  return {
     "2xl": { ...base, fontSize: t.primitives.typography["2xl"] },
     "3xl": { ...base, fontSize: t.primitives.typography["3xl"] },
     base: { ...base, fontSize: t.primitives.typography.base },
@@ -82,7 +77,7 @@ const createTextStyles = (t: PdfcnTheme) => {
     weightSemibold: { fontWeight: fontWeights.semibold },
     xl: { ...base, fontSize: t.primitives.typography.xl },
     xs: { ...base, fontSize: t.primitives.typography.xs },
-  });
+  } as Record<string, React.CSSProperties>;
 };
 
 export const Text = ({
@@ -115,7 +110,9 @@ export const Text = ({
     lowercase: styles.lowercase,
     uppercase: styles.uppercase,
   };
-  const styleArray: Style[] = [variant ? styles[variant] : styles.text];
+  const styleArray: React.CSSProperties[] = [
+    variant ? styles[variant] : styles.text,
+  ];
   if (weight && weight in weightMap) {
     styleArray.push(weightMap[weight]);
   }
@@ -131,7 +128,7 @@ export const Text = ({
   if (noMargin) {
     styleArray.push(styles.noMargin);
   }
-  const semantic = {} as Style;
+  const semantic = {} as React.CSSProperties;
   if (align) {
     semantic.textAlign = align;
   }
@@ -144,5 +141,5 @@ export const Text = ({
   if (style) {
     styleArray.push(...[style].flat());
   }
-  return <PDFText style={styleArray}>{children}</PDFText>;
+  return <span style={Object.assign({}, ...styleArray)}>{children}</span>;
 };

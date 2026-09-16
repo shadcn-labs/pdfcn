@@ -1,6 +1,6 @@
 import type { RenderOptions } from "takumi-pdf";
 
-import { pointToCssPixel } from "@/registry/bases/takumi/lib/pdf-primitives";
+const pointToCssPixel = (value: number) => value * (96 / 72);
 
 const DEFAULT_MARGIN = 40;
 

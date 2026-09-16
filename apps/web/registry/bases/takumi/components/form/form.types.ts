@@ -1,4 +1,4 @@
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
+import type { CSSProperties } from "react";
 
 /** Visual style variant for the fillable form. */
 export type PdfFormVariant = "underline" | "box" | "outlined" | "ghost";
@@ -57,5 +57,5 @@ export interface PdfFormProps {
    */
   labelPosition?: FormLabelPosition;
   noWrap?: boolean;
-  style?: Style;
+  style?: CSSProperties;
 }

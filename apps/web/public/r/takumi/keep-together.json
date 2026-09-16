@@ -13,7 +13,7 @@
   "files": [
     {
       "path": "registry/bases/takumi/components/keep-together/keep-together.tsx",
-      "content": "import type { ReactNode } from \"react\";\n\nimport { View } from \"@/registry/bases/takumi/lib/pdf-primitives\";\nimport type { Style } from \"@/registry/types/pdf-components\";\n\nexport interface KeepTogetherProps {\n  children?: ReactNode;\n  minPresenceAhead?: number;\n  style?: Style;\n}\n\nexport const KeepTogether = ({ children, style }: KeepTogetherProps) => (\n  <View style={[{ breakInside: \"avoid\" }, style].filter(Boolean) as never}>\n    {children}\n  </View>\n);\n",
+      "content": "import type { CSSProperties, ReactNode } from \"react\";\n\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\n\nexport interface KeepTogetherProps {\n  children?: ReactNode;\n  minPresenceAhead?: number;\n  style?: PDFComponentProps[\"style\"];\n}\n\nexport const KeepTogether = ({ children, style }: KeepTogetherProps) => (\n  <div style={Object.assign({}, { breakInside: \"avoid\" }, ...(style ? [style] : []))}>\n    {children}\n  </div>\n);\n",
       "type": "registry:component",
       "target": "components/pdf/keep-together/keep-together.tsx"
     }

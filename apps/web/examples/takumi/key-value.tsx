@@ -1,6 +1,5 @@
 import { KeyValue } from "@/registry/bases/takumi/components/key-value/key-value";
 import { PdfcnThemeProvider } from "@/registry/bases/takumi/components/theme-provider";
-import { Document, Page } from "@/registry/bases/takumi/lib/pdf-primitives";
 
 const DemoBody = () => (
   <KeyValue
@@ -17,13 +16,13 @@ const DemoBody = () => (
 );
 
 const Demo = () => (
-  <Document>
-    <Page size="A4">
+  <div data-pdf-document>
+    <div data-pdf-page style={{ display: "flex", flexDirection: "column" }}>
       <PdfcnThemeProvider>
         <DemoBody />
       </PdfcnThemeProvider>
-    </Page>
-  </Document>
+    </div>
+  </div>
 );
 
 export default Demo;

@@ -2,12 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-  StyleSheet,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 import { resolveColor } from "@/registry/bases/takumi/lib/resolve-color";
 import type { PDFComponentProps } from "@/registry/types/pdf-components";
 import type { PdfcnTheme } from "@/registry/types/pdf-themes";
@@ -65,64 +59,42 @@ const createBadgeStyles = (t: PdfcnTheme) => {
     borderStyle: "solid" as const,
     borderWidth: spacing[0.5],
   });
-  const sheet = StyleSheet.create({
+  return {
     containerBase: {
       alignItems: "center" as const,
       alignSelf: "flex-start" as const,
       borderRadius: borderRadius.full,
+      display: "flex" as const,
       flexDirection: "row" as const,
     },
-    sizeLg: { paddingHorizontal: spacing[4], paddingVertical: spacing[2] },
-    sizeMd: { paddingHorizontal: spacing[3], paddingVertical: spacing[1] },
-    sizeSm: { paddingHorizontal: spacing[2], paddingVertical: spacing[0.5] },
-    textDefault: { ...textBase, color: c.mutedForeground },
-    textDestructive: { ...textBase, color: c.destructive },
-    textInfo: { ...textBase, color: c.info },
-    textLg: { fontSize: t.primitives.typography.sm },
-    textMd: { fontSize: t.primitives.typography.xs },
-    textOutline: { ...textBase, color: c.foreground },
-    textPrimary: { ...textBase, color: c.primaryForeground },
-    textSm: { fontSize: t.primitives.typography.xs - 1 },
-    textSuccess: { ...textBase, color: c.success },
-    textWarning: { ...textBase, color: c.warning },
-    variantDefault: variantBox(c.border),
-    variantDestructive: variantBox(c.destructive),
-    variantInfo: variantBox(c.info),
-    variantOutline: variantBox(c.border, c.background),
-    variantPrimary: variantBox(c.primary, c.primary),
-    variantSuccess: variantBox(c.success),
-    variantWarning: variantBox(c.warning),
-  });
-  return {
-    ...sheet,
     containerSizeMap: {
-      lg: sheet.sizeLg,
-      md: sheet.sizeMd,
-      sm: sheet.sizeSm,
-    } as Record<BadgeSize, Style>,
+      lg: { paddingHorizontal: spacing[4], paddingVertical: spacing[2] },
+      md: { paddingHorizontal: spacing[3], paddingVertical: spacing[1] },
+      sm: { paddingHorizontal: spacing[2], paddingVertical: spacing[0.5] },
+    } as Record<BadgeSize, object>,
     containerVariantMap: {
-      default: sheet.variantDefault,
-      destructive: sheet.variantDestructive,
-      info: sheet.variantInfo,
-      outline: sheet.variantOutline,
-      primary: sheet.variantPrimary,
-      success: sheet.variantSuccess,
-      warning: sheet.variantWarning,
-    } as Record<BadgeVariant, Style>,
+      default: variantBox(c.border),
+      destructive: variantBox(c.destructive),
+      info: variantBox(c.info),
+      outline: variantBox(c.border, c.background),
+      primary: variantBox(c.primary, c.primary),
+      success: variantBox(c.success),
+      warning: variantBox(c.warning),
+    } as Record<BadgeVariant, object>,
     textSizeMap: {
-      lg: sheet.textLg,
-      md: sheet.textMd,
-      sm: sheet.textSm,
-    } as Record<BadgeSize, Style>,
+      lg: { fontSize: t.primitives.typography.sm },
+      md: { fontSize: t.primitives.typography.xs },
+      sm: { fontSize: t.primitives.typography.xs - 1 },
+    } as Record<BadgeSize, object>,
     textVariantMap: {
-      default: sheet.textDefault,
-      destructive: sheet.textDestructive,
-      info: sheet.textInfo,
-      outline: sheet.textOutline,
-      primary: sheet.textPrimary,
-      success: sheet.textSuccess,
-      warning: sheet.textWarning,
-    } as Record<BadgeVariant, Style>,
+      default: { ...textBase, color: c.mutedForeground },
+      destructive: { ...textBase, color: c.destructive },
+      info: { ...textBase, color: c.info },
+      outline: { ...textBase, color: c.foreground },
+      primary: { ...textBase, color: c.primaryForeground },
+      success: { ...textBase, color: c.success },
+      warning: { ...textBase, color: c.warning },
+    } as Record<BadgeVariant, object>,
   };
 };
 
@@ -137,9 +109,8 @@ export const Badge = ({
 }: BadgeProps) => {
   const theme = usePdfcnTheme();
   const styles = useSafeMemo(() => createBadgeStyles(theme), [theme]);
-  // `label` takes precedence; fall back to string children for React idiom compatibility
   const text = label ?? children ?? "";
-  const containerStyles: Style[] = [
+  const containerStyles = [
     styles.containerBase,
     styles.containerVariantMap[variant],
     styles.containerSizeMap[size],
@@ -148,14 +119,14 @@ export const Badge = ({
       : []),
     ...(style ? [style].flat() : []),
   ];
-  const textStyles: Style[] = [
+  const textStyles = [
     styles.textVariantMap[variant],
     styles.textSizeMap[size],
     ...(color ? [{ color: resolveColor(color, theme.colors) }] : []),
   ];
   return (
-    <View style={containerStyles}>
-      <PDFText style={textStyles}>{text}</PDFText>
-    </View>
+    <div style={Object.assign({}, ...containerStyles)}>
+      <span style={Object.assign({}, ...textStyles)}>{text}</span>
+    </div>
   );
 };

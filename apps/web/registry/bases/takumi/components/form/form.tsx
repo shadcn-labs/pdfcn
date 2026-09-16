@@ -2,11 +2,6 @@ import {
   usePdfcnTheme,
   useSafeMemo,
 } from "@/registry/bases/takumi/components/theme-provider";
-import {
-  View,
-  Text as PDFText,
-} from "@/registry/bases/takumi/lib/pdf-primitives";
-import type { Style } from "@/registry/bases/takumi/lib/pdf-primitives";
 
 import { createFormStyles } from "./form.styles";
 import type {
@@ -22,17 +17,18 @@ const renderFieldAbove = (
   styles: ReturnType<typeof createFormStyles>
 ) => {
   const areaHeight = field.height ?? 18;
-  const areaStyle: Style[] = [styles.fieldArea, { minHeight: areaHeight }];
+  const areaStyle: React.CSSProperties = {
+    ...styles.fieldArea,
+    minHeight: areaHeight,
+  };
 
   return (
-    <View key={`${field.label}-${idx}`} style={styles.fieldAbove}>
-      <PDFText style={styles.labelAbove}>{field.label}</PDFText>
-      <View style={areaStyle}>
-        {field.hint ? (
-          <PDFText style={styles.hint}>{field.hint}</PDFText>
-        ) : null}
-      </View>
-    </View>
+    <div key={`${field.label}-${idx}`} style={styles.fieldAbove}>
+      <span style={styles.labelAbove}>{field.label}</span>
+      <div style={areaStyle as React.CSSProperties}>
+        {field.hint ? <span style={styles.hint}>{field.hint}</span> : null}
+      </div>
+    </div>
   );
 };
 
@@ -42,21 +38,19 @@ const renderFieldLeft = (
   styles: ReturnType<typeof createFormStyles>
 ) => {
   const areaHeight = field.height ?? 18;
-  const areaStyle: Style[] = [
-    styles.fieldArea,
-    styles.fieldLeftArea,
-    { minHeight: areaHeight },
-  ];
+  const areaStyle: React.CSSProperties = {
+    ...styles.fieldArea,
+    ...styles.fieldLeftArea,
+    minHeight: areaHeight,
+  };
 
   return (
-    <View key={`${field.label}-${idx}`} style={styles.fieldLeft}>
-      <PDFText style={styles.labelLeft}>{field.label}</PDFText>
-      <View style={areaStyle}>
-        {field.hint ? (
-          <PDFText style={styles.hint}>{field.hint}</PDFText>
-        ) : null}
-      </View>
-    </View>
+    <div key={`${field.label}-${idx}`} style={styles.fieldLeft}>
+      <span style={styles.labelLeft}>{field.label}</span>
+      <div style={areaStyle as React.CSSProperties}>
+        {field.hint ? <span style={styles.hint}>{field.hint}</span> : null}
+      </div>
+    </div>
   );
 };
 
@@ -83,12 +77,12 @@ const renderGroup = (
 
   if (cols === 1) {
     return (
-      <View key={`group-${gi}`} style={styles.group}>
+      <div key={`group-${gi}`} style={styles.group}>
         {group.title ? (
-          <PDFText style={styles.groupTitle}>{group.title}</PDFText>
+          <span style={styles.groupTitle}>{group.title}</span>
         ) : null}
         {group.fields.map(renderField)}
-      </View>
+      </div>
     );
   }
 
@@ -102,21 +96,18 @@ const renderGroup = (
   }
 
   return (
-    <View key={`group-${gi}`} style={styles.group}>
+    <div key={`group-${gi}`} style={styles.group}>
       {group.title ? (
-        <PDFText style={styles.groupTitle}>{group.title}</PDFText>
+        <span style={styles.groupTitle}>{group.title}</span>
       ) : null}
-      <View style={styles.columnsRow}>
+      <div style={styles.columnsRow as React.CSSProperties}>
         {chunks.map((chunk, ci) => (
-          <View
-            key={`col-${gi}-${chunk[0]?.label ?? ci}`}
-            style={styles.column}
-          >
+          <div key={`col-${gi}-${chunk[0]?.label ?? ci}`} style={styles.column}>
             {chunk.map(renderField)}
-          </View>
+          </div>
         ))}
-      </View>
-    </View>
+      </div>
+    </div>
   );
 };
 
@@ -135,26 +126,24 @@ export const PdfForm = ({
     [theme, variant]
   );
 
-  const rootStyles: Style[] = [styles.root];
+  const rootStyles: React.CSSProperties[] = [styles.root];
   if (style) {
     rootStyles.push(style);
   }
 
   const inner = (
-    <View style={rootStyles}>
-      {title ? <PDFText style={styles.formTitle}>{title}</PDFText> : null}
-      {subtitle ? (
-        <PDFText style={styles.formSubtitle}>{subtitle}</PDFText>
+    <div style={Object.assign({}, ...rootStyles)}>
+      {title ? <span style={styles.formTitle}>{title}</span> : null}
+      {subtitle ? <span style={styles.formSubtitle}>{subtitle}</span> : null}
+      {title || subtitle ? (
+        <div style={styles.formDivider as React.CSSProperties} />
       ) : null}
-      {title || subtitle ? <View style={styles.formDivider} /> : null}
       {groups.map((group, gi) => renderGroup(group, gi, styles, labelPosition))}
-    </View>
+    </div>
   );
 
   return noWrap ? (
-    <View style={[{ breakInside: "avoid" as const }].filter(Boolean)}>
-      {inner}
-    </View>
+    <div style={{ breakInside: "avoid" as const }}>{inner}</div>
   ) : (
     inner
   );
