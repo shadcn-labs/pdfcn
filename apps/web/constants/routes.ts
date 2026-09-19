@@ -23,7 +23,7 @@ export const ROUTES = {
   ROBOTS: "/robots.txt",
   RSS: "/rss.xml",
   SITEMAP: "/sitemap.xml",
-  SPONSOR: "/sponsor",
+  SPONSOR: "/sponsors",
   THEME_BUILDER: "/theme-builder",
   THEME_BUILDER_FORME: "/theme-builder/forme",
   THEME_BUILDER_TAKUMI: "/theme-builder/takumi",

@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "!index",
+    "alert",
+    "badge",
+    "card",
+    "data-table",
+    "divider",
+    "form",
+    "graph",
+    "heading",
+    "keep-together",
+    "key-value",
+    "link",
+    "list",
+    "page-break",
+    "page-footer",
+    "page-header",
+    "page-number",
+    "pdf-image",
+    "qrcode",
+    "section",
+    "signature",
+    "stack",
+    "table",
+    "text",
+    "watermark"
+  ],
+  "title": "Takumi"
+}

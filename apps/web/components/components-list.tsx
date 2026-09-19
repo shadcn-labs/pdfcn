@@ -1,3 +1,5 @@
+import type { Root } from "fumadocs-core/page-tree";
+import { getLocale } from "next-intlayer/server";
 import Link from "next/link";
 
 import { ROUTES } from "@/constants/routes";
@@ -7,8 +9,8 @@ import { source } from "@/lib/source";
 import { cn } from "@/lib/utils";
 import { DEFAULT_BASE } from "@/registry/bases";
 
-const getFolder = (name: string): PageTreeFolder | undefined => {
-  for (const node of source.pageTree.children) {
+const getFolder = (tree: Root, name: string): PageTreeFolder | undefined => {
+  for (const node of tree.children) {
     if (node.type === "folder" && node.name === name) {
       return node;
     }
@@ -41,7 +43,7 @@ const ComponentGrid = ({
   </div>
 );
 
-export const ComponentsList = ({
+export const ComponentsList = async ({
   folderName = "Components",
   base = DEFAULT_BASE,
   className,
@@ -50,7 +52,8 @@ export const ComponentsList = ({
   base?: string;
   className?: string;
 }) => {
-  const folder = getFolder(folderName);
+  const locale = await getLocale();
+  const folder = getFolder(source.getPageTree(locale), folderName);
   if (!folder) {
     return null;
   }

@@ -11,6 +11,7 @@ import {
   SlidersHorizontal,
   Undo2,
 } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import Link from "next/link";
 import {
   useCallback,
@@ -44,6 +45,7 @@ const BASE_SWITCHER = [
 ];
 
 export const ThemeBuilder = ({ base }: { base: BaseName }) => {
+  const content = useIntlayer("theme-builder");
   const { actions, basePreset, canRedo, canUndo, syncToUrl, theme } =
     useThemeBuilder();
   const isMounted = useMounted();
@@ -118,9 +120,9 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
     syncToUrl({ basePreset, theme });
     try {
       await navigator.clipboard.writeText(window.location.href);
-      toast.success("Share link copied");
+      toast.success(content.shareLinkCopied);
     } catch {
-      toast.error("Could not copy the share link");
+      toast.error(content.couldNotCopyShareLink);
     }
   };
 
@@ -171,7 +173,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                 <Undo2 />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Undo (⌘Z)</TooltipContent>
+            <TooltipContent>{content.undo}</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -185,7 +187,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                 <Redo2 />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Redo (⌘⇧Z)</TooltipContent>
+            <TooltipContent>{content.redo}</TooltipContent>
           </Tooltip>
 
           <Separator orientation="vertical" />
@@ -199,10 +201,10 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                 variant="outline"
               >
                 <RotateCcw />
-                <span className="hidden sm:inline">Reset</span>
+                <span className="hidden sm:inline">{content.reset}</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Reset to preset defaults</TooltipContent>
+            <TooltipContent>{content.resetTooltip}</TooltipContent>
           </Tooltip>
 
           <Separator orientation="vertical" />
@@ -217,7 +219,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    <span className="hidden sm:inline">Open</span>
+                    <span className="hidden sm:inline">{content.open}</span>
                     <ExternalLink />
                   </a>
                 </Button>
@@ -233,7 +235,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                 </Button>
               )}
             </TooltipTrigger>
-            <TooltipContent>Open PDF in new tab</TooltipContent>
+            <TooltipContent>{content.openPdfTooltip}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -245,10 +247,10 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                 variant="outline"
               >
                 <Share2 />
-                <span className="hidden sm:inline">Share</span>
+                <span className="hidden sm:inline">{content.share}</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Share theme</TooltipContent>
+            <TooltipContent>{content.shareTooltip}</TooltipContent>
           </Tooltip>
 
           <Separator orientation="vertical" />
@@ -263,7 +265,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                     href={pdfUrl}
                   >
                     <Download />
-                    <span className="hidden md:inline">Download</span>
+                    <span className="hidden md:inline">{content.download}</span>
                   </a>
                 </Button>
               ) : (
@@ -274,11 +276,11 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                   variant="outline"
                 >
                   <Download />
-                  <span className="hidden md:inline">Download</span>
+                  <span className="hidden md:inline">{content.download}</span>
                 </Button>
               )}
             </TooltipTrigger>
-            <TooltipContent>Download PDF</TooltipContent>
+            <TooltipContent>{content.downloadPdfTooltip}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -290,10 +292,10 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
                 size="sm"
               >
                 <Code2 />
-                Code
+                {content.code}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Get theme code</TooltipContent>
+            <TooltipContent>{content.getCodeTooltip}</TooltipContent>
           </Tooltip>
         </div>
       </div>
@@ -324,7 +326,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
             onClick={() => setCustomizerOpen(true)}
           >
             <SlidersHorizontal />
-            Customize
+            {content.customize}
           </Button>
 
           {sidebarOpen ? null : (
@@ -333,7 +335,7 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
               onClick={() => setSidebarOpen(true)}
             >
               <SlidersHorizontal />
-              Customize
+              {content.customize}
             </Button>
           )}
 
@@ -348,9 +350,11 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
           >
             <div className="flex items-start justify-between border-b px-6 py-3">
               <div className="min-w-0">
-                <h2 className="text-sm font-semibold">Customize theme</h2>
+                <h2 className="text-sm font-semibold">
+                  {content.customizeTheme}
+                </h2>
                 <p className="text-xs text-muted-foreground">
-                  Changes render in the preview automatically.
+                  {content.changesRenderAutomatically}
                 </p>
               </div>
               <Button
@@ -385,9 +389,9 @@ export const ThemeBuilder = ({ base }: { base: BaseName }) => {
           <div className="flex h-full w-[390px] min-h-0 flex-col">
             <div className="flex items-start justify-between border-b px-6 py-2.5">
               <div className="min-w-0">
-                <h2 className="text-sm font-semibold">Customize</h2>
+                <h2 className="text-sm font-semibold">{content.customize}</h2>
                 <p className="text-xs text-muted-foreground">
-                  Changes render in the preview automatically.
+                  {content.changesRenderAutomatically}
                 </p>
               </div>
               <Button

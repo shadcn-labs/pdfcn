@@ -1,5 +1,6 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
@@ -10,9 +11,11 @@ import type { RenderError, RenderSuccess } from "./use-render-worker";
 const PdfPreview = ({
   url,
   dimmed,
+  content,
 }: {
   url: string | undefined;
   dimmed: boolean;
+  content: ReturnType<typeof useIntlayer>;
 }) => {
   if (!url) {
     return null;
@@ -21,12 +24,12 @@ const PdfPreview = ({
     <object
       data={url}
       type="application/pdf"
-      aria-label="Rendered PDF"
+      aria-label={content.renderedPdf}
       className={cn("size-full", dimmed && "opacity-40")}
     >
       <div className="flex h-full items-center justify-center p-6 text-center font-mono text-xs text-muted-foreground">
         <a href={url} target="_blank" rel="noreferrer" className="underline">
-          Open PDF in new tab
+          {content.openPdfInNewTab}
         </a>
       </div>
     </object>
@@ -40,25 +43,37 @@ const Field = ({ label, children }: { label: string; children: ReactNode }) => (
   </div>
 );
 
-const DocumentPanel = ({ inspection }: { inspection: PdfInspection }) => (
+const DocumentPanel = ({
+  inspection,
+  content,
+}: {
+  inspection: PdfInspection;
+  content: ReturnType<typeof useIntlayer>;
+}) => (
   <div className="h-full overflow-auto bg-muted/20 px-4 py-3 font-mono text-xs">
-    <Field label="Standards">
+    <Field label={content.standards}>
       {inspection.standards.length > 0 ? (
         <span className="text-primary">{inspection.standards.join(" · ")}</span>
       ) : (
-        <span className="text-muted-foreground">plain PDF</span>
+        <span className="text-muted-foreground">{content.plainPdf}</span>
       )}
     </Field>
-    <Field label="Tagged">{inspection.tagged ? "yes" : "no"}</Field>
-    <Field label="Pages">{inspection.pages}</Field>
-    {inspection.title && <Field label="Title">{inspection.title}</Field>}
-    {inspection.authors && (
-      <Field label="Authors">{inspection.authors.join(", ")}</Field>
+    <Field label={content.tagged}>
+      {inspection.tagged ? content.yes : content.no}
+    </Field>
+    <Field label={content.pages}>{inspection.pages}</Field>
+    {inspection.title && (
+      <Field label={content.title}>{inspection.title}</Field>
     )}
-    {inspection.created && <Field label="Created">{inspection.created}</Field>}
-    <Field label="Bookmarks">
+    {inspection.authors && (
+      <Field label={content.authors}>{inspection.authors.join(", ")}</Field>
+    )}
+    {inspection.created && (
+      <Field label={content.created}>{inspection.created}</Field>
+    )}
+    <Field label={content.bookmarks}>
       {inspection.bookmarks.length === 0 ? (
-        <span className="text-muted-foreground">none</span>
+        <span className="text-muted-foreground">{content.none}</span>
       ) : (
         inspection.bookmarks.map((bookmark, index) => (
           <div
@@ -71,9 +86,9 @@ const DocumentPanel = ({ inspection }: { inspection: PdfInspection }) => (
         ))
       )}
     </Field>
-    <Field label="Attachments">
+    <Field label={content.attachments}>
       {inspection.attachments.length === 0 ? (
-        <span className="text-muted-foreground">none</span>
+        <span className="text-muted-foreground">{content.none}</span>
       ) : (
         inspection.attachments.map((attachment) => (
           <div key={attachment.name} className="truncate">
@@ -104,11 +119,13 @@ export const OutputPanel = ({
   isReady: boolean;
   pdfView: PdfView;
 }) => {
+  const content = useIntlayer("output-panel");
+
   if (!lastSuccess && !error) {
     return (
       <div className="flex h-full items-center justify-center gap-2 bg-muted/20 font-mono text-xs text-muted-foreground">
         <div className="size-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-        {isReady ? "rendering…" : "loading wasm…"}
+        {isReady ? content.rendering : content.loadingWasm}
       </div>
     );
   }
@@ -118,18 +135,24 @@ export const OutputPanel = ({
     pdfView === "document" &&
     lastSuccess.inspection
   ) {
-    return <DocumentPanel inspection={lastSuccess.inspection} />;
+    return (
+      <DocumentPanel inspection={lastSuccess.inspection} content={content} />
+    );
   }
 
   const output =
     lastSuccess &&
     (lastSuccess.outputKind === "pdf" ? (
-      <PdfPreview url={lastSuccess.outputUrl} dimmed={Boolean(error)} />
+      <PdfPreview
+        url={lastSuccess.outputUrl}
+        dimmed={Boolean(error)}
+        content={content}
+      />
     ) : (
       // eslint-disable-next-line eslint(nextjs/no-img-element) -- Dynamic render output, not static content
       <img
         src={lastSuccess.outputUrl}
-        alt="Rendered output"
+        alt={content.renderedOutput}
         className={cn(
           "border max-h-full max-w-full object-contain",
           error && "opacity-40"

@@ -1,6 +1,7 @@
 "use client";
 
 import { MenuIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -71,6 +72,7 @@ export const DocsTableOfContents = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const content = useIntlayer("docs-toc");
   const handleClose = useCallback(() => setOpen(false), []);
   const itemIds = useMemo(
     () => toc.map((item) => item.url.replace("#", "")),
@@ -92,7 +94,7 @@ export const DocsTableOfContents = ({
             size="sm"
             className={cn("h-8 md:h-7", className)}
           >
-            <MenuIcon /> On This Page
+            <MenuIcon /> {content.onThisPage}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -119,7 +121,7 @@ export const DocsTableOfContents = ({
   return (
     <div className={cn("flex flex-col gap-2 p-4 pt-0 text-sm", className)}>
       <p className="text-muted-foreground bg-background sticky top-0 h-6 text-xs">
-        On This Page
+        {content.onThisPage}
       </p>
       {toc.map((item) => (
         <a

@@ -1,6 +1,7 @@
 "use client";
 
 import { Vibrate, VibrateOff } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 
 import { useFeedback } from "@/hooks/use-feedback";
 import { useHapticsEnabled } from "@/hooks/use-haptic-toggle";
@@ -13,6 +14,7 @@ const HAPTICS_OPTIONS = [
 ] as const;
 
 export const HapticsSwitcher = () => {
+  const content = useIntlayer("haptics-switcher");
   const [value, setValue] = useHapticsEnabled();
   const isMounted = useMounted();
   const feedbackOn = useFeedback({ sound: "toggleOn" });
@@ -26,7 +28,7 @@ export const HapticsSwitcher = () => {
     <div
       className="inline-flex items-center rounded-full bg-background inset-ring-1 inset-ring-border"
       role="radiogroup"
-      aria-label="Haptics"
+      aria-label={content.haptics}
     >
       {HAPTICS_OPTIONS.map((option) => {
         const Icon = option.icon;
@@ -42,7 +44,7 @@ export const HapticsSwitcher = () => {
             )}
             role="radio"
             aria-checked={isActive}
-            aria-label={`Switch haptics ${option.label}`}
+            aria-label={content.switchHaptics({ label: option.label })}
             onClick={() => {
               if (option.value === value) {
                 return;

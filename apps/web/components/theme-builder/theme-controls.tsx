@@ -1,6 +1,7 @@
 "use client";
 
 import { LayoutTemplate, Palette, Shuffle, Type } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { Fragment } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -32,32 +33,50 @@ import { THEMES } from "@/registry/themes";
 
 import { ThemePicker } from "./theme-picker";
 
-const COLOR_FIELDS = [
-  { description: "Primary text", key: "foreground", label: "Foreground" },
-  { description: "Page background", key: "background", label: "Background" },
-  { description: "Brand emphasis", key: "primary", label: "Primary" },
-  {
-    description: "Text on primary",
-    key: "primaryForeground",
-    label: "Primary foreground",
-  },
-  { description: "Secondary fill", key: "muted", label: "Muted" },
-  {
-    description: "Captions, footnotes",
-    key: "mutedForeground",
-    label: "Muted foreground",
-  },
-  { description: "Links, highlights", key: "accent", label: "Accent" },
-  { description: "Dividers, table lines", key: "border", label: "Border" },
-  { description: "Errors", key: "destructive", label: "Destructive" },
-  { description: "Success states", key: "success", label: "Success" },
-  { description: "Warning states", key: "warning", label: "Warning" },
-  { description: "Info states", key: "info", label: "Info" },
-] as const satisfies readonly {
-  key: ColorTokenName;
-  label: string;
-  description: string;
-}[];
+const COLOR_LABELS: Record<ColorTokenName, string> = {
+  accent: "Accent",
+  background: "Background",
+  border: "Border",
+  destructive: "Destructive",
+  foreground: "Foreground",
+  info: "Info",
+  muted: "Muted",
+  mutedForeground: "Muted foreground",
+  primary: "Primary",
+  primaryForeground: "Primary foreground",
+  success: "Success",
+  warning: "Warning",
+};
+
+const COLOR_DESCRIPTIONS: Record<ColorTokenName, string> = {
+  accent: "Links, highlights",
+  background: "Page background",
+  border: "Dividers, table lines",
+  destructive: "Errors",
+  foreground: "Primary text",
+  info: "Info states",
+  muted: "Secondary fill",
+  mutedForeground: "Captions, footnotes",
+  primary: "Brand emphasis",
+  primaryForeground: "Text on primary",
+  success: "Success states",
+  warning: "Warning states",
+};
+
+const COLOR_FIELD_KEYS = [
+  "foreground",
+  "background",
+  "primary",
+  "primaryForeground",
+  "muted",
+  "mutedForeground",
+  "accent",
+  "border",
+  "destructive",
+  "success",
+  "warning",
+  "info",
+] as const satisfies readonly ColorTokenName[];
 
 const FONT_OPTIONS = [
   "Helvetica",
@@ -211,339 +230,351 @@ export const ThemeControls = ({
   className,
   idPrefix,
   theme,
-}: ThemeControlsProps) => (
-  <div className={cn("space-y-4 py-4", className)}>
-    <div className="space-y-3 border-b px-6 pb-4">
-      <label
-        className="grid gap-1.5 text-xs font-medium"
-        htmlFor={`${idPrefix}-theme-name`}
-      >
-        Export name
-        <Input
-          key={theme.name}
-          id={`${idPrefix}-theme-name`}
-          className="h-8"
-          defaultValue={theme.name}
-          maxLength={48}
-          onBlur={(event) => {
-            const nextName = event.currentTarget.value.trim();
-            if (nextName) {
-              actions.setName(nextName);
-            } else {
-              event.currentTarget.value = theme.name;
-            }
-          }}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              event.currentTarget.blur();
-            }
-          }}
-        />
-      </label>
+}: ThemeControlsProps) => {
+  const content = useIntlayer("theme-controls");
+  return (
+    <div className={cn("space-y-4 py-4", className)}>
+      <div className="space-y-3 border-b px-6 pb-4">
+        <label
+          className="grid gap-1.5 text-xs font-medium"
+          htmlFor={`${idPrefix}-theme-name`}
+        >
+          {content.exportName}
+          <Input
+            key={theme.name}
+            id={`${idPrefix}-theme-name`}
+            className="h-8"
+            defaultValue={theme.name}
+            maxLength={48}
+            onBlur={(event) => {
+              const nextName = event.currentTarget.value.trim();
+              if (nextName) {
+                actions.setName(nextName);
+              } else {
+                event.currentTarget.value = theme.name;
+              }
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.currentTarget.blur();
+              }
+            }}
+          />
+        </label>
 
-      <div className="flex items-center gap-1.5">
-        <ThemePicker
-          onThemeSelect={(name) => actions.loadPreset(name)}
-          selectedTheme={basePreset}
-        />
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              aria-label="Pick a random preset"
-              onClick={() => {
-                const others = THEMES.filter(({ name }) => name !== basePreset);
-                const next = others[Math.floor(Math.random() * others.length)];
-                if (next) {
-                  actions.loadPreset(next.name);
-                }
-              }}
-              size="icon-sm"
-              variant="outline"
-            >
-              <Shuffle />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Random preset</TooltipContent>
-        </Tooltip>
+        <div className="flex items-center gap-1.5">
+          <ThemePicker
+            onThemeSelect={(name) => actions.loadPreset(name)}
+            selectedTheme={basePreset}
+          />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                aria-label="Pick a random preset"
+                onClick={() => {
+                  const others = THEMES.filter(
+                    ({ name }) => name !== basePreset
+                  );
+                  const next =
+                    others[Math.floor(Math.random() * others.length)];
+                  if (next) {
+                    actions.loadPreset(next.name);
+                  }
+                }}
+                size="icon-sm"
+                variant="outline"
+              >
+                <Shuffle />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{content.randomPreset}</TooltipContent>
+          </Tooltip>
+        </div>
       </div>
-    </div>
 
-    <Tabs className="gap-4 px-6" defaultValue="colors">
-      <TabsList className="grid w-full grid-cols-3 gap-1">
-        <TabsTrigger value="colors">
-          <Palette />
-          Colors
-        </TabsTrigger>
-        <TabsTrigger value="typography">
-          <Type />
-          Typography
-        </TabsTrigger>
-        <TabsTrigger value="layout">
-          <LayoutTemplate />
-          Layout
-        </TabsTrigger>
-      </TabsList>
+      <Tabs className="gap-4 px-6" defaultValue="colors">
+        <TabsList className="grid w-full grid-cols-3 gap-1">
+          <TabsTrigger value="colors">
+            <Palette />
+            {content.colors}
+          </TabsTrigger>
+          <TabsTrigger value="typography">
+            <Type />
+            {content.typography}
+          </TabsTrigger>
+          <TabsTrigger value="layout">
+            <LayoutTemplate />
+            {content.layout}
+          </TabsTrigger>
+        </TabsList>
 
-      <TabsContent value="colors">
-        {COLOR_FIELDS.map(({ key, label, description }, index) => (
-          <Fragment key={key}>
-            {index > 0 ? <Separator className="my-3" /> : null}
-            <ColorField
-              description={description}
-              label={label}
-              onCommit={(value) => actions.setColor(key, value)}
-              value={theme.colors[key]}
-            />
-          </Fragment>
-        ))}
-      </TabsContent>
-
-      <TabsContent value="typography">
-        <Section
-          description="Base type used across paragraphs and tables."
-          title="Body"
-        >
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-            <label
-              className="grid gap-1.5 text-xs font-medium sm:col-span-2 lg:col-span-1 xl:col-span-2"
-              htmlFor={`${idPrefix}-body-font`}
-            >
-              Font family
-              <Select
-                onValueChange={actions.setBodyFontFamily}
-                value={theme.typography.body.fontFamily}
-              >
-                <SelectTrigger
-                  className="w-full"
-                  id={`${idPrefix}-body-font`}
-                  size="sm"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {FONT_OPTIONS.map((font) => (
-                    <SelectItem key={font} value={font}>
-                      {font}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </label>
-            <NumberField
-              label="Font size"
-              max={18}
-              min={8}
-              onCommit={actions.setBodyFontSize}
-              suffix="pt"
-              value={theme.typography.body.fontSize}
-            />
-            <NumberField
-              label="Line height"
-              max={2.2}
-              min={1}
-              onCommit={actions.setBodyLineHeight}
-              step={0.05}
-              value={theme.typography.body.lineHeight}
-            />
-          </div>
-        </Section>
-
-        <Separator className="my-4" />
-
-        <Section
-          description="Display type, weight, and scale."
-          title="Headings"
-        >
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-            <label
-              className="grid gap-1.5 text-xs font-medium sm:col-span-2 lg:col-span-1 xl:col-span-2"
-              htmlFor={`${idPrefix}-heading-font`}
-            >
-              Font family
-              <Select
-                onValueChange={actions.setHeadingFontFamily}
-                value={theme.typography.heading.fontFamily}
-              >
-                <SelectTrigger
-                  className="w-full"
-                  id={`${idPrefix}-heading-font`}
-                  size="sm"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {FONT_OPTIONS.map((font) => (
-                    <SelectItem key={font} value={font}>
-                      {font}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </label>
-            <label
-              className="grid gap-1.5 text-xs font-medium"
-              htmlFor={`${idPrefix}-heading-weight`}
-            >
-              Weight
-              <Select
-                onValueChange={(value) =>
-                  actions.setHeadingFontWeight(Number(value))
+        <TabsContent value="colors">
+          {COLOR_FIELD_KEYS.map((key, index) => (
+            <Fragment key={key}>
+              {index > 0 ? <Separator className="my-3" /> : null}
+              <ColorField
+                description={
+                  (content[
+                    `${key}Description` as keyof typeof content
+                  ] as string) ?? COLOR_DESCRIPTIONS[key]
                 }
-                value={String(theme.typography.heading.fontWeight)}
+                label={
+                  (content[key as keyof typeof content] as string) ??
+                  COLOR_LABELS[key]
+                }
+                onCommit={(value) => actions.setColor(key, value)}
+                value={theme.colors[key]}
+              />
+            </Fragment>
+          ))}
+        </TabsContent>
+
+        <TabsContent value="typography">
+          <Section description={content.bodyDescription} title={content.body}>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <label
+                className="grid gap-1.5 text-xs font-medium sm:col-span-2 lg:col-span-1 xl:col-span-2"
+                htmlFor={`${idPrefix}-body-font`}
               >
-                <SelectTrigger
-                  className="w-full"
-                  id={`${idPrefix}-heading-weight`}
-                  size="sm"
+                {content.fontFamily}
+                <Select
+                  onValueChange={actions.setBodyFontFamily}
+                  value={theme.typography.body.fontFamily}
                 >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {[400, 500, 600, 700].map((weight) => (
-                    <SelectItem key={weight} value={String(weight)}>
-                      {weight}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </label>
-            <NumberField
-              label="Line height"
-              max={2}
-              min={1}
-              onCommit={actions.setHeadingLineHeight}
-              step={0.05}
-              value={theme.typography.heading.lineHeight}
-            />
-            {HEADING_LEVELS.map((level) => (
+                  <SelectTrigger
+                    className="w-full"
+                    id={`${idPrefix}-body-font`}
+                    size="sm"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONT_OPTIONS.map((font) => (
+                      <SelectItem key={font} value={font}>
+                        {font}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </label>
               <NumberField
-                key={level}
-                label={level.toUpperCase()}
-                max={64}
+                label={content.fontSize}
+                max={18}
                 min={8}
-                onCommit={(value) =>
-                  actions.setHeadingFontSize(level as HeadingLevel, value)
-                }
+                onCommit={actions.setBodyFontSize}
                 suffix="pt"
-                value={theme.typography.heading.fontSize[level]}
+                value={theme.typography.body.fontSize}
               />
-            ))}
-          </div>
-        </Section>
-      </TabsContent>
-
-      <TabsContent value="layout">
-        <Section description="Paper format and reading direction." title="Page">
-          <div className="grid grid-cols-2 gap-3">
-            <label
-              className="grid gap-1.5 text-xs font-medium"
-              htmlFor={`${idPrefix}-page-size`}
-            >
-              Size
-              <Select
-                onValueChange={(value) =>
-                  actions.setPageSize(value as PdfcnTheme["page"]["size"])
-                }
-                value={theme.page.size}
-              >
-                <SelectTrigger
-                  className="w-full"
-                  id={`${idPrefix}-page-size`}
-                  size="sm"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="A4">A4</SelectItem>
-                  <SelectItem value="LETTER">Letter</SelectItem>
-                  <SelectItem value="LEGAL">Legal</SelectItem>
-                </SelectContent>
-              </Select>
-            </label>
-            <label
-              className="grid gap-1.5 text-xs font-medium"
-              htmlFor={`${idPrefix}-page-orientation`}
-            >
-              Orientation
-              <Select
-                onValueChange={(value) =>
-                  actions.setPageOrientation(
-                    value as PdfcnTheme["page"]["orientation"]
-                  )
-                }
-                value={theme.page.orientation}
-              >
-                <SelectTrigger
-                  className="w-full capitalize"
-                  id={`${idPrefix}-page-orientation`}
-                  size="sm"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="portrait">Portrait</SelectItem>
-                  <SelectItem value="landscape">Landscape</SelectItem>
-                </SelectContent>
-              </Select>
-            </label>
-          </div>
-        </Section>
-
-        <Separator className="my-4" />
-
-        <Section
-          description="Space between content and every page edge."
-          title="Margins"
-        >
-          <div className="grid grid-cols-2 gap-3">
-            {(
-              [
-                ["marginTop", "Top"],
-                ["marginRight", "Right"],
-                ["marginBottom", "Bottom"],
-                ["marginLeft", "Left"],
-              ] as const satisfies readonly [PageMargin, string][]
-            ).map(([edge, label]) => (
               <NumberField
-                key={edge}
-                label={label}
-                max={120}
-                min={0}
-                onCommit={(value) => actions.setPageMargin(edge, value)}
-                suffix="pt"
-                value={theme.spacing.page[edge]}
+                label={content.lineHeight}
+                max={2.2}
+                min={1}
+                onCommit={actions.setBodyLineHeight}
+                step={0.05}
+                value={theme.typography.body.lineHeight}
               />
-            ))}
-          </div>
-        </Section>
+            </div>
+          </Section>
 
-        <Separator className="my-4" />
+          <Separator className="my-4" />
 
-        <Section
-          description="Vertical spacing between document elements."
-          title="Rhythm"
-        >
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-            {(
-              [
-                ["sectionGap", "Sections"],
-                ["paragraphGap", "Paragraphs"],
-                ["componentGap", "Components"],
-              ] as const satisfies readonly [SpacingTokenName, string][]
-            ).map(([key, label]) => (
+          <Section
+            description={content.headingsDescription}
+            title={content.headings}
+          >
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <label
+                className="grid gap-1.5 text-xs font-medium sm:col-span-2 lg:col-span-1 xl:col-span-2"
+                htmlFor={`${idPrefix}-heading-font`}
+              >
+                {content.fontFamily}
+                <Select
+                  onValueChange={actions.setHeadingFontFamily}
+                  value={theme.typography.heading.fontFamily}
+                >
+                  <SelectTrigger
+                    className="w-full"
+                    id={`${idPrefix}-heading-font`}
+                    size="sm"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONT_OPTIONS.map((font) => (
+                      <SelectItem key={font} value={font}>
+                        {font}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </label>
+              <label
+                className="grid gap-1.5 text-xs font-medium"
+                htmlFor={`${idPrefix}-heading-weight`}
+              >
+                {content.weight}
+                <Select
+                  onValueChange={(value) =>
+                    actions.setHeadingFontWeight(Number(value))
+                  }
+                  value={String(theme.typography.heading.fontWeight)}
+                >
+                  <SelectTrigger
+                    className="w-full"
+                    id={`${idPrefix}-heading-weight`}
+                    size="sm"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[400, 500, 600, 700].map((weight) => (
+                      <SelectItem key={weight} value={String(weight)}>
+                        {weight}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </label>
               <NumberField
-                key={key}
-                label={label}
-                max={80}
-                min={0}
-                onCommit={(value) => actions.setSpacing(key, value)}
-                suffix="pt"
-                value={theme.spacing[key]}
+                label={content.lineHeight}
+                max={2}
+                min={1}
+                onCommit={actions.setHeadingLineHeight}
+                step={0.05}
+                value={theme.typography.heading.lineHeight}
               />
-            ))}
-          </div>
-        </Section>
-      </TabsContent>
-    </Tabs>
-  </div>
-);
+              {HEADING_LEVELS.map((level) => (
+                <NumberField
+                  key={level}
+                  label={level.toUpperCase()}
+                  max={64}
+                  min={8}
+                  onCommit={(value) =>
+                    actions.setHeadingFontSize(level as HeadingLevel, value)
+                  }
+                  suffix="pt"
+                  value={theme.typography.heading.fontSize[level]}
+                />
+              ))}
+            </div>
+          </Section>
+        </TabsContent>
+
+        <TabsContent value="layout">
+          <Section description={content.pageDescription} title={content.page}>
+            <div className="grid grid-cols-2 gap-3">
+              <label
+                className="grid gap-1.5 text-xs font-medium"
+                htmlFor={`${idPrefix}-page-size`}
+              >
+                {content.size}
+                <Select
+                  onValueChange={(value) =>
+                    actions.setPageSize(value as PdfcnTheme["page"]["size"])
+                  }
+                  value={theme.page.size}
+                >
+                  <SelectTrigger
+                    className="w-full"
+                    id={`${idPrefix}-page-size`}
+                    size="sm"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="A4">A4</SelectItem>
+                    <SelectItem value="LETTER">Letter</SelectItem>
+                    <SelectItem value="LEGAL">Legal</SelectItem>
+                  </SelectContent>
+                </Select>
+              </label>
+              <label
+                className="grid gap-1.5 text-xs font-medium"
+                htmlFor={`${idPrefix}-page-orientation`}
+              >
+                {content.orientation}
+                <Select
+                  onValueChange={(value) =>
+                    actions.setPageOrientation(
+                      value as PdfcnTheme["page"]["orientation"]
+                    )
+                  }
+                  value={theme.page.orientation}
+                >
+                  <SelectTrigger
+                    className="w-full capitalize"
+                    id={`${idPrefix}-page-orientation`}
+                    size="sm"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="portrait">{content.portrait}</SelectItem>
+                    <SelectItem value="landscape">
+                      {content.landscape}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </label>
+            </div>
+          </Section>
+
+          <Separator className="my-4" />
+
+          <Section
+            description={content.marginsDescription}
+            title={content.margins}
+          >
+            <div className="grid grid-cols-2 gap-3">
+              {(
+                [
+                  ["marginTop", content.top],
+                  ["marginRight", content.right],
+                  ["marginBottom", content.bottom],
+                  ["marginLeft", content.left],
+                ] as const satisfies readonly [PageMargin, string][]
+              ).map(([edge, label]) => (
+                <NumberField
+                  key={edge}
+                  label={label}
+                  max={120}
+                  min={0}
+                  onCommit={(value) => actions.setPageMargin(edge, value)}
+                  suffix="pt"
+                  value={theme.spacing.page[edge]}
+                />
+              ))}
+            </div>
+          </Section>
+
+          <Separator className="my-4" />
+
+          <Section
+            description={content.rhythmDescription}
+            title={content.rhythm}
+          >
+            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {(
+                [
+                  ["sectionGap", content.sections],
+                  ["paragraphGap", content.paragraphs],
+                  ["componentGap", content.components],
+                ] as const satisfies readonly [SpacingTokenName, string][]
+              ).map(([key, label]) => (
+                <NumberField
+                  key={key}
+                  label={label}
+                  max={80}
+                  min={0}
+                  onCommit={(value) => actions.setSpacing(key, value)}
+                  suffix="pt"
+                  value={theme.spacing[key]}
+                />
+              ))}
+            </div>
+          </Section>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};

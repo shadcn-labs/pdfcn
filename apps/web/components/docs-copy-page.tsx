@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDownIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useCallback } from "react";
 
 import { CopyButton } from "@/components/copy-button";
@@ -38,110 +39,113 @@ Help me understand how to use it. Be ready to explain concepts, give examples, o
 `
   )}`;
 
-const MENU_ITEMS: [string, (url: string) => React.ReactNode][] = [
+const MENU_ITEMS: [
+  string,
+  (url: string, label: React.ReactNode) => React.ReactNode,
+][] = [
   [
     "markdown",
-    (url) => (
+    (url, label) => (
       <a href={`${url}.md`} rel="noopener noreferrer" target="_blank">
         <MarkdownDocIcon />
-        View as Markdown
+        {label}
       </a>
     ),
   ],
   [
     "v0",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://v0.dev", url)}
         rel="noopener noreferrer"
         target="_blank"
       >
         <V0Icon />
-        <span className="translate-x-[-2px]">Open in v0</span>
+        <span className="translate-x-[-2px]">{label}</span>
       </a>
     ),
   ],
   [
     "cursor",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://cursor.com/link/prompt", url, "text")}
         rel="noopener noreferrer"
         target="_blank"
       >
         <CursorIcon />
-        Open in Cursor
+        {label}
       </a>
     ),
   ],
   [
     "chatgpt",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://chatgpt.com", url)}
         rel="noopener noreferrer"
         target="_blank"
       >
         <ChatGptIcon />
-        Open in ChatGPT
+        {label}
       </a>
     ),
   ],
   [
     "claude",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://claude.ai/new", url)}
         rel="noopener noreferrer"
         target="_blank"
       >
         <ClaudeIcon />
-        Open in Claude
+        {label}
       </a>
     ),
   ],
   [
     "perplexity",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://perplexity.ai", url)}
         rel="noopener noreferrer"
         target="_blank"
       >
         <PerplexityIcon />
-        Open in Perplexity
+        {label}
       </a>
     ),
   ],
   [
     "gemini",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://gemini.google.com/app", url)}
         rel="noopener noreferrer"
         target="_blank"
       >
         <GeminiIcon />
-        Open in Gemini
+        {label}
       </a>
     ),
   ],
   [
     "grok",
-    (url) => (
+    (url, label) => (
       <a
         href={getPromptUrl("https://grok.com", url)}
         rel="noopener noreferrer"
         target="_blank"
       >
         <GrokIcon />
-        Open in Grok
+        {label}
       </a>
     ),
   ],
   [
     "scira",
-    (url) => (
+    (url, label) => (
       <a
         className="m-0 p-0"
         href={getPromptUrl("https://scira.ai/", url)}
@@ -149,7 +153,7 @@ const MENU_ITEMS: [string, (url: string) => React.ReactNode][] = [
         target="_blank"
       >
         <SciraIcon />
-        Open in Scira AI
+        {label}
       </a>
     ),
   ],
@@ -162,6 +166,19 @@ export const DocsCopyPage = ({
   markdownUrl: string;
   url: string;
 }) => {
+  const content = useIntlayer("docs-copy-page");
+  const menuLabels: Record<string, React.ReactNode> = {
+    chatgpt: content.openInChatGpt,
+    claude: content.openInClaude,
+    cursor: content.openInCursor,
+    gemini: content.openInGemini,
+    grok: content.openInGrok,
+    markdown: content.viewAsMarkdown,
+    perplexity: content.openInPerplexity,
+    scira: content.openInScira,
+    v0: content.openInV0,
+  };
+
   const copyValue = useCallback(async () => {
     const response = await fetch(markdownUrl);
     return response.text();
@@ -188,7 +205,7 @@ export const DocsCopyPage = ({
           variant="secondary"
           className="md:h-7 md:text-[0.8rem]"
         >
-          Copy Page
+          {content.copyPage}
         </CopyButton>
         <DropdownMenu sounds>
           <DropdownMenuTrigger asChild className="hidden sm:flex">
@@ -200,7 +217,7 @@ export const DocsCopyPage = ({
           >
             {MENU_ITEMS.map(([key, render]) => (
               <DropdownMenuItem key={key} asChild sound="click">
-                {render(url)}
+                {render(url, menuLabels[key])}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -225,7 +242,7 @@ export const DocsCopyPage = ({
               sound="click"
               className="w-full justify-start text-base font-normal *:[svg]:text-muted-foreground"
             >
-              {render(url)}
+              {render(url, menuLabels[key])}
             </Button>
           ))}
         </PopoverContent>

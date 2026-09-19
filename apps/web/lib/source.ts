@@ -5,9 +5,11 @@ import { docs } from "@/.source/server";
 import { ROUTES } from "@/constants/routes";
 import { AGENT_DOCS_DIRECTIVE_MARKDOWN } from "@/lib/agent-discovery/directive";
 import { docsContentRoute } from "@/lib/docs";
+import { i18n } from "@/lib/i18n";
 
 export const source = loader({
   baseUrl: ROUTES.DOCS,
+  i18n,
   source: docs.toFumadocsSource(),
 });
 

@@ -2,6 +2,7 @@
 
 import { ArrowLeftIcon, BookOpenTextIcon } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useIntlayer } from "next-intlayer";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -27,37 +28,45 @@ const GAME_TRANSITION = {
   ease: [0.4, 0, 0.2, 1],
 } as const;
 
-const NotFoundActions = () => (
-  <div className="flex flex-wrap items-center justify-center gap-2">
-    <Button asChild variant="outline">
-      <Link href={ROUTES.HOME}>
-        <ArrowLeftIcon />
-        Back to Home
-      </Link>
-    </Button>
-    <Button asChild>
-      <Link href={ROUTES.DOCS}>
-        <BookOpenTextIcon />
-        Go to Docs
-      </Link>
-    </Button>
-  </div>
-);
+const NotFoundActions = () => {
+  const content = useIntlayer("not-found");
 
-const NotFoundCopy = () => (
-  <>
-    <EmptyTitle className="text-xl md:text-2xl">
-      <h1>Page not found</h1>
-    </EmptyTitle>
-    <EmptyDescription className="max-w-md md:text-base/relaxed">
-      The page you're looking for may have been moved, removed, renamed, or
-      might never have existed.
-    </EmptyDescription>
-  </>
-);
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-2">
+      <Button asChild variant="outline">
+        <Link href={ROUTES.HOME}>
+          <ArrowLeftIcon />
+          {content.backToHome}
+        </Link>
+      </Button>
+      <Button asChild>
+        <Link href={ROUTES.DOCS}>
+          <BookOpenTextIcon />
+          {content.goToDocs}
+        </Link>
+      </Button>
+    </div>
+  );
+};
+
+const NotFoundCopy = () => {
+  const content = useIntlayer("not-found");
+
+  return (
+    <>
+      <EmptyTitle className="text-xl md:text-2xl">
+        <h1>{content.pageNotFound}</h1>
+      </EmptyTitle>
+      <EmptyDescription className="max-w-md md:text-base/relaxed">
+        {content.pageNotFoundDescription}
+      </EmptyDescription>
+    </>
+  );
+};
 
 export const NotFound = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const content = useIntlayer("not-found");
   const shouldReduceMotion = useReducedMotion();
   const gameTransition = shouldReduceMotion ? { duration: 0 } : GAME_TRANSITION;
 
@@ -119,7 +128,7 @@ export const NotFound = () => {
                 onClick={() => setIsPlaying(false)}
               >
                 <ArrowLeftIcon />
-                Back
+                {content.back}
               </Button>
               <motion.div
                 layoutId={GAME_TRANSITION_NAME}

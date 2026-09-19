@@ -1,11 +1,14 @@
 "use client";
 
 import { DownloadIcon, SquareDashedIcon, TypeIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
 import { LogoMark, getLogoMarkSVG, getLogoTypeSVG } from "@/components/logo";
+import { Button } from "@/components/ui/button";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -15,11 +18,8 @@ import {
 } from "@/components/ui/context-menu";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 
-export const BrandContextMenu = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const BrandContextMenu = () => {
+  const content = useIntlayer("brand-context-menu");
   const { resolvedTheme } = useTheme();
   const { copyToClipboard } = useCopyToClipboard();
 
@@ -29,27 +29,42 @@ export const BrandContextMenu = ({
 
   const handleCopyLogomark = useCallback(() => {
     copyToClipboard(logoMarkSvgString);
-    toast.success("Logomark as SVG copied");
-  }, [logoMarkSvgString, copyToClipboard]);
+    toast.success(String(content.logomarkCopiedToast));
+  }, [logoMarkSvgString, copyToClipboard, content.logomarkCopiedToast]);
 
   const handleCopyLogotype = useCallback(() => {
     copyToClipboard(logoTypeSvgString);
-    toast.success("Logotype as SVG copied");
-  }, [logoTypeSvgString, copyToClipboard]);
+    toast.success(String(content.logotypeCopiedToast));
+  }, [logoTypeSvgString, copyToClipboard, content.logotypeCopiedToast]);
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
-
+      <ContextMenuTrigger asChild>
+        <Button
+          asChild
+          variant="ghost"
+          size="icon-sm"
+          className="hover:bg-transparent focus-visible:bg-transparent dark:hover:bg-transparent lg:size-9"
+          sound="click"
+        >
+          <Link
+            href="https://shadcn-labs.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LogoMark className="size-5" />
+          </Link>
+        </Button>
+      </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem onClick={handleCopyLogomark}>
           <LogoMark />
-          Copy Logomark as SVG
+          {content.copyLogomarkAsSvg}
         </ContextMenuItem>
 
         <ContextMenuItem onClick={handleCopyLogotype}>
           <TypeIcon />
-          Copy Logotype as SVG
+          {content.copyLogotypeAsSvg}
         </ContextMenuItem>
 
         <ContextMenuSeparator />
@@ -61,7 +76,7 @@ export const BrandContextMenu = ({
             rel="noopener noreferrer"
           >
             <SquareDashedIcon />
-            Brand Guidelines
+            {content.brandGuidelines}
           </a>
         </ContextMenuItem>
 
@@ -72,7 +87,7 @@ export const BrandContextMenu = ({
             rel="noopener noreferrer"
           >
             <DownloadIcon />
-            Download Brand Assets
+            {content.downloadBrandAssets}
           </a>
         </ContextMenuItem>
       </ContextMenuContent>

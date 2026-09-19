@@ -1,5 +1,7 @@
 "use client";
 
+import type { Root } from "fumadocs-core/page-tree";
+import { useIntlayer } from "next-intlayer";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,7 +19,6 @@ import { TOP_LEVEL_SECTIONS } from "@/constants/nav";
 import { ROUTES } from "@/constants/routes";
 import { PAGES_NEW } from "@/lib/docs";
 import { getCurrentBase, getTreeGroups } from "@/lib/page-tree";
-import type { source } from "@/lib/source";
 
 const MENU_BUTTON_CLS =
   "relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent 3xl:fixed:w-full 3xl:fixed:max-w-48";
@@ -30,19 +31,29 @@ const SidebarMenuItemLink = ({
   href: string;
   isActive: boolean;
   children: React.ReactNode;
-}) => (
-  <SidebarMenuItem>
-    <SidebarMenuButton asChild className={MENU_BUTTON_CLS} isActive={isActive}>
-      <Link href={href}>
-        <span className="absolute inset-0 flex w-(--sidebar-menu-width) bg-transparent" />
-        {children}
-        {PAGES_NEW.includes(href) && (
-          <span className="flex size-2 rounded-full bg-blue-500" title="New" />
-        )}
-      </Link>
-    </SidebarMenuButton>
-  </SidebarMenuItem>
-);
+}) => {
+  const content = useIntlayer("docs-sidebar");
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        asChild
+        className={MENU_BUTTON_CLS}
+        isActive={isActive}
+      >
+        <Link href={href}>
+          <span className="absolute inset-0 flex w-(--sidebar-menu-width) bg-transparent" />
+          {children}
+          {PAGES_NEW.includes(href) && (
+            <span
+              className="flex size-2 rounded-full bg-blue-500"
+              title={content.new}
+            />
+          )}
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+};
 
 const SidebarPageGroup = ({
   label,
@@ -82,7 +93,8 @@ const SidebarPageGroup = ({
 export const DocsSidebar = ({
   tree,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { tree: typeof source.pageTree }) => {
+}: React.ComponentProps<typeof Sidebar> & { tree: Root }) => {
+  const content = useIntlayer("docs-sidebar");
   const pathname = usePathname();
   const currentBase = getCurrentBase(pathname);
   const treeGroups = getTreeGroups(tree, currentBase);
@@ -99,7 +111,7 @@ export const DocsSidebar = ({
       <SidebarContent className="mx-auto no-scrollbar w-(--sidebar-menu-width) overflow-x-hidden px-2">
         <SidebarGroup className="pt-6">
           <SidebarGroupLabel className="text-muted-foreground font-medium">
-            Sections
+            {content.sections}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

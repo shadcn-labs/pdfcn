@@ -1,6 +1,7 @@
 "use client";
 
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -197,6 +198,7 @@ export const ThemePicker = ({
   onThemeSelect,
   selectedTheme,
 }: ThemePickerProps) => {
+  const content = useIntlayer("theme-picker");
   const [open, setOpen] = useState(false);
 
   const selectedThemeData = useMemo(
@@ -211,7 +213,7 @@ export const ThemePicker = ({
           variant="outline"
           size="sm"
           className="flex-1 justify-start gap-2 px-2"
-          aria-label="Select theme"
+          aria-label={content.selectTheme}
         >
           <ThemePalette colors={selectedThemeData?.theme.colors} />
           <span className="flex-1 text-left">{selectedThemeData?.title}</span>
@@ -220,9 +222,9 @@ export const ThemePicker = ({
       </PopoverTrigger>
       <PopoverContent className="w-[320px] p-0" align="start">
         <Command>
-          <CommandInput placeholder="Search theme..." />
+          <CommandInput placeholder={content.searchTheme} />
           <CommandList>
-            <CommandEmpty>No theme found.</CommandEmpty>
+            <CommandEmpty>{content.noThemeFound}</CommandEmpty>
 
             <CommandGroup>
               {THEMES.map(({ name, theme, title }) => (

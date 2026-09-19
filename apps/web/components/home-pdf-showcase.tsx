@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRightIcon, CodeXmlIcon, EyeIcon, FileIcon } from "lucide-react";
+import { useIntlayer } from "next-intlayer";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -121,6 +122,7 @@ const CodeViewer = ({
 );
 
 export const HomePdfShowcase = () => {
+  const content = useIntlayer("home-pdf-showcase");
   const [selectedPdfId, setSelectedPdfId] =
     useState<PdfRecipeId>("corporate-invoice");
   const [selectedComponentId, setSelectedComponentId] =
@@ -252,7 +254,7 @@ export const HomePdfShowcase = () => {
               <div
                 className="col-start-3 row-start-1 hidden justify-self-end rounded-lg bg-muted p-0.5 lg:flex"
                 role="radiogroup"
-                aria-label="PDF base"
+                aria-label={content.pdfBase}
               >
                 {homePdfBases.map((base) => (
                   <Toggle
@@ -277,7 +279,7 @@ export const HomePdfShowcase = () => {
                 htmlFor="home-pdf-base"
                 className="text-sm font-medium text-muted-foreground"
               >
-                Choose base
+                {content.chooseBase}
               </label>
               <Select
                 value={pdfBase}
@@ -288,7 +290,7 @@ export const HomePdfShowcase = () => {
                 <SelectTrigger
                   id="home-pdf-base"
                   size="sm"
-                  aria-label="Choose base"
+                  aria-label={content.chooseBase}
                   className="w-40 min-w-0 sm:w-48"
                 >
                   <SelectValue />
@@ -308,11 +310,11 @@ export const HomePdfShowcase = () => {
 
           <CardContent className="p-0 lg:grid lg:h-180 lg:grid-cols-[14rem_minmax(0,1fr)_20rem]">
             <aside
-              aria-label="PDF examples"
+              aria-label={content.pdfExamples}
               className="hidden flex-col bg-card lg:flex lg:border-r"
             >
               <div className="flex h-12 shrink-0 items-center px-4">
-                <CardTitle className="text-sm">Documents</CardTitle>
+                <CardTitle className="text-sm">{content.documents}</CardTitle>
               </div>
               <Separator />
 
@@ -353,7 +355,7 @@ export const HomePdfShowcase = () => {
                   htmlFor="home-pdf-template"
                   className="text-sm font-medium text-muted-foreground"
                 >
-                  Choose template
+                  {content.chooseTemplate}
                 </label>
                 <Select
                   value={selectedPdfId}
@@ -364,7 +366,7 @@ export const HomePdfShowcase = () => {
                   <SelectTrigger
                     id="home-pdf-template"
                     size="sm"
-                    aria-label="Choose template"
+                    aria-label={content.chooseTemplate}
                     className="w-40 min-w-0 sm:w-48"
                   >
                     <SelectValue />
@@ -389,7 +391,7 @@ export const HomePdfShowcase = () => {
                     className="h-7 px-2.5 text-xs"
                   >
                     <EyeIcon className="size-3.5" aria-hidden="true" />
-                    Preview
+                    {content.preview}
                   </TabsTrigger>
                   <TabsTrigger
                     value="code"
@@ -397,7 +399,7 @@ export const HomePdfShowcase = () => {
                     className="h-7 px-2.5 text-xs"
                   >
                     <CodeXmlIcon className="size-3.5" aria-hidden="true" />
-                    Code
+                    {content.code}
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -430,11 +432,13 @@ export const HomePdfShowcase = () => {
             </Tabs>
 
             <aside
-              aria-label="Components used in the selected document"
+              aria-label={content.componentsInDoc}
               className="no-scrollbar border-t bg-card lg:overflow-y-auto lg:border-t-0 lg:border-l"
             >
               <div className="flex h-12 shrink-0 items-center justify-between gap-3 px-4">
-                <CardTitle className="text-sm">Components Used</CardTitle>
+                <CardTitle className="text-sm">
+                  {content.componentsUsed}
+                </CardTitle>
                 <Badge
                   variant="outline"
                   className="font-mono text-muted-foreground"

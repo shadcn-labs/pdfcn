@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "!index",
+    "invoice-classic",
+    "invoice-consultant",
+    "invoice-corporate",
+    "invoice-creative",
+    "invoice-minimal",
+    "invoice-modern",
+    "report-financial",
+    "report-marketing",
+    "report-operations",
+    "report-security"
+  ],
+  "title": "Forme"
+}
