@@ -14,7 +14,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-export const LocaleSwitcher = ({ className }: { className?: string }) => {
+export const LocaleSwitcher = ({
+  className,
+  variant = "ghost",
+}: {
+  className?: string;
+  variant?: React.ComponentProps<typeof Button>["variant"];
+}) => {
   const content = useIntlayer("locale-switcher");
   const { locale, pathWithoutLocale, availableLocales } = useLocale();
   const { setLocale } = useLocaleStorage();
@@ -23,7 +29,7 @@ export const LocaleSwitcher = ({ className }: { className?: string }) => {
     <DropdownMenu sounds>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
+          variant={variant}
           size="sm"
           className={cn("gap-1.5", className)}
           aria-label={content.changeLanguage}

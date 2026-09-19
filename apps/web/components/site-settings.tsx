@@ -77,7 +77,7 @@ export const SiteSettings = () => {
       {isMobile && (
         <div className="flex items-center justify-between gap-4">
           <span className="w-12 text-sm">{text.language}</span>
-          <LocaleSwitcher />
+          <LocaleSwitcher variant="outline" />
         </div>
       )}
     </div>
