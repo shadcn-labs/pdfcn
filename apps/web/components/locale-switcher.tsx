@@ -1,7 +1,7 @@
 "use client";
 
 import { getLocaleName, getLocalizedUrl } from "intlayer";
-import { LanguagesIcon } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, LanguagesIcon } from "lucide-react";
 import { useIntlayer, useLocale, useLocaleStorage } from "next-intlayer";
 import Link from "next/link";
 
@@ -12,45 +12,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-export const LocaleSwitcher = ({
-  className,
-  compact = false,
-}: {
-  className?: string;
-  compact?: boolean;
-}) => {
+export const LocaleSwitcher = ({ className }: { className?: string }) => {
   const content = useIntlayer("locale-switcher");
   const { locale, pathWithoutLocale, availableLocales } = useLocale();
   const { setLocale } = useLocaleStorage();
 
   return (
     <DropdownMenu sounds>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size={compact ? "icon-sm" : "sm"}
-              className={className}
-              aria-label={content.changeLanguage}
-            >
-              {compact ? (
-                <LanguagesIcon className="size-4" />
-              ) : (
-                <span>{getLocaleName(locale, locale)}</span>
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-        </TooltipTrigger>
-        <TooltipContent>{getLocaleName(locale, locale)}</TooltipContent>
-      </Tooltip>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className={cn("gap-1.5", className)}
+          aria-label={content.changeLanguage}
+        >
+          <LanguagesIcon />
+          <span>{locale.split("-")[0]}</span>
+          <ChevronDownIcon className="opacity-50" />
+        </Button>
+      </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
         className="animate-none! rounded-lg shadow-none"
@@ -59,6 +41,7 @@ export const LocaleSwitcher = ({
           <DropdownMenuItem
             asChild
             className={cn(
+              "justify-between gap-6",
               availableLocale === locale && "font-medium text-foreground"
             )}
             key={availableLocale}
@@ -70,6 +53,9 @@ export const LocaleSwitcher = ({
               onClick={() => setLocale(availableLocale)}
             >
               {getLocaleName(availableLocale, availableLocale)}
+              {availableLocale === locale && (
+                <CheckIcon className="size-4 shrink-0" />
+              )}
             </Link>
           </DropdownMenuItem>
         ))}

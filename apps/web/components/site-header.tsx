@@ -60,7 +60,7 @@ export const SiteHeader = ({ locale }: { locale: string }) => {
               className="hidden h-5! md:block"
               orientation="vertical"
             />
-            <LocaleSwitcher className="hidden md:flex" compact />
+            <LocaleSwitcher className="hidden md:flex" />
             <Separator
               className="hidden h-5! md:block"
               orientation="vertical"
