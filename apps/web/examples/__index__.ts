@@ -4,6 +4,7 @@ import forme_alert from "@/examples/forme/alert";
 import forme_badge from "@/examples/forme/badge";
 import forme_card from "@/examples/forme/card";
 import forme_data_table from "@/examples/forme/data-table";
+import forme_data_table_headless from "@/examples/forme/data-table-headless";
 import forme_divider from "@/examples/forme/divider";
 import forme_form from "@/examples/forme/form";
 import forme_graph from "@/examples/forme/graph";
@@ -38,6 +39,7 @@ import takumi_alert from "@/examples/takumi/alert";
 import takumi_badge from "@/examples/takumi/badge";
 import takumi_card from "@/examples/takumi/card";
 import takumi_data_table from "@/examples/takumi/data-table";
+import takumi_data_table_headless from "@/examples/takumi/data-table-headless";
 import takumi_divider from "@/examples/takumi/divider";
 import takumi_form from "@/examples/takumi/form";
 import takumi_graph from "@/examples/takumi/graph";
@@ -78,6 +80,7 @@ export const demos: Record<BaseName, DemoMap> = {
     badge: forme_badge,
     card: forme_card,
     "data-table": forme_data_table,
+    "data-table-headless": forme_data_table_headless,
     divider: forme_divider,
     form: forme_form,
     graph: forme_graph,
@@ -114,6 +117,7 @@ export const demos: Record<BaseName, DemoMap> = {
     badge: takumi_badge,
     card: takumi_card,
     "data-table": takumi_data_table,
+    "data-table-headless": takumi_data_table_headless,
     divider: takumi_divider,
     form: takumi_form,
     graph: takumi_graph,

@@ -1,0 +1,230 @@
+---
+title: "Data Table Headless"
+description: "Headless data table with TanStack-style columns, nested rows, and adaptive cells."
+---
+
+<ComponentPreview base="forme" name="data-table-headless" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/data-table-headless
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/components/data-table-headless/data-table-headless.tsx"
+  base="forme"
+  title="components/pdf/data-table-headless/data-table-headless.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/data-table-headless/data-table-headless.types.ts"
+  base="forme"
+  title="components/pdf/data-table-headless/data-table-headless.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/data-table-headless/data-table-headless.utils.ts"
+  base="forme"
+  title="components/pdf/data-table-headless/data-table-headless.utils.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-svg.tsx"
+  base="forme"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import {
+  DataTable,
+} from "@/components/pdf/data-table-headless";
+```
+
+```tsx
+<DataTable columns={columns} data={data} />
+```
+
+### Compound composition
+
+The table renders itself from `columns` and `data`. For full control, compose
+the headless parts — `<DataTable.Header />`, `<DataTable.Body />`, and
+`<DataTable.Footer />` render themselves from the bound props and take
+explicit children for custom sections.
+
+```tsx
+<DataTable columns={columns} data={data} footer={{ total: "$1,100,200" }}>
+  <DataTable.Header />
+  <DataTable.Body />
+  <DataTable.Footer />
+</DataTable>
+```
+
+### Nested rows
+
+Use `getSubRows` for tree/grouped data. Sub rows flatten in document order
+and indent automatically; `metadata.depth` exposes the nesting level.
+
+```tsx
+<DataTable
+  columns={columns}
+  data={categories}
+  getSubRows={(row) => row.items}
+/>
+```
+
+### Adaptive cells
+
+Cell renderers receive `{ value, row, metadata }`. Use `metadata` to adapt
+content to the space available — for example, shrinking a date format on a
+dense table.
+
+```tsx
+const columns = [
+  {
+    accessorKey: "createdAt",
+    cell: ({ metadata, value }) =>
+      metadata.density === "dense"
+        ? formatDate(value, "short")
+        : formatDate(value, "long"),
+    header: "Date",
+    id: "createdAt",
+  },
+];
+```
+
+`fitValue(value, maxChars)` truncates to a character budget, and
+`metadata.maxChars` estimates the budget from the table's `width` prop.
+
+## API Reference
+
+### DataTable
+
+| Prop           | Type                                     | Default                |
+| -------------- | ---------------------------------------- | ---------------------- |
+| `columns`      | `DataTableColumnDef<T>[]`                | -                      |
+| `data`         | `T[]`                                    | -                      |
+| `getSubRows`   | `(row: T) => T[] \| undefined`           | -                      |
+| `density`      | `'auto' \| 'default' \| 'compact' \| 'dense'` | `'auto'`          |
+| `variant`      | `'line' \| 'grid' \| 'minimal' \| 'striped' \| 'compact' \| 'bordered' \| 'primary-header'` | `'grid'` |
+| `stripe`       | `boolean`                                | `false`                |
+| `footer`       | `Partial<Record<string, string \| number>>` | -                    |
+| `noWrap`       | `boolean`                                | `false`                |
+| `emptyMessage` | `string`                                 | `'No data available'`  |
+| `width`        | `number`                                 | -                      |
+| `style`        | `Style`                                  | -                      |
+| `children`     | `ReactNode`                              | -                      |
+
+### DataTableColumnDef
+
+`id` is required; values resolve via `accessorFn` or `accessorKey`
+(dot paths like `"user.name"` are supported).
+
+| Prop          | Type                                                | Default |
+| ------------- | --------------------------------------------------- | ------- |
+| `id`          | `string`                                            | -       |
+| `header`      | `ReactNode`                                         | `id`    |
+| `accessorKey` | `string`                                            | -       |
+| `accessorFn`  | `(row: T) => unknown`                               | -       |
+| `cell`        | `(context: { value, row, metadata }) => ReactNode`  | -       |
+| `footer`      | `string`                                            | -       |
+| `align`       | `'left' \| 'center' \| 'right'`                     | `'left'`|
+| `width`       | `string \| number`                                  | -       |
+
+### Cell metadata
+
+| Field            | Type                                   | Description                             |
+| ---------------- | -------------------------------------- | --------------------------------------- |
+| `density`        | `'default' \| 'compact' \| 'dense'`    | Resolved density tier.                  |
+| `columnCount`    | `number`                               | Columns in the table.                   |
+| `columnIndex`    | `number`                               | Zero-based column index.                |
+| `rowIndex`       | `number`                               | Zero-based flattened body row index.    |
+| `depth`          | `number`                               | Nesting depth (0 for top-level rows).   |
+| `cellFontSize`   | `number`                               | Resolved body font size (pt).           |
+| `cellPaddingX`   | `number`                               | Resolved horizontal cell padding (pt).  |
+| `cellPaddingY`   | `number`                               | Resolved vertical cell padding (pt).    |
+| `cellWidth`      | `number \| undefined`                  | Estimated cell width (pt), needs `width`. |
+| `maxChars`       | `number \| undefined`                  | Estimated character budget, needs `width`. |
+
+### Utilities
+
+| Function         | Signature                                          | Description                        |
+| ---------------- | -------------------------------------------------- | ---------------------------------- |
+| `formatValue`    | `(value: unknown) => string`                       | Display string for any cell value. |
+| `fitValue`       | `(value: unknown, maxChars: number, ellipsis?: string) => string` | Truncate to a budget. |
+| `estimateCellChars` | `(options) => number`                           | Estimate characters per cell.      |
