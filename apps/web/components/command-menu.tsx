@@ -12,6 +12,7 @@ import { useIntlayer } from "next-intlayer";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { useLocalizedHref } from "@/components/link";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -168,6 +169,7 @@ export const CommandMenu = ({
 }) => {
   const content = useIntlayer("command-menu");
   const router = useRouter();
+  const localizeHref = useLocalizedHref();
   const pathname = usePathname();
   const isMac = useIsMac();
   const [packageManager] = usePackageManager();
@@ -244,7 +246,7 @@ export const CommandMenu = ({
         keywords={buildDocPageKeywords(parsed, url, breadcrumb)}
         value={[...breadcrumb, title].filter(Boolean).join(" ")}
         onHighlight={() => handleDocPageHighlight({ name: title, url })}
-        onSelect={() => runCommand(() => router.push(url))}
+        onSelect={() => runCommand(() => router.push(localizeHref(url)))}
       >
         <DocPageLeadingIcon parsed={parsed} />
         {title}
@@ -348,7 +350,9 @@ export const CommandMenu = ({
                       setShowGoToPage(true);
                       setCopyPayload("");
                     }}
-                    onSelect={() => runCommand(() => router.push(item.href))}
+                    onSelect={() =>
+                      runCommand(() => router.push(localizeHref(item.href)))
+                    }
                   >
                     <ArrowRightIcon />
                     {item.label}

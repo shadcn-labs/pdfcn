@@ -1,7 +1,7 @@
 import { RssIcon } from "lucide-react";
-import Link from "next/link";
 
 import { DocsTocFooter } from "@/components/docs-toc-footer";
+import { Link } from "@/components/link";
 import { PageTransition } from "@/components/page-transition";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";

@@ -2,6 +2,7 @@
 
 import { useWebMCP } from "use-webmcp-tool";
 
+import { useLocalizedHref } from "@/components/link";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { THEME_NAMES, getTheme, THEMES } from "@/registry/themes";
@@ -73,6 +74,8 @@ export const GetThemeTool = () => {
 };
 
 export const ApplyThemeTool = () => {
+  const localizeHref = useLocalizedHref();
+
   useWebMCP({
     description:
       "Navigate to the Theme Builder with a specific theme pre-loaded. The user can then customize it visually. Returns the URL the browser will navigate to.",
@@ -97,7 +100,7 @@ export const ApplyThemeTool = () => {
         base === "forme"
           ? ROUTES.THEME_BUILDER_FORME
           : ROUTES.THEME_BUILDER_TAKUMI;
-      const url = `${builderBase}#${hash}`;
+      const url = localizeHref(`${builderBase}#${hash}`);
 
       window.location.assign(url);
       return { base, ok: true, theme: name, url };

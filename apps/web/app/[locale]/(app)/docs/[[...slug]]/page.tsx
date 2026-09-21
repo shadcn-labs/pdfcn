@@ -1,7 +1,6 @@
 import { findNeighbour } from "fumadocs-core/page-tree";
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon } from "lucide-react";
 import { useIntlayer } from "next-intlayer/server";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { use } from "react";
 
@@ -16,6 +15,7 @@ import { DocsNavLink } from "@/components/docs-nav-link";
 import { DocsShareMenu } from "@/components/docs-share-menu";
 import { DocsTableOfContents } from "@/components/docs-toc";
 import { DocsTocFooter } from "@/components/docs-toc-footer";
+import { Link } from "@/components/link";
 import { PageTransition } from "@/components/page-transition";
 import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";

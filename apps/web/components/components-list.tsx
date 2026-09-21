@@ -1,7 +1,7 @@
 import type { Root } from "fumadocs-core/page-tree";
 import { getLocale } from "next-intlayer/server";
-import Link from "next/link";
 
+import { Link } from "@/components/link";
 import { ROUTES } from "@/constants/routes";
 import type { PageTreeFolder, PageTreePage } from "@/lib/page-tree";
 import { getFolderPages } from "@/lib/page-tree";

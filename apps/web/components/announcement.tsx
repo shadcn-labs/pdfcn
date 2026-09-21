@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "lucide-react";
 import { useIntlayer } from "next-intlayer";
-import Link from "next/link";
 
+import { Link } from "@/components/link";
 import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";
 

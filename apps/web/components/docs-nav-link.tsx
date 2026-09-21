@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useRef } from "react";
 
 import type { ArrowLeftIconHandle } from "@/components/animated-icons/arrow-left";
 import { ArrowLeftIcon } from "@/components/animated-icons/arrow-left";
 import type { ArrowRightIconHandle } from "@/components/animated-icons/arrow-right";
 import { ArrowRightIcon } from "@/components/animated-icons/arrow-right";
+import { Link } from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
 import {

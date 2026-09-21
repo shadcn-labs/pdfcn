@@ -3,10 +3,10 @@
 import type { Root as PageTreeRoot } from "fumadocs-core/page-tree";
 import { useIntlayer } from "next-intlayer";
 import type { LinkProps } from "next/link";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
+import { Link, useLocalizedHref } from "@/components/link";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -54,13 +54,14 @@ const MobileLink = ({
   className?: string;
 }) => {
   const router = useRouter();
+  const localizeHref = useLocalizedHref();
   const playClick = useFeedback({ sound: "click" });
 
   const handleClick = useCallback(() => {
     playClick();
-    router.push(href.toString());
+    router.push(localizeHref(href.toString()));
     onOpenChange?.(false);
-  }, [router, href, onOpenChange, playClick]);
+  }, [router, localizeHref, href, onOpenChange, playClick]);
 
   return (
     <Link

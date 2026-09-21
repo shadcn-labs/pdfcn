@@ -1,13 +1,13 @@
 "use client";
 
 import { useIntlayer } from "next-intlayer";
-import Link from "next/link";
 import { useCallback, useRef } from "react";
 
 import { ArrowRightIcon } from "@/components/animated-icons/arrow-right";
 import type { ArrowRightIconHandle } from "@/components/animated-icons/arrow-right";
 import { ComponentIcon } from "@/components/animated-icons/component";
 import type { ComponentIconHandle } from "@/components/animated-icons/component";
+import { Link } from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";

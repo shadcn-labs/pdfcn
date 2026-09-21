@@ -1,10 +1,10 @@
 "use client";
 
 import type { Root } from "fumadocs-core/page-tree";
-import { useIntlayer } from "next-intlayer";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "next-intlayer";
 
+import { Link } from "@/components/link";
 import {
   Sidebar,
   SidebarContent,
@@ -43,7 +43,7 @@ const SidebarMenuItemLink = ({
         <Link href={href}>
           <span className="absolute inset-0 flex w-(--sidebar-menu-width) bg-transparent" />
           {children}
-          {PAGES_NEW.includes(href) && (
+          {PAGES_NEW.includes(getPathWithoutLocale(href)) && (
             <span
               className="flex size-2 rounded-full bg-blue-500"
               title={content.new}
@@ -79,7 +79,7 @@ const SidebarPageGroup = ({
             <SidebarMenuItemLink
               key={page.url}
               href={page.url}
-              isActive={page.url === pathname}
+              isActive={getPathWithoutLocale(page.url) === pathname}
             >
               {page.name}
             </SidebarMenuItemLink>
@@ -95,7 +95,7 @@ export const DocsSidebar = ({
   ...props
 }: React.ComponentProps<typeof Sidebar> & { tree: Root }) => {
   const content = useIntlayer("docs-sidebar");
-  const pathname = usePathname();
+  const { pathWithoutLocale: pathname } = useLocale();
   const currentBase = getCurrentBase(pathname);
   const treeGroups = getTreeGroups(tree, currentBase);
 

@@ -3,7 +3,6 @@
 import { ArrowUpRightIcon, CodeXmlIcon, EyeIcon, FileIcon } from "lucide-react";
 import { useIntlayer } from "next-intlayer";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { CodeBlockCommand } from "@/components/code-block-command";
@@ -21,6 +20,7 @@ import type {
   PdfRecipeId,
 } from "@/components/home-pdf-preview";
 import { FormeIcon, TakumiIcon } from "@/components/icons";
+import { Link } from "@/components/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

@@ -3,10 +3,10 @@
 import { DownloadIcon, SquareDashedIcon, TypeIcon } from "lucide-react";
 import { useIntlayer } from "next-intlayer";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
+import { Link } from "@/components/link";
 import { LogoMark, getLogoMarkSVG, getLogoTypeSVG } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {

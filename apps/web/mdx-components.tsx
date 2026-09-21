@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { Callout } from "@/components/callout";
 import { CodeBlockCommand } from "@/components/code-block-command";
@@ -10,6 +9,7 @@ import { ComponentSource } from "@/components/component-source";
 import { ComponentsList } from "@/components/components-list";
 import { CopyButton } from "@/components/copy-button";
 import { getIconForLanguageExtension } from "@/components/icons";
+import { Link } from "@/components/link";
 import { PdfPreview } from "@/components/pdf-preview-wrapper";
 import {
   Accordion,
@@ -161,14 +161,23 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  a: ({ className, children, ...props }: React.ComponentProps<"a">) => (
-    <a
-      className={cn("font-medium underline underline-offset-4", className)}
-      {...props}
-    >
-      {children}
-    </a>
-  ),
+  a: ({ className, children, href, ...props }: React.ComponentProps<"a">) => {
+    const linkClassName = cn(
+      "font-medium underline underline-offset-4",
+      className
+    );
+
+    // Internal markdown links must stay on the active locale.
+    return href?.startsWith("/") ? (
+      <Link className={linkClassName} href={href} {...props}>
+        {children}
+      </Link>
+    ) : (
+      <a className={linkClassName} href={href} {...props}>
+        {children}
+      </a>
+    );
+  },
   blockquote: ({ className, ...props }: React.ComponentProps<"blockquote">) => (
     <blockquote
       className={cn("mt-6 border-l-2 pl-6 italic", className)}

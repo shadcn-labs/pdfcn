@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useLocale } from "next-intlayer";
 
+import { Link } from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ export const MainNav = ({
 }: React.ComponentProps<"nav"> & {
   items: { href: string; label: string }[];
 }) => {
-  const pathname = usePathname();
+  const { pathWithoutLocale } = useLocale();
 
   return (
     <nav className={cn("items-center gap-0.5", className)} {...props}>
@@ -21,7 +21,7 @@ export const MainNav = ({
         <Button key={item.href} variant="ghost" asChild size="sm" sound="click">
           <Link
             href={item.href}
-            className={cn(pathname === item.href && "text-primary")}
+            className={cn(pathWithoutLocale === item.href && "text-primary")}
             transitionTypes={["nav-forward"]}
           >
             {item.label}

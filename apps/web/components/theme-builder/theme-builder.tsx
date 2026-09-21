@@ -12,7 +12,6 @@ import {
   Undo2,
 } from "lucide-react";
 import { useIntlayer } from "next-intlayer";
-import Link from "next/link";
 import {
   useCallback,
   useDeferredValue,
@@ -23,6 +22,7 @@ import {
 import { toast } from "sonner";
 
 import { FormeIcon, TakumiIcon } from "@/components/icons";
+import { Link } from "@/components/link";
 import { PdfPreview } from "@/components/pdf-preview-wrapper";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";

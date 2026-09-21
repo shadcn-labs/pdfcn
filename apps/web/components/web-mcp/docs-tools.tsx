@@ -2,6 +2,7 @@
 
 import { useWebMCP } from "use-webmcp-tool";
 
+import { useLocalizedHref } from "@/components/link";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
@@ -59,11 +60,13 @@ const DOC_PAGES = [
 ];
 
 export const OpenDocsTool = () => {
+  const localizeHref = useLocalizedHref();
+
   useWebMCP({
     description:
       "Navigate to a pdfcn documentation page. Use this to learn about components, theming, installation, or any other topic.",
     execute: ({ path }: { path?: string }) => {
-      const target = path || ROUTES.DOCS;
+      const target = localizeHref(path || ROUTES.DOCS);
       window.location.assign(target);
       return { ok: true, path: target };
     },

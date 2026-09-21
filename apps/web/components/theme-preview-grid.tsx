@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { Link } from "@/components/link";
 import { THEMES } from "@/registry/themes";
 import type { RegistryThemeName } from "@/registry/themes";
 

@@ -3,7 +3,6 @@
 import { ArrowLeftIcon, BookOpenTextIcon } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useIntlayer } from "next-intlayer";
-import Link from "next/link";
 import { useState } from "react";
 
 import { Daikanoid } from "@/components/daikanoid";
@@ -11,6 +10,7 @@ import {
   DaikanoidArtwork,
   DaikanoidPreview,
 } from "@/components/daikanoid/preview";
+import { Link } from "@/components/link";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
