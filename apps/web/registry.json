@@ -1956,6 +1956,111 @@
     },
     {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Gift Certificate PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/gift-certificate/gift-certificate.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/gift-certificate/gift-certificate.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/gift-certificate/gift-certificate.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/gift-certificate/gift-certificate.types.ts"
+        }
+      ],
+      "name": "forme/gift-certificate",
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/pdf-image",
+        "@pdfcn/forme/section",
+        "@pdfcn/forme/text"
+      ],
+      "title": "Gift Certificate",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Medical Intake Form PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/medical-intake-form/medical-intake-form.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/medical-intake-form/medical-intake-form.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/medical-intake-form/medical-intake-form.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/medical-intake-form/medical-intake-form.types.ts"
+        }
+      ],
+      "name": "forme/medical-intake-form",
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/form",
+        "@pdfcn/forme/list",
+        "@pdfcn/forme/page-footer",
+        "@pdfcn/forme/page-header",
+        "@pdfcn/forme/pdf-image",
+        "@pdfcn/forme/section",
+        "@pdfcn/forme/signature",
+        "@pdfcn/forme/table",
+        "@pdfcn/forme/text"
+      ],
+      "title": "Medical Intake Form",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core", "qrcode"],
+      "description": "Shipping Label PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/shipping-label/shipping-label.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/shipping-label/shipping-label.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/shipping-label/shipping-label.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/shipping-label/shipping-label.types.ts"
+        }
+      ],
+      "name": "forme/shipping-label",
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/qrcode",
+        "@pdfcn/forme/text"
+      ],
+      "title": "Shipping Label",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core", "qrcode"],
+      "description": "Event Ticket PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/event-ticket/event-ticket.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/event-ticket/event-ticket.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/event-ticket/event-ticket.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/event-ticket/event-ticket.types.ts"
+        }
+      ],
+      "name": "forme/event-ticket",
+      "registryDependencies": [
+        "@pdfcn/forme/pdf-image",
+        "@pdfcn/forme/qrcode",
+        "@pdfcn/forme/text",
+        "@pdfcn/forme/utils"
+      ],
+      "title": "Event Ticket",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Report Financial PDF block (forme)",
       "files": [
         {

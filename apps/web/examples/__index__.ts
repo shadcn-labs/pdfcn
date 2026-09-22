@@ -6,7 +6,9 @@ import forme_card from "@/examples/forme/card";
 import forme_data_table from "@/examples/forme/data-table";
 import forme_divider from "@/examples/forme/divider";
 import forme_event_agenda from "@/examples/forme/event-agenda";
+import forme_event_ticket from "@/examples/forme/event-ticket";
 import forme_form from "@/examples/forme/form";
+import forme_gift_certificate from "@/examples/forme/gift-certificate";
 import forme_graph from "@/examples/forme/graph";
 import forme_heading from "@/examples/forme/heading";
 import forme_invoice_classic from "@/examples/forme/invoice-classic";
@@ -19,6 +21,7 @@ import forme_keep_together from "@/examples/forme/keep-together";
 import forme_key_value from "@/examples/forme/key-value";
 import forme_link from "@/examples/forme/link";
 import forme_list from "@/examples/forme/list";
+import forme_medical_intake_form from "@/examples/forme/medical-intake-form";
 import forme_meeting_minutes from "@/examples/forme/meeting-minutes";
 import forme_packing_slip from "@/examples/forme/packing-slip";
 import forme_page_break from "@/examples/forme/page-break";
@@ -33,6 +36,7 @@ import forme_report_marketing from "@/examples/forme/report-marketing";
 import forme_report_operations from "@/examples/forme/report-operations";
 import forme_report_security from "@/examples/forme/report-security";
 import forme_section from "@/examples/forme/section";
+import forme_shipping_label from "@/examples/forme/shipping-label";
 import forme_signature from "@/examples/forme/signature";
 import forme_stack from "@/examples/forme/stack";
 import forme_table from "@/examples/forme/table";
@@ -92,7 +96,9 @@ export const demos: Record<BaseName, DemoMap> = {
     "data-table": forme_data_table,
     divider: forme_divider,
     "event-agenda": forme_event_agenda,
+    "event-ticket": forme_event_ticket,
     form: forme_form,
+    "gift-certificate": forme_gift_certificate,
     graph: forme_graph,
     heading: forme_heading,
     "invoice-classic": forme_invoice_classic,
@@ -105,6 +111,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "key-value": forme_key_value,
     link: forme_link,
     list: forme_list,
+    "medical-intake-form": forme_medical_intake_form,
     "meeting-minutes": forme_meeting_minutes,
     "packing-slip": forme_packing_slip,
     "page-break": forme_page_break,
@@ -119,6 +126,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "report-operations": forme_report_operations,
     "report-security": forme_report_security,
     section: forme_section,
+    "shipping-label": forme_shipping_label,
     signature: forme_signature,
     stack: forme_stack,
     table: forme_table,

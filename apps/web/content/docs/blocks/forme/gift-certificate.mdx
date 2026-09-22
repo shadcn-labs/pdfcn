@@ -1,0 +1,107 @@
+---
+title: "Gift Certificate"
+description: "Printable gift certificate template with decorative styling."
+---
+
+<ComponentPreview base="forme" name="gift-certificate" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/gift-certificate
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/gift-certificate/gift-certificate.tsx"
+  base="forme"
+  title="components/pdf/blocks/gift-certificate/gift-certificate.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/gift-certificate/gift-certificate.types.ts"
+  base="forme"
+  title="components/pdf/blocks/gift-certificate/gift-certificate.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { GiftCertificateDocument } from "@/components/pdf/gift-certificate";
+```
+
+```tsx
+<GiftCertificateDocument />
+```

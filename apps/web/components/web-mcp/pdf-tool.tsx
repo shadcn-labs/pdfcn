@@ -5,12 +5,15 @@ import { useWebMCP } from "use-webmcp-tool";
 import { SITE } from "@/constants/site";
 
 const BLOCK_NAMES = [
+  "event-ticket",
+  "gift-certificate",
   "invoice-classic",
   "invoice-consultant",
   "invoice-corporate",
   "invoice-creative",
   "invoice-minimal",
   "invoice-modern",
+  "medical-intake-form",
   "meeting-minutes",
   "packing-slip",
   "press-release",
@@ -18,6 +21,7 @@ const BLOCK_NAMES = [
   "report-marketing",
   "report-operations",
   "report-security",
+  "shipping-label",
 ];
 
 export const GeneratePdfTool = () => {

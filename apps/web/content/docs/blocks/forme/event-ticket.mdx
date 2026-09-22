@@ -1,0 +1,152 @@
+---
+title: "Event Ticket"
+description: "Print-ready event admission ticket with event details, seat info, QR code scan-in area, and branding strip."
+---
+
+<ComponentPreview base="forme" name="event-ticket" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/event-ticket
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core qrcode
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/event-ticket/event-ticket.tsx"
+  base="forme"
+  title="components/pdf/blocks/event-ticket/event-ticket.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/event-ticket/event-ticket.types.ts"
+  base="forme"
+  title="components/pdf/blocks/event-ticket/event-ticket.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-svg.tsx"
+  base="forme"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { EventTicketDocument } from "@/components/pdf/event-ticket";
+```
+
+```tsx
+<EventTicketDocument
+  data={{
+    eventName: "ShadCN Labs Conf",
+    eventDate: "May 15, 2026",
+    eventTime: "9:00 AM",
+    venue: "Convention Center",
+    address: "123 Main St, Las Vegas, NV",
+    doorsOpen: "8:00 AM",
+    ticketType: "VIP",
+    ticketNumber: "TKT-00142",
+    seat: { section: "A", row: "3", number: "12" },
+    organizer: "ShadCN Labs",
+    socialLinks: [
+      { platform: "X", url: "x.com/shadcn" },
+      { platform: "Instagram", url: "instagram.com/shadcn" },
+    ],
+    accentColor: "#52525b",
+  }}
+/>
+```
+
+### With a pre-rendered QR image
+
+Provide `qrCodeUrl` to render an image instead of the generated QR code:
+
+```tsx
+<EventTicketDocument
+  data={{
+    // ...
+    ticketNumber: "TKT-00142",
+    qrCodeUrl: "https://example.com/qr/TKT-00142.png",
+  }}
+/>
+```
+
+## Props
+
+| Prop    | Type              | Description                                                                      |
+| ------- | ----------------- | -------------------------------------------------------------------------------- |
+| `data`  | `EventTicketData` | Ticket content: event, venue, times, seat, ticket type/number, and footer fields |
+| `theme` | `PdfcnTheme`      | Optional theme override                                                          |

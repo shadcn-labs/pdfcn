@@ -1,0 +1,165 @@
+---
+title: "Shipping Label"
+description: "Print-ready 4x6 shipping label with sender, recipient, barcode area, and carrier info."
+---
+
+<ComponentPreview base="forme" name="shipping-label" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/shipping-label
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core qrcode
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/shipping-label/shipping-label.tsx"
+  base="forme"
+  title="components/pdf/blocks/shipping-label/shipping-label.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/qrcode/qrcode.tsx"
+  base="forme"
+  title="components/pdf/qrcode/qrcode.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/text/text.tsx"
+  base="forme"
+  title="components/pdf/text/text.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-svg.tsx"
+  base="forme"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ShippingLabelDocument } from "@/components/pdf/shipping-label";
+```
+
+```tsx
+<ShippingLabelDocument
+  data={{
+    carrier: "UPS",
+    serviceLevel: "Ground",
+    trackingNumber: "1Z999AA10123456784",
+    from: {
+      name: "Acme Warehouse",
+      address: "100 Industrial Blvd",
+      city: "Seattle",
+      state: "WA",
+      zip: "98101",
+    },
+    to: {
+      name: "Jane Doe",
+      address: "456 Oak Ave, Apt 12",
+      city: "Portland",
+      state: "OR",
+      zip: "97201",
+      phone: "(503) 555-0142",
+    },
+    weight: "4.2 lbs",
+    dimensions: '12" x 8" x 6"',
+    handlingLabels: ["FRAGILE"],
+    accentColor: "#1d4ed8",
+  }}
+/>
+```
+
+### With a carrier barcode image
+
+Provide `barcodeUrl` to render a full-width barcode image instead of the QR code:
+
+```tsx
+<ShippingLabelDocument
+  data={{
+    // ...
+    trackingNumber: "1Z999AA10123456784",
+    barcodeUrl: "https://example.com/barcodes/1Z999AA10123456784.png",
+  }}
+/>
+```
+
+## Props
+
+| Prop    | Type                | Description                                                      |
+| ------- | ------------------- | ---------------------------------------------------------------- |
+| `data`  | `ShippingLabelData` | Label content: addresses, carrier, tracking, and package details |
+| `theme` | `PdfcnTheme`        | Optional theme override                                          |

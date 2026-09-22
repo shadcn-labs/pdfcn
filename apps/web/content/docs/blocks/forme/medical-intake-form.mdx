@@ -1,0 +1,152 @@
+---
+title: "Medical Intake Form"
+description: "Printable patient intake and registration form with personal, insurance, medical history, and consent sections."
+---
+
+<ComponentPreview base="forme" name="medical-intake-form" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/medical-intake-form
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/medical-intake-form/medical-intake-form.tsx"
+  base="forme"
+  title="components/pdf/blocks/medical-intake-form/medical-intake-form.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/medical-intake-form/medical-intake-form.types.ts"
+  base="forme"
+  title="components/pdf/blocks/medical-intake-form/medical-intake-form.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { MedicalIntakeFormDocument } from "@/components/pdf/blocks/medical-intake-form/medical-intake-form";
+```
+
+```tsx
+<MedicalIntakeFormDocument
+  clinicName="Sunrise Family Medicine"
+  clinicAddress="200 Health Plaza, Denver, CO 80202"
+  clinicPhone="(303) 555-0180"
+  accentColor="#0d9488"
+/>
+```
+
+## Sections
+
+Every section is rendered by default and can be hidden by setting its prop to `false`.
+
+```tsx
+<MedicalIntakeFormDocument
+  clinicName="Sunrise Family Medicine"
+  personalInfo
+  emergencyContact
+  insurance
+  medicalHistory
+  medications
+  allergies
+  reasonForVisit
+  consent
+/>
+```
+
+| Prop               | Section                                                       |
+| ------------------ | ------------------------------------------------------------- |
+| `personalInfo`     | Name, date of birth, gender, phone, email, and address fields |
+| `emergencyContact` | Contact name, relationship, and phone fields                  |
+| `insurance`        | Provider, policy, group, and subscriber fields                |
+| `medicalHistory`   | Condition checklist with allergy and medication prompts       |
+| `medications`      | Medication, dosage, frequency, and prescribing doctor table   |
+| `allergies`        | Allergen, reaction, and severity table                        |
+| `reasonForVisit`   | Free-text area for symptoms and reason for the visit          |
+| `consent`          | HIPAA authorization, treatment consent, and signature lines   |
+
+## Props
+
+| Prop            | Type         | Description                                                 |
+| --------------- | ------------ | ----------------------------------------------------------- |
+| `clinicName`    | `string`     | Clinic name shown in the header and consent text            |
+| `clinicLogo`    | `string`     | Optional logo image source                                  |
+| `clinicAddress` | `string`     | Address shown in the header and footer                      |
+| `clinicPhone`   | `string`     | Phone number shown in the header and footer                 |
+| `accentColor`   | `string`     | Theme token or CSS color used for section rules and accents |
+| `theme`         | `PdfcnTheme` | Theme override for the whole document                       |
