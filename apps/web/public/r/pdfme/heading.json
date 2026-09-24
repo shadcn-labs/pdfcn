@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pdfme/heading",
+  "title": "Heading",
+  "description": "Heading PDF component (pdfme)",
+  "dependencies": [
+    "@pdfme/common",
+    "@pdfme/generator",
+    "@pdfme/jsx",
+    "@pdfme/schemas"
+  ],
+  "registryDependencies": [
+    "@pdfcn/pdfme/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/pdfme/components/heading/heading.tsx",
+      "content": "import {\n  usePdfcnTheme,\n  useSafeMemo,\n} from \"@/registry/bases/pdfme/components/theme-provider\";\nimport {\n  Text as PDFText,\n  StyleSheet,\n} from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport type { Style } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport { resolveColor } from \"@/registry/bases/pdfme/lib/resolve-color\";\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\nimport type { PdfcnTheme } from \"@/registry/types/pdf-themes\";\n\nexport type HeadingLevel = \"h1\" | \"h2\" | \"h3\" | \"h4\";\n\n/**\n * Heading with level-based sizing. Maps to pdfme `text` schema with larger sizes.\n */\nexport interface HeadingProps extends PDFComponentProps {\n  /**\n   * @default 'h1'\n   */\n  level?: HeadingLevel;\n  align?: \"left\" | \"center\" | \"right\";\n  color?: string;\n}\n\nconst createHeadingStyles = (t: PdfcnTheme) =>\n  StyleSheet.create({\n    base: {\n      color: t.colors.foreground,\n      fontFamily: t.typography.heading.fontFamily,\n      fontWeight: t.primitives.fontWeights.bold,\n      lineHeight: t.typography.heading.lineHeight,\n      marginBottom: t.spacing.paragraphGap,\n      marginTop: 0,\n    },\n    h1: { fontSize: t.primitives.typography[\"3xl\"] },\n    h2: { fontSize: t.primitives.typography[\"2xl\"] },\n    h3: { fontSize: t.primitives.typography.xl },\n    h4: { fontSize: t.primitives.typography.lg },\n  });\n\nexport const Heading = ({\n  level = \"h1\",\n  align,\n  color,\n  children,\n  style,\n}: HeadingProps) => {\n  const theme = usePdfcnTheme();\n  const styles = useSafeMemo(() => createHeadingStyles(theme), [theme]);\n  const styleArray: Style[] = [styles.base, styles[level]];\n  if (align) {\n    styleArray.push({ textAlign: align });\n  }\n  if (color) {\n    styleArray.push({ color: resolveColor(color, theme.colors) });\n  }\n  if (style) {\n    styleArray.push(...[style].flat());\n  }\n  return <PDFText style={styleArray}>{children}</PDFText>;\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/heading/heading.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

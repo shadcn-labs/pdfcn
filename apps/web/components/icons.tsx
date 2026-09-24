@@ -471,6 +471,49 @@ export const FormeIcon = ({
   </svg>
 );
 
+// pdfme mark for the pdfme rendering base.
+export const PdfmeIcon = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    className={cn("size-4", className)}
+    {...props}
+  >
+    <rect x="6" y="6" width="52" height="52" rx="10" fill="#e11d48" />
+    <rect x="16" y="20" width="32" height="5" rx="1.5" fill="#ffffff" />
+    <rect
+      x="16"
+      y="29"
+      width="22"
+      height="5"
+      rx="1.5"
+      fill="#ffffff"
+      opacity="0.85"
+    />
+    <rect
+      x="16"
+      y="38"
+      width="14"
+      height="10"
+      rx="1.5"
+      fill="#ffffff"
+      opacity="0.7"
+    />
+    <rect
+      x="34"
+      y="38"
+      width="14"
+      height="10"
+      rx="1.5"
+      fill="#ffffff"
+      opacity="0.9"
+    />
+  </svg>
+);
+
 export const getIconForLanguageExtension = (language: string) => {
   switch (language) {
     case "json": {

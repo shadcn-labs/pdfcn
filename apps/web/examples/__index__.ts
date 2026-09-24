@@ -44,6 +44,10 @@ import forme_table from "@/examples/forme/table";
 import forme_text from "@/examples/forme/text";
 import forme_watermark from "@/examples/forme/watermark";
 import forme_work_order from "@/examples/forme/work-order";
+import pdfme_image from "@/examples/pdfme/image";
+import pdfme_invoice_classic from "@/examples/pdfme/invoice-classic";
+import pdfme_table from "@/examples/pdfme/table";
+import pdfme_text from "@/examples/pdfme/text";
 import takumi_alert from "@/examples/takumi/alert";
 import takumi_badge from "@/examples/takumi/badge";
 import takumi_card from "@/examples/takumi/card";
@@ -138,6 +142,12 @@ export const demos: Record<BaseName, DemoMap> = {
     text: forme_text,
     watermark: forme_watermark,
     "work-order": forme_work_order,
+  },
+  pdfme: {
+    image: pdfme_image,
+    "invoice-classic": pdfme_invoice_classic,
+    table: pdfme_table,
+    text: pdfme_text,
   },
   takumi: {
     alert: takumi_alert,

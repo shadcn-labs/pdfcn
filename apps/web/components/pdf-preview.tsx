@@ -139,6 +139,31 @@ export const PdfPreview = ({
             images,
           });
           pdfBytes = new Uint8Array(buffer);
+        } else if (base === "pdfme") {
+          const [{ renderPdfmeTemplate }, { generatePdfmePdf }] =
+            await Promise.all([
+              import("@/registry/bases/pdfme/lib/template"),
+              import("@/registry/bases/pdfme/lib/generate"),
+            ]);
+
+          if (name === "invoice-classic") {
+            const { buildInvoiceClassicJsx } =
+              await import("@/registry/bases/pdfme/blocks/invoice-classic/invoice-classic.pdfme");
+            const { template, inputs } = await renderPdfmeTemplate(
+              buildInvoiceClassicJsx()
+            );
+            pdfBytes = await generatePdfmePdf({ inputs, template });
+          } else {
+            // Fallback preview: reuse the invoice template for other demos.
+            // This keeps preview working without per-component JSX builders.
+            const { buildInvoiceClassicJsx } =
+              await import("@/registry/bases/pdfme/blocks/invoice-classic/invoice-classic.pdfme");
+            const { template, inputs } = await renderPdfmeTemplate(
+              buildInvoiceClassicJsx()
+            );
+            void name;
+            pdfBytes = await generatePdfmePdf({ inputs, template });
+          }
         } else if (theme) {
           const [
             { InvoiceClassicDocument },

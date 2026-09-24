@@ -3,7 +3,10 @@
   "homepage": "https://pdfcn.vercel.app",
   "items": [
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Theme context and helpers for the takumi base",
       "files": [
         {
@@ -32,7 +35,10 @@
       "type": "registry:lib"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Alert PDF component (takumi)",
       "files": [
         {
@@ -42,12 +48,17 @@
         }
       ],
       "name": "takumi/alert",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Alert",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Badge PDF component (takumi)",
       "files": [
         {
@@ -57,12 +68,17 @@
         }
       ],
       "name": "takumi/badge",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Badge",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Card PDF component (takumi)",
       "files": [
         {
@@ -72,12 +88,17 @@
         }
       ],
       "name": "takumi/card",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Card",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Data Table PDF component (takumi)",
       "files": [
         {
@@ -97,12 +118,18 @@
         }
       ],
       "name": "takumi/data-table",
-      "registryDependencies": ["@pdfcn/takumi/utils", "@pdfcn/takumi/table"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/table"
+      ],
       "title": "Data Table",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Divider PDF component (takumi)",
       "files": [
         {
@@ -112,12 +139,17 @@
         }
       ],
       "name": "takumi/divider",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Divider",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Form PDF component (takumi)",
       "files": [
         {
@@ -137,12 +169,17 @@
         }
       ],
       "name": "takumi/form",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Form",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Graph PDF component (takumi)",
       "files": [
         {
@@ -167,12 +204,17 @@
         }
       ],
       "name": "takumi/graph",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Graph",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Heading PDF component (takumi)",
       "files": [
         {
@@ -182,12 +224,17 @@
         }
       ],
       "name": "takumi/heading",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Heading",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Keep Together PDF component (takumi)",
       "files": [
         {
@@ -197,12 +244,17 @@
         }
       ],
       "name": "takumi/keep-together",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Keep Together",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Key Value PDF component (takumi)",
       "files": [
         {
@@ -212,12 +264,17 @@
         }
       ],
       "name": "takumi/key-value",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Key Value",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Link PDF component (takumi)",
       "files": [
         {
@@ -227,12 +284,17 @@
         }
       ],
       "name": "takumi/link",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Link",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "List PDF component (takumi)",
       "files": [
         {
@@ -252,12 +314,17 @@
         }
       ],
       "name": "takumi/list",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "List",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Page Break PDF component (takumi)",
       "files": [
         {
@@ -267,12 +334,17 @@
         }
       ],
       "name": "takumi/page-break",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Page Break",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Page Footer PDF component (takumi)",
       "files": [
         {
@@ -282,12 +354,17 @@
         }
       ],
       "name": "takumi/page-footer",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Page Footer",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Page Header PDF component (takumi)",
       "files": [
         {
@@ -297,12 +374,17 @@
         }
       ],
       "name": "takumi/page-header",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Page Header",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Page Number PDF component (takumi)",
       "files": [
         {
@@ -312,12 +394,17 @@
         }
       ],
       "name": "takumi/page-number",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Page Number",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Pdf Image PDF component (takumi)",
       "files": [
         {
@@ -327,12 +414,18 @@
         }
       ],
       "name": "takumi/pdf-image",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Pdf Image",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers", "qrcode"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers",
+        "qrcode"
+      ],
       "description": "Qrcode PDF component (takumi)",
       "files": [
         {
@@ -342,12 +435,17 @@
         }
       ],
       "name": "takumi/qrcode",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Qrcode",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Section PDF component (takumi)",
       "files": [
         {
@@ -357,12 +455,17 @@
         }
       ],
       "name": "takumi/section",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Section",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Signature PDF component (takumi)",
       "files": [
         {
@@ -372,12 +475,17 @@
         }
       ],
       "name": "takumi/signature",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Signature",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Stack PDF component (takumi)",
       "files": [
         {
@@ -387,12 +495,17 @@
         }
       ],
       "name": "takumi/stack",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Stack",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Table PDF component (takumi)",
       "files": [
         {
@@ -412,12 +525,17 @@
         }
       ],
       "name": "takumi/table",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Table",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Text PDF component (takumi)",
       "files": [
         {
@@ -427,12 +545,17 @@
         }
       ],
       "name": "takumi/text",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Text",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Watermark PDF component (takumi)",
       "files": [
         {
@@ -442,7 +565,9 @@
         }
       ],
       "name": "takumi/watermark",
-      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "registryDependencies": [
+        "@pdfcn/takumi/utils"
+      ],
       "title": "Watermark",
       "type": "registry:ui"
     },
@@ -527,7 +652,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Invoice Consultant PDF block (takumi)",
       "files": [
         {
@@ -554,7 +682,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Invoice Corporate PDF block (takumi)",
       "files": [
         {
@@ -582,7 +713,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Invoice Creative PDF block (takumi)",
       "files": [
         {
@@ -610,7 +744,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Invoice Minimal PDF block (takumi)",
       "files": [
         {
@@ -638,7 +775,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Invoice Modern PDF block (takumi)",
       "files": [
         {
@@ -812,7 +952,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Report Marketing PDF block (takumi)",
       "files": [
         {
@@ -848,7 +991,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Report Operations PDF block (takumi)",
       "files": [
         {
@@ -884,7 +1030,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "dependencies": [
+        "takumi-pdf",
+        "@takumi-rs/helpers"
+      ],
       "description": "Report Security PDF block (takumi)",
       "files": [
         {
@@ -1286,7 +1435,10 @@
       "type": "registry:theme"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Theme context and helpers for the forme base",
       "files": [
         {
@@ -1320,7 +1472,10 @@
       "type": "registry:lib"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Alert PDF component (forme)",
       "files": [
         {
@@ -1330,12 +1485,17 @@
         }
       ],
       "name": "forme/alert",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Alert",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Badge PDF component (forme)",
       "files": [
         {
@@ -1345,12 +1505,17 @@
         }
       ],
       "name": "forme/badge",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Badge",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Card PDF component (forme)",
       "files": [
         {
@@ -1360,12 +1525,17 @@
         }
       ],
       "name": "forme/card",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Card",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Data Table PDF component (forme)",
       "files": [
         {
@@ -1385,12 +1555,18 @@
         }
       ],
       "name": "forme/data-table",
-      "registryDependencies": ["@pdfcn/forme/utils", "@pdfcn/forme/table"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/table"
+      ],
       "title": "Data Table",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Divider PDF component (forme)",
       "files": [
         {
@@ -1400,12 +1576,17 @@
         }
       ],
       "name": "forme/divider",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Divider",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Form PDF component (forme)",
       "files": [
         {
@@ -1425,12 +1606,17 @@
         }
       ],
       "name": "forme/form",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Form",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Graph PDF component (forme)",
       "files": [
         {
@@ -1455,12 +1641,17 @@
         }
       ],
       "name": "forme/graph",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Graph",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Heading PDF component (forme)",
       "files": [
         {
@@ -1470,12 +1661,17 @@
         }
       ],
       "name": "forme/heading",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Heading",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Keep Together PDF component (forme)",
       "files": [
         {
@@ -1485,12 +1681,17 @@
         }
       ],
       "name": "forme/keep-together",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Keep Together",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Key Value PDF component (forme)",
       "files": [
         {
@@ -1500,12 +1701,17 @@
         }
       ],
       "name": "forme/key-value",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Key Value",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Link PDF component (forme)",
       "files": [
         {
@@ -1515,12 +1721,17 @@
         }
       ],
       "name": "forme/link",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Link",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "List PDF component (forme)",
       "files": [
         {
@@ -1540,12 +1751,17 @@
         }
       ],
       "name": "forme/list",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "List",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Page Break PDF component (forme)",
       "files": [
         {
@@ -1555,12 +1771,17 @@
         }
       ],
       "name": "forme/page-break",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Page Break",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Page Footer PDF component (forme)",
       "files": [
         {
@@ -1570,12 +1791,17 @@
         }
       ],
       "name": "forme/page-footer",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Page Footer",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Page Header PDF component (forme)",
       "files": [
         {
@@ -1585,12 +1811,17 @@
         }
       ],
       "name": "forme/page-header",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Page Header",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Page Number PDF component (forme)",
       "files": [
         {
@@ -1600,12 +1831,17 @@
         }
       ],
       "name": "forme/page-number",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Page Number",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Pdf Image PDF component (forme)",
       "files": [
         {
@@ -1615,12 +1851,18 @@
         }
       ],
       "name": "forme/pdf-image",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Pdf Image",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core", "qrcode"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core",
+        "qrcode"
+      ],
       "description": "Qrcode PDF component (forme)",
       "files": [
         {
@@ -1630,12 +1872,17 @@
         }
       ],
       "name": "forme/qrcode",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Qrcode",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Section PDF component (forme)",
       "files": [
         {
@@ -1645,12 +1892,17 @@
         }
       ],
       "name": "forme/section",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Section",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Signature PDF component (forme)",
       "files": [
         {
@@ -1660,12 +1912,17 @@
         }
       ],
       "name": "forme/signature",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Signature",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Stack PDF component (forme)",
       "files": [
         {
@@ -1675,12 +1932,17 @@
         }
       ],
       "name": "forme/stack",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Stack",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Table PDF component (forme)",
       "files": [
         {
@@ -1700,12 +1962,17 @@
         }
       ],
       "name": "forme/table",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Table",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Text PDF component (forme)",
       "files": [
         {
@@ -1715,12 +1982,17 @@
         }
       ],
       "name": "forme/text",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Text",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Watermark PDF component (forme)",
       "files": [
         {
@@ -1730,7 +2002,9 @@
         }
       ],
       "name": "forme/watermark",
-      "registryDependencies": ["@pdfcn/forme/utils"],
+      "registryDependencies": [
+        "@pdfcn/forme/utils"
+      ],
       "title": "Watermark",
       "type": "registry:ui"
     },
@@ -1789,7 +2063,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Invoice Consultant PDF block (forme)",
       "files": [
         {
@@ -1816,7 +2093,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Invoice Corporate PDF block (forme)",
       "files": [
         {
@@ -1844,7 +2124,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Invoice Creative PDF block (forme)",
       "files": [
         {
@@ -1872,7 +2155,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Invoice Minimal PDF block (forme)",
       "files": [
         {
@@ -1900,7 +2186,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Invoice Modern PDF block (forme)",
       "files": [
         {
@@ -2154,7 +2443,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Report Marketing PDF block (forme)",
       "files": [
         {
@@ -2190,7 +2482,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Report Operations PDF block (forme)",
       "files": [
         {
@@ -2226,7 +2521,10 @@
       "type": "registry:block"
     },
     {
-      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "dependencies": [
+        "@formepdf/react",
+        "@formepdf/core"
+      ],
       "description": "Report Security PDF block (forme)",
       "files": [
         {
@@ -2259,6 +2557,251 @@
         "@pdfcn/forme/text"
       ],
       "title": "Report Security",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Theme context and helpers for the pdfme base",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/lib/resolve-color.ts",
+          "type": "registry:lib",
+          "target": "lib/resolve-color.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/components/theme-provider.tsx",
+          "type": "registry:lib",
+          "target": "components/pdf/theme-provider.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/pdf-primitives.tsx",
+          "type": "registry:lib",
+          "target": "lib/pdf-primitives.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/template.ts",
+          "type": "registry:lib",
+          "target": "lib/pdfme-template.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/plugins.ts",
+          "type": "registry:lib",
+          "target": "lib/pdfme-plugins.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/generate.ts",
+          "type": "registry:lib",
+          "target": "lib/pdfme-generate.ts"
+        }
+      ],
+      "name": "pdfme/utils",
+      "title": "pdfme Utils",
+      "type": "registry:lib"
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Text PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/text/text.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/text/text.tsx"
+        }
+      ],
+      "name": "pdfme/text",
+      "title": "Text",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Heading PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/heading/heading.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/heading/heading.tsx"
+        }
+      ],
+      "name": "pdfme/heading",
+      "title": "Heading",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Table PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/table/table.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.styles.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/components/table/table.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/components/table/table.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.types.ts"
+        }
+      ],
+      "name": "pdfme/table",
+      "title": "Table",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Pdf Image PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/pdf-image/pdf-image.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/pdf-image/pdf-image.tsx"
+        }
+      ],
+      "name": "pdfme/pdf-image",
+      "title": "Pdf Image",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Section PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/section/section.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/section/section.tsx"
+        }
+      ],
+      "name": "pdfme/section",
+      "title": "Section",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Stack PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/stack/stack.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/stack/stack.tsx"
+        }
+      ],
+      "name": "pdfme/stack",
+      "title": "Stack",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Divider PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/divider/divider.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/divider/divider.tsx"
+        }
+      ],
+      "name": "pdfme/divider",
+      "title": "Divider",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils"
+      ]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Invoice Classic PDF block (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/blocks/invoice-classic/invoice-classic.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/blocks/invoice-classic/invoice-classic.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.types.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/blocks/invoice-classic/invoice-classic.pdfme.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.pdfme.tsx"
+        }
+      ],
+      "name": "pdfme/invoice-classic",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils",
+        "@pdfcn/pdfme/table",
+        "@pdfcn/pdfme/text",
+        "@pdfcn/pdfme/section",
+        "@pdfcn/pdfme/stack",
+        "@pdfcn/pdfme/pdf-image"
+      ],
+      "title": "Invoice Classic",
       "type": "registry:block"
     },
     {

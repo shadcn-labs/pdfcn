@@ -1,0 +1,77 @@
+---
+title: "Text"
+description: "Body text with typography variants (pdfme base)."
+---
+
+<ComponentPreview base="pdfme" name="text" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/pdfme/text
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @pdfme/common @pdfme/generator @pdfme/jsx @pdfme/schemas
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/pdfme/components/text/text.tsx"
+  base="pdfme"
+  title="components/pdf/text/text.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Text } from "@/components/pdf/text";
+```
+
+```tsx
+<Text>Hello from pdfcn</Text>
+```
+
+Maps to pdfme's `text` schema. For template generation, use `@pdfme/jsx`
+`Text` inside `renderToTemplate`. See https://pdfme.com/docs/jsx.
+
+## API Reference
+
+### Text
+
+| Prop         | Type                                                       | Default    |
+| ------------ | ---------------------------------------------------------- | ---------- |
+| `variant`    | `'xs' \| 'sm' \| 'base' \| 'lg' \| 'xl' \| '2xl' \| '3xl'` | `'base'`   |
+| `align`      | `'left' \| 'center' \| 'right' \| 'justify'`               | `'left'`   |
+| `color`      | `string`                                                   | -          |
+| `weight`     | `'normal' \| 'medium' \| 'semibold' \| 'bold'`             | `'normal'` |
+| `italic`     | `boolean`                                                  | `false`    |
+| `decoration` | `'underline' \| 'line-through' \| 'none'`                  | `'none'`   |
+| `transform`  | `'uppercase' \| 'lowercase' \| 'capitalize'`               | -          |
+| `noMargin`   | `boolean`                                                  | `false`    |

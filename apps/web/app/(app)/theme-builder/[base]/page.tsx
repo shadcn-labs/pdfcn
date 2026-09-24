@@ -11,6 +11,8 @@ export const dynamicParams = false;
 const BASE_COPY: Record<BaseName, string> = {
   forme:
     "Design and export a reusable pdfcn theme with a live PDF preview powered by Forme.",
+  pdfme:
+    "Design and export a reusable pdfcn theme with a live PDF preview powered by pdfme.",
   takumi:
     "Design and export a reusable pdfcn theme with a live PDF preview powered by Takumi.",
 };

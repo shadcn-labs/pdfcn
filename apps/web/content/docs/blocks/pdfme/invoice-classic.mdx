@@ -1,0 +1,123 @@
+---
+title: "Invoice Classic"
+description: "Classic invoice document template (pdfme base)."
+---
+
+<ComponentPreview base="pdfme" name="invoice-classic" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/pdfme/invoice-classic
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @pdfme/common @pdfme/generator @pdfme/jsx @pdfme/schemas
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/pdfme/blocks/invoice-classic/invoice-classic.tsx"
+  base="pdfme"
+  title="components/pdf/blocks/invoice-classic/invoice-classic.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/blocks/invoice-classic/invoice-classic.pdfme.tsx"
+  base="pdfme"
+  title="components/pdf/blocks/invoice-classic/invoice-classic.pdfme.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/components/theme-provider.tsx"
+  base="pdfme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/lib/resolve-color.ts"
+  base="pdfme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/lib/pdf-primitives.tsx"
+  base="pdfme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/lib/template.ts"
+  base="pdfme"
+  title="lib/pdfme-template.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/lib/plugins.ts"
+  base="pdfme"
+  title="lib/pdfme-plugins.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/pdfme/lib/generate.ts"
+  base="pdfme"
+  title="lib/pdfme-generate.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { InvoiceClassicDocument } from "@/components/pdf/invoice-classic";
+```
+
+```tsx
+<InvoiceClassicDocument />
+```
+
+## pdfme template generation
+
+The pdfme base also exposes a native `@pdfme/jsx` template. Use
+`renderToTemplate` to get a `Template + inputs` pair, then `generate()` with
+the bundled plugins:
+
+```ts
+import { buildInvoiceClassicJsx } from "@/components/pdf/blocks/invoice-classic/invoice-classic.pdfme";
+import { generatePdfmePdf } from "@/lib/pdfme-generate";
+import { renderPdfmeTemplate } from "@/lib/pdfme-template";
+
+const { template, inputs } = await renderPdfmeTemplate(
+  buildInvoiceClassicJsx()
+);
+const pdf = await generatePdfmePdf({ template, inputs });
+```
+
+Try the JSX authoring layer in the [JSX Playground](https://playground.pdfme.com/jsx).
+See the [pdfme docs](https://pdfme.com/docs/getting-started) and
+[JSX docs](https://pdfme.com/docs/jsx) for plugins, fonts, Designer, Form and
+Viewer usage.

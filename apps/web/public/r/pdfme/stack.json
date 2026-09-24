@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pdfme/stack",
+  "title": "Stack",
+  "description": "Stack PDF component (pdfme)",
+  "dependencies": [
+    "@pdfme/common",
+    "@pdfme/generator",
+    "@pdfme/jsx",
+    "@pdfme/schemas"
+  ],
+  "registryDependencies": [
+    "@pdfcn/pdfme/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/pdfme/components/stack/stack.tsx",
+      "content": "import { View } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport type { Style } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport type { PDFComponentProps } from \"@/registry/types/pdf-components\";\n\nexport interface StackProps extends PDFComponentProps {\n  gap?: number;\n  direction?: \"vertical\" | \"horizontal\";\n  align?: \"start\" | \"center\" | \"end\" | \"stretch\";\n}\n\n/**\n * Vertical/horizontal stack. Maps to pdfme `Stack` and `Row` primitives.\n */\nexport const Stack = ({\n  gap = 8,\n  direction = \"vertical\",\n  align = \"stretch\",\n  children,\n  style,\n}: StackProps) => {\n  const alignMap = {\n    center: \"center\",\n    end: \"flex-end\",\n    start: \"flex-start\",\n    stretch: \"stretch\",\n  } as const;\n  const styleArray: Style[] = [\n    {\n      alignItems: alignMap[align],\n      display: \"flex\",\n      flexDirection: direction === \"horizontal\" ? \"row\" : \"column\",\n      gap,\n    },\n  ];\n  if (style) {\n    styleArray.push(...[style].flat());\n  }\n  return <View style={styleArray}>{children}</View>;\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/stack/stack.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

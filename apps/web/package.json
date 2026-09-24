@@ -14,6 +14,10 @@
   "dependencies": {
     "@formepdf/core": "^0.25.0",
     "@formepdf/react": "^0.25.0",
+    "@pdfme/common": "^6.1.13",
+    "@pdfme/generator": "^6.1.13",
+    "@pdfme/jsx": "^6.1.13",
+    "@pdfme/schemas": "^6.1.13",
     "@takumi-rs/helpers": "^2.10.0",
     "@vercel/analytics": "^2.0.1",
     "@web-kits/audio": "^0.1.0",

@@ -2262,6 +2262,237 @@
       "type": "registry:block"
     },
     {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Theme context and helpers for the pdfme base",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/lib/resolve-color.ts",
+          "type": "registry:lib",
+          "target": "lib/resolve-color.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/components/theme-provider.tsx",
+          "type": "registry:lib",
+          "target": "components/pdf/theme-provider.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/pdf-primitives.tsx",
+          "type": "registry:lib",
+          "target": "lib/pdf-primitives.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/template.ts",
+          "type": "registry:lib",
+          "target": "lib/pdfme-template.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/plugins.ts",
+          "type": "registry:lib",
+          "target": "lib/pdfme-plugins.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/lib/generate.ts",
+          "type": "registry:lib",
+          "target": "lib/pdfme-generate.ts"
+        }
+      ],
+      "name": "pdfme/utils",
+      "title": "pdfme Utils",
+      "type": "registry:lib"
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Text PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/text/text.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/text/text.tsx"
+        }
+      ],
+      "name": "pdfme/text",
+      "title": "Text",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Heading PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/heading/heading.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/heading/heading.tsx"
+        }
+      ],
+      "name": "pdfme/heading",
+      "title": "Heading",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Table PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/table/table.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.styles.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/components/table/table.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/components/table/table.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.types.ts"
+        }
+      ],
+      "name": "pdfme/table",
+      "title": "Table",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Pdf Image PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/pdf-image/pdf-image.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/pdf-image/pdf-image.tsx"
+        }
+      ],
+      "name": "pdfme/pdf-image",
+      "title": "Pdf Image",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Section PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/section/section.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/section/section.tsx"
+        }
+      ],
+      "name": "pdfme/section",
+      "title": "Section",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Stack PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/stack/stack.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/stack/stack.tsx"
+        }
+      ],
+      "name": "pdfme/stack",
+      "title": "Stack",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Divider PDF component (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/components/divider/divider.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/divider/divider.tsx"
+        }
+      ],
+      "name": "pdfme/divider",
+      "title": "Divider",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/pdfme/utils"]
+    },
+    {
+      "dependencies": [
+        "@pdfme/common",
+        "@pdfme/generator",
+        "@pdfme/jsx",
+        "@pdfme/schemas"
+      ],
+      "description": "Invoice Classic PDF block (pdfme)",
+      "files": [
+        {
+          "path": "registry/bases/pdfme/blocks/invoice-classic/invoice-classic.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.tsx"
+        },
+        {
+          "path": "registry/bases/pdfme/blocks/invoice-classic/invoice-classic.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.types.ts"
+        },
+        {
+          "path": "registry/bases/pdfme/blocks/invoice-classic/invoice-classic.pdfme.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.pdfme.tsx"
+        }
+      ],
+      "name": "pdfme/invoice-classic",
+      "registryDependencies": [
+        "@pdfcn/pdfme/utils",
+        "@pdfcn/pdfme/table",
+        "@pdfcn/pdfme/text",
+        "@pdfcn/pdfme/section",
+        "@pdfcn/pdfme/stack",
+        "@pdfcn/pdfme/pdf-image"
+      ],
+      "title": "Invoice Classic",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Work Order PDF block (forme)",
       "files": [

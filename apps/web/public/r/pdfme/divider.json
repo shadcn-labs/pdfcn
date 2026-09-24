@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pdfme/divider",
+  "title": "Divider",
+  "description": "Divider PDF component (pdfme)",
+  "dependencies": [
+    "@pdfme/common",
+    "@pdfme/generator",
+    "@pdfme/jsx",
+    "@pdfme/schemas"
+  ],
+  "registryDependencies": [
+    "@pdfcn/pdfme/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/pdfme/components/divider/divider.tsx",
+      "content": "import { usePdfcnTheme } from \"@/registry/bases/pdfme/components/theme-provider\";\nimport { View } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport type { Style } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport { resolveColor } from \"@/registry/bases/pdfme/lib/resolve-color\";\n\nexport interface DividerProps {\n  color?: string;\n  thickness?: number;\n  style?: Style | Style[];\n}\n\n/**\n * Horizontal divider. Maps to pdfme `Line` schema.\n */\nexport const Divider = ({ color, thickness = 1, style }: DividerProps) => {\n  const theme = usePdfcnTheme();\n  const styleArray: Style[] = [\n    {\n      borderTopColor: resolveColor(color ?? \"border\", theme.colors),\n      borderTopStyle: \"solid\",\n      borderTopWidth: thickness,\n      marginVertical: theme.spacing.paragraphGap,\n      width: \"100%\",\n    },\n  ];\n  if (style) {\n    styleArray.push(...[style].flat());\n  }\n  return <View style={styleArray} />;\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/divider/divider.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

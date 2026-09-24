@@ -1,5 +1,6 @@
-import { FormeIcon, TakumiIcon } from "@/components/icons";
+import { FormeIcon, PdfmeIcon, TakumiIcon } from "@/components/icons";
 import { formeRegistryBase } from "@/registry/bases/forme/registry";
+import { pdfmeRegistryBase } from "@/registry/bases/pdfme/registry";
 import { takumiRegistryBase } from "@/registry/bases/takumi/registry";
 
 export const BASES = [
@@ -23,6 +24,22 @@ export const BASES = [
       logo: FormeIcon,
     },
     title: "Forme",
+    type: "registry:style" as const,
+  },
+  {
+    ...pdfmeRegistryBase,
+    dependencies: [
+      "@pdfme/common",
+      "@pdfme/generator",
+      "@pdfme/jsx",
+      "@pdfme/schemas",
+    ],
+    description:
+      "JSX-first PDF templates via @pdfme/jsx — renderToTemplate to Template + inputs, generate with pdfme plugins.",
+    meta: {
+      logo: PdfmeIcon,
+    },
+    title: "pdfme",
     type: "registry:style" as const,
   },
 ] as const;

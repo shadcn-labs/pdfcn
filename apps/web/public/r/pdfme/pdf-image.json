@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pdfme/pdf-image",
+  "title": "Pdf Image",
+  "description": "Pdf Image PDF component (pdfme)",
+  "dependencies": [
+    "@pdfme/common",
+    "@pdfme/generator",
+    "@pdfme/jsx",
+    "@pdfme/schemas"
+  ],
+  "registryDependencies": [
+    "@pdfcn/pdfme/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/pdfme/components/pdf-image/pdf-image.tsx",
+      "content": "import { Image as PDFImage } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\nimport type { Style } from \"@/registry/bases/pdfme/lib/pdf-primitives\";\n\nexport interface PdfImageProps {\n  src: string | { uri: string };\n  style?: Style | Style[];\n  width?: number;\n  height?: number;\n  className?: string;\n}\n\n/**\n * Image component. Maps to pdfme's `image` schema.\n */\nexport const PdfImage = ({ src, style, width, height }: PdfImageProps) => {\n  const sizeStyle = {} as Style;\n  if (width !== undefined) {\n    sizeStyle.width = width;\n  }\n  if (height !== undefined) {\n    sizeStyle.height = height;\n  }\n  const styleArray: Style[] = [sizeStyle];\n  if (style) {\n    styleArray.push(...[style].flat());\n  }\n  return <PDFImage src={src} style={styleArray} />;\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/pdf-image/pdf-image.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
