@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/button",
+  "title": "Button",
+  "description": "Button component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/button/button.tsx",
+      "content": "import { Button as UnlayerButton } from \"@unlayer/react-elements\";\nimport type { ReactNode } from \"react\";\n\nimport { usePdfcnTheme } from \"@/registry/bases/elements/components/theme-provider\";\nimport { resolveColor } from \"@/registry/bases/elements/lib/resolve-color\";\nimport type {\n  UnlayerRenderProps,\n  UnlayerRenderStatics,\n} from \"@/registry/bases/elements/lib/transparent\";\n\n/**\n * CTA button. Maps to Unlayer `<Button>`.\n */\nexport interface PDFButtonProps {\n  children: ReactNode;\n  href?: string;\n  backgroundColor?: string;\n  color?: string;\n}\n\nconst mapButtonProps = (props: PDFButtonProps) => {\n  const theme = usePdfcnTheme();\n  return {\n    backgroundColor: props.backgroundColor\n      ? resolveColor(props.backgroundColor, theme.colors)\n      : theme.colors.primary,\n    color: props.color ? resolveColor(props.color, theme.colors) : \"#ffffff\",\n    href: props.href,\n  };\n};\n\nexport const PDFButton = ({\n  children,\n  href,\n  backgroundColor,\n  color,\n}: PDFButtonProps) => (\n  <UnlayerButton {...mapButtonProps({ backgroundColor, children, color, href })}>\n    {children}\n  </UnlayerButton>\n);\n\n// Transparent wrapper: delegate through Unlayer's item renderer.\nconst unlayerButton = UnlayerButton as unknown as UnlayerRenderStatics;\n(PDFButton as unknown as Record<string, unknown>).__unlayerRender = (\n  props: UnlayerRenderProps & PDFButtonProps\n) =>\n  unlayerButton.__unlayerRender({ ...props, ...mapButtonProps(props) });\n(PDFButton as unknown as Record<string, unknown>).__unlayerItemConfig =\n  unlayerButton.__unlayerItemConfig;\nPDFButton.displayName = \"Button\";\n",
+      "type": "registry:component",
+      "target": "components/pdf/button/button.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

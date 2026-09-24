@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/table",
+  "title": "Table",
+  "description": "Table component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/table/table.tsx",
+      "content": "import { Table as UnlayerTable } from \"@unlayer/react-elements\";\n\nimport type {\n  UnlayerRenderProps,\n  UnlayerRenderStatics,\n} from \"@/registry/bases/elements/lib/transparent\";\n\nimport type { ElementsTableProps } from \"./table.types\";\n\n/**\n * Data table. Maps to Unlayer `<Table>` (`headers` + `data`).\n */\nexport interface PDFTableProps extends ElementsTableProps {\n  repeatHeaderOnEachPage?: boolean;\n}\n\nexport const PDFTable = ({\n  headers,\n  data,\n  repeatHeaderOnEachPage = true,\n}: PDFTableProps) => (\n  <UnlayerTable\n    data={data}\n    headers={headers}\n    repeatHeaderOnEachPage={repeatHeaderOnEachPage}\n  />\n);\n\n// Transparent wrapper: delegate through Unlayer's item renderer.\nconst unlayerTable = UnlayerTable as unknown as UnlayerRenderStatics;\n(PDFTable as unknown as Record<string, unknown>).__unlayerRender = (\n  props: UnlayerRenderProps & PDFTableProps\n) =>\n  unlayerTable.__unlayerRender({\n    ...props,\n    data: props.data,\n    headers: props.headers,\n    repeatHeaderOnEachPage: props.repeatHeaderOnEachPage ?? true,\n  });\n(PDFTable as unknown as Record<string, unknown>).__unlayerItemConfig =\n  unlayerTable.__unlayerItemConfig;\nPDFTable.displayName = \"Table\";\n",
+      "type": "registry:component",
+      "target": "components/pdf/table/table.tsx"
+    },
+    {
+      "path": "registry/bases/elements/components/table/table.types.ts",
+      "content": "export interface ElementsTableProps {\n  headers: string[];\n  data: string[][];\n  repeatHeaderOnEachPage?: boolean;\n}\n\n/**\n * Data table with header/row shorthands. Maps to Unlayer `<Table>`.\n */\nexport const toElementsTableProps = ({\n  headers,\n  data,\n}: {\n  headers: string[];\n  data: (string | number)[][];\n}): ElementsTableProps => ({\n  data: data.map((row) => row.map(String)),\n  headers,\n});\n",
+      "type": "registry:component",
+      "target": "components/pdf/table/table.types.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/paragraph",
+  "title": "Paragraph",
+  "description": "Paragraph component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/paragraph/paragraph.tsx",
+      "content": "import { Paragraph as UnlayerParagraph } from \"@unlayer/react-elements\";\r\nimport type { ReactNode } from \"react\";\r\n\r\nimport { usePdfcnTheme } from \"@/registry/bases/elements/components/theme-provider\";\r\nimport { resolveColor } from \"@/registry/bases/elements/lib/resolve-color\";\r\nimport type {\r\n  UnlayerRenderProps,\r\n  UnlayerRenderStatics,\r\n} from \"@/registry/bases/elements/lib/transparent\";\r\n\r\n/**\r\n * Rich text. Use `html` for inline formatting (`<b>`, `<a>`, …) or children\r\n * for plain text. Maps to Unlayer `<Paragraph>`.\r\n */\r\nexport interface PDFParagraphProps {\r\n  children?: ReactNode;\r\n  html?: string;\r\n  fontSize?: string;\r\n  color?: string;\r\n  textAlign?: \"left\" | \"center\" | \"right\";\r\n  lineHeight?: string;\r\n}\r\n\r\nconst mapParagraphProps = (props: PDFParagraphProps) => {\r\n  const theme = usePdfcnTheme();\r\n  return {\r\n    ...(props.html === undefined ? {} : { html: props.html }),\r\n    color: props.color\r\n      ? resolveColor(props.color, theme.colors)\r\n      : undefined,\r\n    fontSize: props.fontSize,\r\n    lineHeight: props.lineHeight,\r\n    textAlign: props.textAlign,\r\n  };\r\n};\r\n\r\nexport const PDFParagraph = ({\r\n  children,\r\n  html,\r\n  fontSize,\r\n  color,\r\n  textAlign,\r\n  lineHeight,\r\n}: PDFParagraphProps) => {\r\n  const theme = usePdfcnTheme();\r\n  const resolvedColor = color\r\n    ? resolveColor(color, theme.colors)\r\n    : undefined;\r\n  if (html !== undefined) {\r\n    return (\r\n      <UnlayerParagraph\r\n        color={resolvedColor}\r\n        fontSize={fontSize}\r\n        html={html}\r\n        lineHeight={lineHeight}\r\n        textAlign={textAlign}\r\n      />\r\n    );\r\n  }\r\n  return (\r\n    <UnlayerParagraph\r\n      color={resolvedColor}\r\n      fontSize={fontSize}\r\n      lineHeight={lineHeight}\r\n      textAlign={textAlign}\r\n    >\r\n      {children}\r\n    </UnlayerParagraph>\r\n  );\r\n};\r\n\r\n// Transparent wrapper: delegate through Unlayer's item renderer.\r\nconst unlayerParagraph =\r\n  UnlayerParagraph as unknown as UnlayerRenderStatics;\r\n(PDFParagraph as unknown as Record<string, unknown>).__unlayerRender = (\r\n  props: UnlayerRenderProps & PDFParagraphProps\r\n) =>\r\n  unlayerParagraph.__unlayerRender({ ...props, ...mapParagraphProps(props) });\r\n(PDFParagraph as unknown as Record<string, unknown>).__unlayerItemConfig =\r\n  unlayerParagraph.__unlayerItemConfig;\r\nPDFParagraph.displayName = \"Paragraph\";\r\n",
+      "type": "registry:component",
+      "target": "components/pdf/paragraph/paragraph.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

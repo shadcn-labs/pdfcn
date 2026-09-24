@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/pdf-image",
+  "title": "Pdf Image",
+  "description": "Pdf Image component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/pdf-image/pdf-image.tsx",
+      "content": "import { Image as UnlayerImage } from \"@unlayer/react-elements\";\n\nimport type {\n  UnlayerRenderProps,\n  UnlayerRenderStatics,\n} from \"@/registry/bases/elements/lib/transparent\";\n\n/**\n * Responsive image. Maps to Unlayer `<Image>`.\n */\nexport interface PDFImageProps {\n  src: string;\n  altText?: string;\n  width?: string;\n  textAlign?: \"left\" | \"center\" | \"right\";\n}\n\nconst mapImageProps = (props: PDFImageProps) => ({\n  altText: props.altText,\n  src: props.width ? { maxWidth: props.width, url: props.src } : props.src,\n  textAlign: props.textAlign,\n});\n\nexport const PDFImage = ({ src, altText, width, textAlign }: PDFImageProps) => (\n  <UnlayerImage {...mapImageProps({ altText, src, textAlign, width })} />\n);\n\n// Transparent wrapper: delegate through Unlayer's item renderer.\nconst unlayerImage = UnlayerImage as unknown as UnlayerRenderStatics;\n(PDFImage as unknown as Record<string, unknown>).__unlayerRender = (\n  props: UnlayerRenderProps & PDFImageProps\n) =>\n  unlayerImage.__unlayerRender({\n    ...props,\n    ...mapImageProps(props),\n  });\n(PDFImage as unknown as Record<string, unknown>).__unlayerItemConfig =\n  unlayerImage.__unlayerItemConfig;\nPDFImage.displayName = \"Image\";\n",
+      "type": "registry:component",
+      "target": "components/pdf/pdf-image/pdf-image.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

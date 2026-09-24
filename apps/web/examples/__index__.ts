@@ -1,5 +1,8 @@
 import type { ComponentType } from "react";
 
+import elements_heading from "@/examples/elements/heading";
+import elements_invoice_classic from "@/examples/elements/invoice-classic";
+import elements_table from "@/examples/elements/table";
 import forme_alert from "@/examples/forme/alert";
 import forme_badge from "@/examples/forme/badge";
 import forme_card from "@/examples/forme/card";
@@ -93,6 +96,11 @@ import type { BaseName } from "@/registry/bases";
 type DemoMap = Record<string, ComponentType>;
 
 export const demos: Record<BaseName, DemoMap> = {
+  elements: {
+    heading: elements_heading,
+    "invoice-classic": elements_invoice_classic,
+    table: elements_table,
+  },
   forme: {
     alert: forme_alert,
     badge: forme_badge,

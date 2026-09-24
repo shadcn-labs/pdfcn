@@ -9,6 +9,8 @@ import { createPageMetadata } from "@/seo/metadata";
 export const dynamicParams = false;
 
 const BASE_COPY: Record<BaseName, string> = {
+  elements:
+    "Design and export a reusable pdfcn theme with a live HTML preview powered by Elements.",
   forme:
     "Design and export a reusable pdfcn theme with a live PDF preview powered by Forme.",
   takumi:

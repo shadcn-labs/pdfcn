@@ -1,0 +1,97 @@
+---
+title: "Invoice Classic"
+description: "Classic invoice document template (Elements base)."
+---
+
+<ComponentPreview base="elements" name="invoice-classic" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/elements/invoice-classic
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @unlayer/react-elements
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/elements/blocks/invoice-classic/invoice-classic.tsx"
+  base="elements"
+  title="components/pdf/blocks/invoice-classic/invoice-classic.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/elements/lib/html.ts"
+  base="elements"
+  title="lib/elements-html.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/elements/lib/generate.ts"
+  base="elements"
+  title="lib/elements-generate.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { InvoiceClassicDocument } from "@/components/pdf/invoice-classic";
+```
+
+```tsx
+<InvoiceClassicDocument />
+```
+
+## HTML to PDF
+
+The Elements base renders print-ready HTML. Convert it with your own
+HTML-to-PDF step (Puppeteer, Playwright, …):
+
+```ts
+import { InvoiceClassicDocument } from "@/components/pdf/invoice-classic";
+import { generateElementsPdf } from "@/lib/elements-generate";
+import { renderElementsHtml } from "@/lib/elements-html";
+
+const html = renderElementsHtml(<InvoiceClassicDocument />, {
+  title: "Invoice",
+});
+const pdf = await generateElementsPdf({
+  html,
+  htmlToPdf: async (html) => {
+    // e.g. Puppeteer: setContent(html) → page.pdf({ format: "A4" })
+    throw new Error("wire up Puppeteer or Playwright here");
+  },
+});
+```
+
+Use `renderToHtmlParts` for custom shells and `renderToJson` for Unlayer
+visual-editor round-tripping. See https://github.com/unlayer/elements and
+https://docs.unlayer.com.

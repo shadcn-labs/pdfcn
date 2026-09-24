@@ -2262,6 +2262,205 @@
       "type": "registry:block"
     },
     {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Theme context and helpers for the Elements base",
+      "files": [
+        {
+          "path": "registry/bases/elements/lib/resolve-color.ts",
+          "type": "registry:lib",
+          "target": "lib/resolve-color.ts"
+        },
+        {
+          "path": "registry/bases/elements/components/theme-provider.tsx",
+          "type": "registry:lib",
+          "target": "components/pdf/theme-provider.tsx"
+        },
+        {
+          "path": "registry/bases/elements/lib/html.ts",
+          "type": "registry:lib",
+          "target": "lib/elements-html.ts"
+        },
+        {
+          "path": "registry/bases/elements/lib/generate.ts",
+          "type": "registry:lib",
+          "target": "lib/elements-generate.ts"
+        }
+      ],
+      "name": "elements/utils",
+      "title": "Elements Utils",
+      "type": "registry:lib"
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Document root wrapper (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/document/document.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/document/document.tsx"
+        }
+      ],
+      "name": "elements/document",
+      "title": "Document",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Row and column layout (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/row/row.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/row/row.tsx"
+        }
+      ],
+      "name": "elements/row",
+      "title": "Row",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Heading component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/heading/heading.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/heading/heading.tsx"
+        }
+      ],
+      "name": "elements/heading",
+      "title": "Heading",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Paragraph component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/paragraph/paragraph.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/paragraph/paragraph.tsx"
+        }
+      ],
+      "name": "elements/paragraph",
+      "title": "Paragraph",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Table component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/table/table.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.tsx"
+        },
+        {
+          "path": "registry/bases/elements/components/table/table.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/table/table.types.ts"
+        }
+      ],
+      "name": "elements/table",
+      "title": "Table",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Pdf Image component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/pdf-image/pdf-image.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/pdf-image/pdf-image.tsx"
+        }
+      ],
+      "name": "elements/pdf-image",
+      "title": "Pdf Image",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Button component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/button/button.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/button/button.tsx"
+        }
+      ],
+      "name": "elements/button",
+      "title": "Button",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Divider component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/divider/divider.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/divider/divider.tsx"
+        }
+      ],
+      "name": "elements/divider",
+      "title": "Divider",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Page Break component (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/components/page-break/page-break.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/page-break/page-break.tsx"
+        }
+      ],
+      "name": "elements/page-break",
+      "title": "Page Break",
+      "type": "registry:ui",
+      "registryDependencies": ["@pdfcn/elements/utils"]
+    },
+    {
+      "dependencies": ["@unlayer/react-elements"],
+      "description": "Invoice Classic PDF block (Elements)",
+      "files": [
+        {
+          "path": "registry/bases/elements/blocks/invoice-classic/invoice-classic.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.tsx"
+        },
+        {
+          "path": "registry/bases/elements/blocks/invoice-classic/invoice-classic.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/invoice-classic/invoice-classic.types.ts"
+        }
+      ],
+      "name": "elements/invoice-classic",
+      "registryDependencies": [
+        "@pdfcn/elements/utils",
+        "@pdfcn/elements/document",
+        "@pdfcn/elements/row",
+        "@pdfcn/elements/heading",
+        "@pdfcn/elements/paragraph",
+        "@pdfcn/elements/table",
+        "@pdfcn/elements/pdf-image",
+        "@pdfcn/elements/button",
+        "@pdfcn/elements/divider"
+      ],
+      "title": "Invoice Classic",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Work Order PDF block (forme)",
       "files": [

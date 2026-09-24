@@ -15,6 +15,7 @@
     "@formepdf/core": "^0.25.0",
     "@formepdf/react": "^0.25.0",
     "@takumi-rs/helpers": "^2.10.0",
+    "@unlayer/react-elements": "^0.1.22",
     "@vercel/analytics": "^2.0.1",
     "@web-kits/audio": "^0.1.0",
     "class-variance-authority": "^0.7.1",

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/invoice-classic",
+  "title": "Invoice Classic",
+  "description": "Invoice Classic PDF block (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils",
+    "@pdfcn/elements/document",
+    "@pdfcn/elements/row",
+    "@pdfcn/elements/heading",
+    "@pdfcn/elements/paragraph",
+    "@pdfcn/elements/table",
+    "@pdfcn/elements/pdf-image",
+    "@pdfcn/elements/button",
+    "@pdfcn/elements/divider"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/blocks/invoice-classic/invoice-classic.tsx",
+      "content": "import { ColumnLayouts } from \"@unlayer/react-elements\";\n\nimport { PDFButton } from \"@/registry/bases/elements/components/button/button\";\nimport { PDFDivider } from \"@/registry/bases/elements/components/divider/divider\";\nimport { PDFDocument } from \"@/registry/bases/elements/components/document/document\";\nimport { PDFHeading } from \"@/registry/bases/elements/components/heading/heading\";\nimport { PDFImage } from \"@/registry/bases/elements/components/pdf-image/pdf-image\";\nimport { PDFParagraph } from \"@/registry/bases/elements/components/paragraph/paragraph\";\nimport { PDFTable } from \"@/registry/bases/elements/components/table/table\";\nimport {\n  PDFColumn,\n  PDFRow,\n} from \"@/registry/bases/elements/components/row/row\";\nimport {\n  PdfcnThemeProvider,\n  usePdfcnTheme,\n} from \"@/registry/bases/elements/components/theme-provider\";\nimport type { PdfcnTheme } from \"@/registry/types/pdf-themes\";\n\nimport type { InvoiceClassicData } from \"./invoice-classic.types\";\n\n// Sample data — replace with your own props or data source\nconst sampleData: InvoiceClassicData = {\n  billTo: {\n    address: \"456 Client Ave, Suite 2\",\n    email: \"contact@clientcorp.com\",\n    name: \"Client Corp.\",\n    phone: \"+1 (555) 123-4567\",\n  },\n  companyAddress: \"Nagpur, IN\",\n  companyEmail: \"hello@pdfcn.app\",\n  companyName: \"pdfcn\",\n  dueDate: \"March 17, 2026\",\n  invoiceDate: \"February 17, 2026\",\n  invoiceNumber: \"INV-2026-001\",\n  items: [\n    { description: \"Web Development\", quantity: 1, unitPrice: 12_500 },\n    { description: \"UI/UX Design\", quantity: 1, unitPrice: 8750 },\n    { description: \"Consulting\", quantity: 10, unitPrice: 1500 },\n  ],\n  notes: \"Thank you for your business!\",\n  paymentTerms: {\n    dueDate: \"March 17, 2026\",\n    gst: \"GSTIN 123456789\",\n    method: \"UPI / Card / Bank Transfer\",\n  },\n  subtitle: \"Innovative PDF Solutions\",\n  summary: {\n    subtotal: 36_250,\n    tax: 2537.5,\n    total: 38_787.5,\n  },\n};\n\nconst InvoiceClassicContent = ({ data }: { data: InvoiceClassicData }) => {\n  usePdfcnTheme();\n  return (\n    <PDFDocument backgroundColor=\"#ffffff\" contentWidth=\"800px\">\n      <PDFRow layout={ColumnLayouts.OneColumn} padding=\"20px 40px\">\n        <PDFColumn>\n          <PDFImage src=\"/favicon.png\" altText=\"Logo\" textAlign=\"left\" />\n          <PDFHeading fontSize=\"24px\" fontWeight={700}>\n            {`Invoice ${data.invoiceNumber}`}\n          </PDFHeading>\n          <PDFParagraph\n            color=\"#64748b\"\n            fontSize=\"14px\"\n            html={`${data.companyName} · ${data.companyEmail}`}\n          />\n        </PDFColumn>\n      </PDFRow>\n      <PDFRow layout={ColumnLayouts.TwoEqual} padding=\"20px 40px\">\n        <PDFColumn>\n          <PDFHeading fontSize=\"16px\" fontWeight={600} level=\"h3\">\n            Bill To\n          </PDFHeading>\n          <PDFParagraph\n            fontSize=\"14px\"\n            html={`${data.billTo.name}<br/>${data.billTo.address}<br/>${data.billTo.email}`}\n          />\n        </PDFColumn>\n        <PDFColumn>\n          <PDFHeading fontSize=\"16px\" fontWeight={600} level=\"h3\">\n            Payment Terms\n          </PDFHeading>\n          <PDFParagraph\n            fontSize=\"14px\"\n            html={`${data.paymentTerms.method}<br/>${data.paymentTerms.gst}<br/>Due ${data.paymentTerms.dueDate}`}\n          />\n        </PDFColumn>\n      </PDFRow>\n      <PDFRow layout={ColumnLayouts.OneColumn} padding=\"20px 40px\">\n        <PDFColumn>\n          <PDFTable\n            data={data.items.map((item) => [\n              item.description,\n              `${item.quantity}`,\n              `$${(item.quantity * item.unitPrice).toFixed(2)}`,\n            ])}\n            headers={[\"Item\", \"Qty\", \"Price\"]}\n          />\n        </PDFColumn>\n      </PDFRow>\n      <PDFRow layout={ColumnLayouts.TwoEqual} padding=\"20px 40px\">\n        <PDFColumn>\n          <PDFParagraph color=\"#64748b\" fontSize=\"14px\">\n            {data.notes ?? \"\"}\n          </PDFParagraph>\n        </PDFColumn>\n        <PDFColumn>\n          <PDFHeading fontSize=\"16px\" fontWeight={600} level=\"h3\">\n            Total\n          </PDFHeading>\n          <PDFParagraph\n            fontSize=\"18px\"\n            html={`<b>$${data.summary.total.toFixed(2)}</b>`}\n          />\n          <PDFButton backgroundColor=\"#0879A1\" color=\"#ffffff\">\n            Pay Now\n          </PDFButton>\n        </PDFColumn>\n      </PDFRow>\n      <PDFRow layout={ColumnLayouts.OneColumn} padding=\"20px 40px\">\n        <PDFColumn>\n          <PDFDivider />\n          <PDFParagraph\n            color=\"#94a3b8\"\n            fontSize=\"12px\"\n            textAlign=\"center\"\n            html={`${data.companyName} · ${data.companyAddress}`}\n          />\n        </PDFColumn>\n      </PDFRow>\n    </PDFDocument>\n  );\n};\n\nexport const InvoiceClassicDocument = ({\n  theme,\n  data = sampleData,\n}: {\n  theme?: PdfcnTheme;\n  data?: InvoiceClassicData;\n}) => (\n  <PdfcnThemeProvider theme={theme}>\n    <InvoiceClassicContent data={data} />\n  </PdfcnThemeProvider>\n);\n",
+      "type": "registry:block",
+      "target": "components/pdf/blocks/invoice-classic/invoice-classic.tsx"
+    },
+    {
+      "path": "registry/bases/elements/blocks/invoice-classic/invoice-classic.types.ts",
+      "content": "export interface InvoiceClassicData {\n  invoiceNumber: string;\n  invoiceDate: string;\n  dueDate: string;\n  companyName: string;\n  subtitle: string;\n  companyAddress: string;\n  companyEmail: string;\n  billTo: {\n    name: string;\n    address: string;\n    email: string;\n    phone: string;\n  };\n  items: {\n    description: string;\n    quantity: number;\n    unitPrice: number;\n  }[];\n  summary: {\n    subtotal: number;\n    tax: number;\n    total: number;\n  };\n  paymentTerms: {\n    dueDate: string;\n    method: string;\n    gst: string;\n  };\n  notes?: string;\n}\n",
+      "type": "registry:block",
+      "target": "components/pdf/blocks/invoice-classic/invoice-classic.types.ts"
+    }
+  ],
+  "type": "registry:block"
+}

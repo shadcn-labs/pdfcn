@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/document",
+  "title": "Document",
+  "description": "Document root wrapper (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/document/document.tsx",
+      "content": "import { Document as UnlayerDocument } from \"@unlayer/react-elements\";\nimport type { ReactNode } from \"react\";\n\nimport { usePdfcnTheme } from \"@/registry/bases/elements/components/theme-provider\";\nimport { resolveColor } from \"@/registry/bases/elements/lib/resolve-color\";\n\nexport type ElementsDocumentSize =\n  | \"A3\"\n  | \"A4\"\n  | \"A5\"\n  | \"Legal\"\n  | \"Letter\"\n  | \"Tabloid\";\n\n/**\n * Root wrapper for print/PDF rendering. Maps to Unlayer `<Document>`.\n */\nexport interface PDFDocumentProps {\n  children: ReactNode;\n  backgroundColor?: string;\n  contentWidth?: number | `${number}px` | `${number}%` | \"auto\";\n  documentSize?: ElementsDocumentSize;\n  documentOrientation?: \"portrait\" | \"landscape\";\n}\n\nexport const PDFDocument = ({\n  children,\n  backgroundColor,\n  contentWidth = \"800px\",\n  documentSize = \"A4\",\n  documentOrientation = \"portrait\",\n  ...rest\n}: PDFDocumentProps & Record<string, unknown>) => {\n  const theme = usePdfcnTheme();\n  return (\n    <UnlayerDocument\n      backgroundColor={\n        backgroundColor\n          ? resolveColor(backgroundColor, theme.colors)\n          : theme.colors.background\n      }\n      contentWidth={contentWidth}\n      documentOrientation={documentOrientation}\n      documentSize={documentSize}\n      {...rest}\n    >\n      {children}\n    </UnlayerDocument>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/document/document.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

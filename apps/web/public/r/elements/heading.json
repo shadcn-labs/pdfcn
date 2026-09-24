@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/heading",
+  "title": "Heading",
+  "description": "Heading component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/heading/heading.tsx",
+      "content": "import { Heading as UnlayerHeading } from \"@unlayer/react-elements\";\nimport type { ReactNode } from \"react\";\n\nimport { usePdfcnTheme } from \"@/registry/bases/elements/components/theme-provider\";\nimport { resolveColor } from \"@/registry/bases/elements/lib/resolve-color\";\nimport type {\n  UnlayerRenderStatics,\n  UnlayerRenderProps,\n} from \"@/registry/bases/elements/lib/transparent\";\n\nexport type PDFHeadingLevel = \"h1\" | \"h2\" | \"h3\" | \"h4\";\n\n/**\n * Heading (h1-h4). Maps to Unlayer `<Heading>`.\n */\nexport interface PDFHeadingProps {\n  children: ReactNode;\n  level?: PDFHeadingLevel;\n  fontSize?: string;\n  fontWeight?: number;\n  color?: string;\n  textAlign?: \"left\" | \"center\" | \"right\";\n}\n\nconst mapHeadingProps = (props: PDFHeadingProps) => {\n  const theme = usePdfcnTheme();\n  return {\n    color: props.color\n      ? resolveColor(props.color, theme.colors)\n      : theme.colors.foreground,\n    fontSize: props.fontSize,\n    fontWeight: props.fontWeight,\n    headingType: props.level ?? \"h1\",\n    textAlign: props.textAlign,\n  };\n};\n\nexport const PDFHeading = ({\n  children,\n  level: _level,\n  fontSize,\n  fontWeight,\n  color,\n  textAlign,\n}: PDFHeadingProps) => {\n  const theme = usePdfcnTheme();\n  return (\n    <UnlayerHeading\n      color={color ? resolveColor(color, theme.colors) : theme.colors.foreground}\n      fontSize={fontSize}\n      fontWeight={fontWeight}\n      headingType={_level}\n      textAlign={textAlign}\n    >\n      {children}\n    </UnlayerHeading>\n  );\n};\n\n// Transparent wrapper: Unlayer items render via a `__unlayerRender` static,\n// so delegate with pdfcn props mapped (theme tokens resolved).\nconst unlayerHeading =\n  UnlayerHeading as unknown as UnlayerRenderStatics;\n(PDFHeading as unknown as Record<string, unknown>).__unlayerRender = (\n  props: UnlayerRenderProps & PDFHeadingProps\n) => unlayerHeading.__unlayerRender({ ...props, ...mapHeadingProps(props) });\n(PDFHeading as unknown as Record<string, unknown>).__unlayerItemConfig =\n  unlayerHeading.__unlayerItemConfig;\nPDFHeading.displayName = \"Heading\";\n",
+      "type": "registry:component",
+      "target": "components/pdf/heading/heading.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/divider",
+  "title": "Divider",
+  "description": "Divider component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/divider/divider.tsx",
+      "content": "import { Divider as UnlayerDivider } from \"@unlayer/react-elements\";\n\nimport { usePdfcnTheme } from \"@/registry/bases/elements/components/theme-provider\";\nimport { resolveColor } from \"@/registry/bases/elements/lib/resolve-color\";\nimport type {\n  UnlayerRenderProps,\n  UnlayerRenderStatics,\n} from \"@/registry/bases/elements/lib/transparent\";\n\n/**\n * Horizontal separator. Maps to Unlayer `<Divider>`.\n */\nexport interface PDFDividerProps {\n  color?: string;\n  thickness?: string;\n}\n\nconst mapDividerProps = (props: PDFDividerProps) => {\n  const theme = usePdfcnTheme();\n  return {\n    borderTopColor: resolveColor(props.color ?? \"border\", theme.colors),\n    borderTopStyle: \"solid\",\n    borderTopWidth: props.thickness ?? \"1px\",\n  };\n};\n\nexport const PDFDivider = ({ color, thickness = \"1px\" }: PDFDividerProps) => (\n  <UnlayerDivider {...mapDividerProps({ color, thickness })} />\n);\n\n// Transparent wrapper: delegate through Unlayer's item renderer.\nconst unlayerDivider = UnlayerDivider as unknown as UnlayerRenderStatics;\n(PDFDivider as unknown as Record<string, unknown>).__unlayerRender = (\n  props: UnlayerRenderProps & PDFDividerProps\n) =>\n  unlayerDivider.__unlayerRender({ ...props, ...mapDividerProps(props) });\n(PDFDivider as unknown as Record<string, unknown>).__unlayerItemConfig =\n  unlayerDivider.__unlayerItemConfig;\nPDFDivider.displayName = \"Divider\";\n",
+      "type": "registry:component",
+      "target": "components/pdf/divider/divider.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

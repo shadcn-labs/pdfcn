@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/utils",
+  "title": "Elements Utils",
+  "description": "Theme context and helpers for the Elements base",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/lib/resolve-color.ts",
+      "content": "import type { ColorTokens } from \"@/registry/types/pdf-themes\";\n\n/** Theme color token keys that can be used for the color prop */\nexport const THEME_COLOR_KEYS = [\n  \"foreground\",\n  \"background\",\n  \"muted\",\n  \"mutedForeground\",\n  \"primary\",\n  \"primaryForeground\",\n  \"border\",\n  \"accent\",\n  \"destructive\",\n  \"success\",\n  \"warning\",\n  \"info\",\n] as const satisfies (keyof ColorTokens)[];\n\n/** Resolves a color value: theme token key → hex, or raw CSS color as-is. */\nexport const resolveColor = (value: string, colors: ColorTokens): string => {\n  const key = value as (typeof THEME_COLOR_KEYS)[number];\n  return THEME_COLOR_KEYS.includes(key) ? colors[key] : value;\n};\n",
+      "type": "registry:lib",
+      "target": "lib/resolve-color.ts"
+    },
+    {
+      "path": "registry/bases/elements/components/theme-provider.tsx",
+      "content": "import { isValidElement } from \"react\";\nimport type { DependencyList, ReactNode } from \"react\";\n\nimport { professionalTheme } from \"@/registry/themes/professional\";\n\nexport type PdfcnTheme = typeof professionalTheme;\n\nlet serializedTheme = professionalTheme;\n\nexport interface PdfcnThemeProviderProps {\n  theme?: PdfcnTheme;\n  children: ReactNode;\n}\n\nconst renderForSerializer = (\n  children: ReactNode,\n  theme: PdfcnTheme\n): ReactNode => {\n  serializedTheme = theme;\n\n  if (!isValidElement(children) || typeof children.type !== \"function\") {\n    return children;\n  }\n\n  return (children.type as (props: unknown) => ReactNode)(children.props);\n};\n\nexport const PdfcnThemeProvider = ({\n  theme,\n  children,\n}: PdfcnThemeProviderProps) =>\n  renderForSerializer(children, theme ?? professionalTheme);\n\nexport const usePdfcnTheme = (): PdfcnTheme => serializedTheme;\n\nexport const useSafeMemo = <T,>(factory: () => T, _deps: DependencyList): T =>\n  factory();\n",
+      "type": "registry:lib",
+      "target": "components/pdf/theme-provider.tsx"
+    },
+    {
+      "path": "registry/bases/elements/lib/html.ts",
+      "content": "import {\n  renderToHtml,\n  renderToHtmlParts,\n  renderToJson,\n} from \"@unlayer/react-elements\";\nimport type { ReactElement } from \"react\";\n\nexport interface ElementsHtmlOptions {\n  title?: string;\n  fonts?: { url: string }[];\n}\n\nexport interface ElementsPrintOptions {\n  margin?: string;\n  size?: string;\n}\n\n/**\n * Render an Elements `<Document>` tree to a complete print-ready HTML\n * document (no React hydration markers). Pass the result to any HTML-to-PDF\n * library (Puppeteer, Playwright, wkhtmltopdf).\n *\n * ```ts\n * import { InvoiceDocument } from \"@/components/pdf/blocks/invoice-classic/invoice-classic\";\n * import { renderElementsHtml } from \"@/lib/elements-html\";\n *\n * const html = renderElementsHtml(<InvoiceDocument />, { title: \"Invoice\" });\n * ```\n */\nexport const renderElementsHtml = (\n  element: ReactElement,\n  options?: ElementsHtmlOptions\n): string => renderToHtml(element, options);\n\n/**\n * Render to `{ head, body, css, js, tags }` parts for custom document shells\n * (existing page templates, ESP templates, iframe `srcdoc`, CSS inlining).\n */\nexport const renderElementsHtmlParts = (element: ReactElement) =>\n  renderToHtmlParts(element);\n\n/**\n * Export design JSON for visual-editor round-tripping (Unlayer builder).\n */\nexport const renderElementsJson = (element: ReactElement) =>\n  renderToJson(element);\n\n/**\n * Print CSS helpers for PDF output: `@page` margins/size, page-break\n * utilities, and header/footer positioning. Inject into the HTML shell or\n * your converter's `print` options.\n */\nexport const getElementsPrintCss = (options?: ElementsPrintOptions): string => {\n  const margin = options?.margin ?? \"12mm 14mm\";\n  const size = options?.size ?? \"A4 portrait\";\n  return [\n    `@page { size: ${size}; margin: ${margin}; }`,\n    \".pdfcn-page-break { break-before: page; }\",\n    \".pdfcn-avoid-break { break-inside: avoid; }\",\n    \".pdfcn-doc-header { position: running(header); }\",\n    \".pdfcn-doc-footer { position: running(footer); }\",\n    \"@media print { .pdfcn-no-print { display: none; } }\",\n  ].join(\"\\n\");\n};\n",
+      "type": "registry:lib",
+      "target": "lib/elements-html.ts"
+    },
+    {
+      "path": "registry/bases/elements/lib/generate.ts",
+      "content": "export type HtmlToPdfAdapter = (html: string) => Promise<Uint8Array>;\n\n/**\n * Generate a PDF buffer from Elements print-ready HTML.\n *\n * Bring your own HTML-to-PDF converter (Puppeteer, Playwright, …) — pdfcn\n * intentionally does not bundle a browser engine:\n *\n * ```ts\n * import puppeteer from \"puppeteer\";\n * import { InvoiceDocument } from \"@/components/pdf/blocks/invoice-classic/invoice-classic\";\n * import { generateElementsPdf } from \"@/lib/elements-generate\";\n * import { renderElementsHtml } from \"@/lib/elements-html\";\n *\n * const browser = await puppeteer.launch();\n * const pdf = await generateElementsPdf({\n *   html: renderElementsHtml(<InvoiceDocument />),\n *   htmlToPdf: async (html) => {\n *     const page = await browser.newPage();\n *     await page.setContent(html, { waitUntil: \"networkidle0\" });\n *     const buffer = await page.pdf({ format: \"A4\", printBackground: true });\n *     await page.close();\n *     return new Uint8Array(buffer);\n *   },\n * });\n * ```\n */\nexport const generateElementsPdf = async ({\n  html,\n  htmlToPdf,\n}: {\n  html: string;\n  htmlToPdf?: HtmlToPdfAdapter;\n}): Promise<Uint8Array> => {\n  if (!htmlToPdf) {\n    throw new Error(\n      \"generateElementsPdf needs an `htmlToPdf` adapter (Puppeteer, Playwright, …). \" +\n        \"Pass one in — see the docstring example. pdfcn does not bundle a browser engine.\"\n    );\n  }\n  const pdf = await htmlToPdf(html);\n  return pdf instanceof Uint8Array ? pdf : new Uint8Array(pdf);\n};\n",
+      "type": "registry:lib",
+      "target": "lib/elements-generate.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

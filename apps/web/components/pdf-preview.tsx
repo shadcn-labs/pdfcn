@@ -102,6 +102,9 @@ export const PdfPreview = ({
   const [error, setError] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
+  const isHtmlPreview = base === "elements";
+  const previewKind = isHtmlPreview ? "HTML" : "PDF";
+  const downloadExtension = isHtmlPreview ? "html" : "pdf";
 
   useEffect(() => {
     let cancelled = false;
@@ -139,6 +142,28 @@ export const PdfPreview = ({
             images,
           });
           pdfBytes = new Uint8Array(buffer);
+        } else if (base === "elements") {
+          const [{ demos }, { renderElementsHtml }] = await Promise.all([
+            import("@/examples/__index__"),
+            import("@/registry/bases/elements/lib/html"),
+          ]);
+          const Demo = demos.elements[name];
+          if (!Demo) {
+            throw new Error(`Unknown Elements demo: ${name}`);
+          }
+          const html = renderElementsHtml(createElement(Demo), {
+            title: name,
+          });
+          nextPdfUrl = URL.createObjectURL(
+            new Blob([html], { type: "text/html" })
+          );
+          if (cancelled) {
+            URL.revokeObjectURL(nextPdfUrl);
+            return;
+          }
+          setPdfUrl(nextPdfUrl);
+          onUrlChange?.(nextPdfUrl);
+          return;
         } else if (theme) {
           const [
             { InvoiceClassicDocument },
@@ -235,7 +260,7 @@ export const PdfPreview = ({
           className="flex items-center justify-center p-8 text-sm text-muted-foreground"
           style={{ minHeight: height }}
         >
-          Rendering PDF…
+          {`Rendering ${previewKind}…`}
         </div>
       ) : null}
       {pdfUrl && isMobile ? (
@@ -244,12 +269,12 @@ export const PdfPreview = ({
           style={{ minHeight: height }}
         >
           <p className="text-sm text-muted-foreground text-center">
-            PDF preview is optimized for larger screens.
+            {`${previewKind} preview is optimized for larger screens.`}
           </p>
           <Button asChild>
-            <a href={pdfUrl} download={`${name}.pdf`}>
+            <a href={pdfUrl} download={`${name}.${downloadExtension}`}>
               <DownloadIcon />
-              Download PDF
+              {`Download ${previewKind}`}
             </a>
           </Button>
         </div>
@@ -257,9 +282,9 @@ export const PdfPreview = ({
       {pdfUrl && !isMobile ? (
         <iframe
           className="block w-full bg-background"
-          src={`${pdfUrl}#toolbar=1&navpanes=0`}
+          src={isHtmlPreview ? pdfUrl : `${pdfUrl}#toolbar=1&navpanes=0`}
           style={{ height }}
-          title={`${name} PDF preview`}
+          title={`${name} ${previewKind} preview`}
         />
       ) : null}
     </div>

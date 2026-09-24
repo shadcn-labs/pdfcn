@@ -1,4 +1,5 @@
-import { FormeIcon, TakumiIcon } from "@/components/icons";
+import { ElementsIcon, FormeIcon, TakumiIcon } from "@/components/icons";
+import { elementsRegistryBase } from "@/registry/bases/elements/registry";
 import { formeRegistryBase } from "@/registry/bases/forme/registry";
 import { takumiRegistryBase } from "@/registry/bases/takumi/registry";
 
@@ -23,6 +24,17 @@ export const BASES = [
       logo: FormeIcon,
     },
     title: "Forme",
+    type: "registry:style" as const,
+  },
+  {
+    ...elementsRegistryBase,
+    dependencies: ["@unlayer/react-elements"],
+    description:
+      "Print-ready HTML documents via Unlayer Elements — renderToHtml for PDF pipelines, renderToJson for visual editor round-tripping.",
+    meta: {
+      logo: ElementsIcon,
+    },
+    title: "Elements",
     type: "registry:style" as const,
   },
 ] as const;

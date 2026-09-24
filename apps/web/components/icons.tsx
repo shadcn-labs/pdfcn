@@ -471,6 +471,40 @@ export const FormeIcon = ({
   </svg>
 );
 
+// Unlayer Elements mark for the Elements rendering base.
+export const ElementsIcon = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    className={cn("size-4", className)}
+    {...props}
+  >
+    <rect x="6" y="6" width="52" height="52" rx="10" fill="#4f46e5" />
+    <rect x="16" y="18" width="32" height="5" rx="1.5" fill="#ffffff" />
+    <rect
+      x="16"
+      y="27"
+      width="14"
+      height="18"
+      rx="1.5"
+      fill="#ffffff"
+      opacity="0.75"
+    />
+    <rect
+      x="34"
+      y="27"
+      width="14"
+      height="18"
+      rx="1.5"
+      fill="#ffffff"
+      opacity="0.95"
+    />
+  </svg>
+);
+
 export const getIconForLanguageExtension = (language: string) => {
   switch (language) {
     case "json": {

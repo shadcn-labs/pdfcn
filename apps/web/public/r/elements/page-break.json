@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/page-break",
+  "title": "Page Break",
+  "description": "Page Break component (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/page-break/page-break.tsx",
+      "content": "import { PageBreak as UnlayerPageBreak } from \"@unlayer/react-elements\";\n\nimport type {\n  UnlayerRenderProps,\n  UnlayerRenderStatics,\n} from \"@/registry/bases/elements/lib/transparent\";\n\n/**\n * Force subsequent content onto a new PDF page. Inert in email/web output.\n * Maps to Unlayer `<PageBreak>`.\n */\nexport const PDFPageBreak = () => <UnlayerPageBreak />;\n\n// Transparent wrapper: no pdfcn props to map, delegate directly.\nconst unlayerPageBreak = UnlayerPageBreak as unknown as UnlayerRenderStatics;\n(PDFPageBreak as unknown as Record<string, unknown>).__unlayerRender = (\n  props: UnlayerRenderProps\n) => unlayerPageBreak.__unlayerRender(props);\n(PDFPageBreak as unknown as Record<string, unknown>).__unlayerItemConfig =\n  unlayerPageBreak.__unlayerItemConfig;\nPDFPageBreak.displayName = \"PageBreak\";\n",
+      "type": "registry:component",
+      "target": "components/pdf/page-break/page-break.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

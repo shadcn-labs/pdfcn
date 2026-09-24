@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "elements/row",
+  "title": "Row",
+  "description": "Row and column layout (Elements)",
+  "dependencies": [
+    "@unlayer/react-elements"
+  ],
+  "registryDependencies": [
+    "@pdfcn/elements/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/elements/components/row/row.tsx",
+      "content": "import {\r\n  Column as UnlayerColumn,\r\n  ColumnLayouts,\r\n  Row as UnlayerRow,\r\n} from \"@unlayer/react-elements\";\r\nimport type { ReactNode } from \"react\";\r\n\r\nexport { ColumnLayouts };\r\n\r\nexport type ElementsLayout =\r\n  | typeof ColumnLayouts.OneColumn\r\n  | typeof ColumnLayouts.TwoEqual\r\n  | typeof ColumnLayouts.TwoWideNarrow\r\n  | typeof ColumnLayouts.TwoNarrowWide\r\n  | typeof ColumnLayouts.ThreeEqual\r\n  | typeof ColumnLayouts.ThreeNarrowWideNarrow\r\n  | typeof ColumnLayouts.FourEqual\r\n  | typeof ColumnLayouts.FiveEqual;\r\n\r\n/**\r\n * Layout container. Must contain `<PDFColumn>` children matching the layout.\r\n */\r\nexport interface PDFRowProps {\r\n  children: ReactNode;\r\n  layout?: ElementsLayout;\r\n  cells?: number[];\r\n  backgroundColor?: string;\r\n  padding?: string;\r\n}\r\n\r\nexport const PDFRow = ({\r\n  children,\r\n  layout = ColumnLayouts.OneColumn,\r\n  cells,\r\n  backgroundColor,\r\n  padding,\r\n  ...rest\r\n}: PDFRowProps & Record<string, unknown>) => {\r\n  const optional = {\r\n    ...(backgroundColor === undefined ? {} : { backgroundColor }),\r\n    ...(padding === undefined ? {} : { padding }),\r\n    ...rest,\r\n  };\r\n  if (cells) {\r\n    return (\r\n      <UnlayerRow cells={cells} {...optional}>\r\n        {children}\r\n      </UnlayerRow>\r\n    );\r\n  }\r\n  return (\r\n    <UnlayerRow layout={layout} {...optional}>\r\n      {children}\r\n    </UnlayerRow>\r\n  );\r\n};\r\n\r\n// Transparent wrapper: Unlayer matches Row children by displayName/name.\r\nPDFRow.displayName = \"Row\";\r\n\r\nexport interface PDFColumnProps {\r\n  children: ReactNode;\r\n  padding?: string;\r\n  backgroundColor?: string;\r\n}\r\n\r\nexport const PDFColumn = ({\r\n  children,\r\n  padding,\r\n  backgroundColor,\r\n  ...rest\r\n}: PDFColumnProps & Record<string, unknown>) => {\r\n  // NOTE: Unlayer's Row calls Column as a plain function and reads\r\n  // `dangerouslySetInnerHTML` off the result, so delegate directly instead\r\n  // of returning JSX (which would be an unrendered element and get skipped).\r\n  const ColumnFn = UnlayerColumn as unknown as (\r\n    props: Record<string, unknown>\r\n  ) => ReactNode;\r\n  return ColumnFn({\r\n    ...rest,\r\n    ...(backgroundColor === undefined ? {} : { backgroundColor }),\r\n    ...(padding === undefined ? {} : { padding }),\r\n    children,\r\n  });\r\n};\r\n\r\n// Transparent wrapper: Unlayer Row only accepts children named \"Column\".\r\nPDFColumn.displayName = \"Column\";\r\n",
+      "type": "registry:component",
+      "target": "components/pdf/row/row.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
