@@ -103,6 +103,36 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Headless data table PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/data-table-headless/data-table-headless.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/data-table-headless/data-table-headless.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/data-table-headless/data-table-headless.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.types.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/data-table-headless/data-table-headless.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.utils.ts"
+        }
+      ],
+      "name": "takumi/data-table-headless",
+      "registryDependencies": ["@pdfcn/takumi/utils", "@pdfcn/takumi/table"],
+      "title": "Data Table Headless",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Divider PDF component (takumi)",
       "files": [
         {
@@ -1387,6 +1417,36 @@
       "name": "forme/data-table",
       "registryDependencies": ["@pdfcn/forme/utils", "@pdfcn/forme/table"],
       "title": "Data Table",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Headless data table PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/data-table-headless/data-table-headless.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/data-table-headless/data-table-headless.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/data-table-headless/data-table-headless.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.types.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/data-table-headless/data-table-headless.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/data-table-headless/data-table-headless.utils.ts"
+        }
+      ],
+      "name": "forme/data-table-headless",
+      "registryDependencies": ["@pdfcn/forme/utils", "@pdfcn/forme/table"],
+      "title": "Data Table Headless",
       "type": "registry:ui"
     },
     {

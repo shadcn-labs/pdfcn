@@ -4,6 +4,7 @@ import forme_alert from "@/examples/forme/alert";
 import forme_badge from "@/examples/forme/badge";
 import forme_card from "@/examples/forme/card";
 import forme_data_table from "@/examples/forme/data-table";
+import forme_data_table_headless from "@/examples/forme/data-table-headless";
 import forme_divider from "@/examples/forme/divider";
 import forme_event_agenda from "@/examples/forme/event-agenda";
 import forme_event_ticket from "@/examples/forme/event-ticket";
@@ -48,6 +49,7 @@ import takumi_alert from "@/examples/takumi/alert";
 import takumi_badge from "@/examples/takumi/badge";
 import takumi_card from "@/examples/takumi/card";
 import takumi_data_table from "@/examples/takumi/data-table";
+import takumi_data_table_headless from "@/examples/takumi/data-table-headless";
 import takumi_divider from "@/examples/takumi/divider";
 import takumi_event_agenda from "@/examples/takumi/event-agenda";
 import takumi_event_ticket from "@/examples/takumi/event-ticket";
@@ -98,6 +100,7 @@ export const demos: Record<BaseName, DemoMap> = {
     badge: forme_badge,
     card: forme_card,
     "data-table": forme_data_table,
+    "data-table-headless": forme_data_table_headless,
     divider: forme_divider,
     "event-agenda": forme_event_agenda,
     "event-ticket": forme_event_ticket,
@@ -144,6 +147,7 @@ export const demos: Record<BaseName, DemoMap> = {
     badge: takumi_badge,
     card: takumi_card,
     "data-table": takumi_data_table,
+    "data-table-headless": takumi_data_table_headless,
     divider: takumi_divider,
     "event-agenda": takumi_event_agenda,
     "event-ticket": takumi_event_ticket,
