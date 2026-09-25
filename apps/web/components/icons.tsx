@@ -471,6 +471,28 @@ export const FormeIcon = ({
   </svg>
 );
 
+export const ShadcnIcon = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    className={cn("size-4", className)}
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M0 0h256v256H0z" fill="none" />
+    <path
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="25"
+      strokeLinecap="round"
+      d="M208 128l-80 80M192 40L40 192"
+    />
+  </svg>
+);
+
 export const getIconForLanguageExtension = (language: string) => {
   switch (language) {
     case "json": {
@@ -505,6 +527,29 @@ export const getIconForPackageManager = (manager: PackageManager) => {
     }
     case "bun": {
       return <BunIcon />;
+    }
+    default: {
+      return <TerminalSquareIcon />;
+    }
+  }
+};
+
+export const getIconForCommandTab = (tab: string) => {
+  switch (tab) {
+    case "pnpm": {
+      return <PnpmIcon />;
+    }
+    case "yarn": {
+      return <YarnIcon />;
+    }
+    case "npm": {
+      return <NpmIcon />;
+    }
+    case "bun": {
+      return <BunIcon />;
+    }
+    case "shadcn": {
+      return <ShadcnIcon />;
     }
     default: {
       return <TerminalSquareIcon />;
