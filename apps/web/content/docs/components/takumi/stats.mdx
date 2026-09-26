@@ -1,0 +1,169 @@
+---
+title: "Stats"
+description: "KPI metric tiles with a label, a headline value and an optional note."
+---
+
+<ComponentPreview base="takumi" name="stats" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/stats
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/components/stats/stats.tsx"
+  base="takumi"
+  title="components/pdf/stats/stats.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/stats/stats.styles.ts"
+  base="takumi"
+  title="components/pdf/stats/stats.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/stats/stats.types.ts"
+  base="takumi"
+  title="components/pdf/stats/stats.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Stats } from "@/components/pdf/stats";
+```
+
+```tsx
+<Stats
+  items={[
+    { label: "Revenue", value: "$1.2M", note: "+18% vs Q2" },
+    { label: "Customers", value: "3,480", note: "+412 new" },
+    { label: "Churn", value: "1.9%", note: "-0.4 pts" },
+  ]}
+/>
+```
+
+### Columns
+
+`columns` sets how many tiles fit in a row. Extra items wrap onto the next row, and a short last row keeps the same tile width so the grid stays aligned. The value size steps down as columns increase.
+
+```tsx
+<Stats
+  columns={2}
+  items={[
+    { label: "Timeline", value: "14 weeks", note: "Oct to Jan" },
+    { label: "Investment", value: "$84k", note: "Fixed price" },
+  ]}
+/>
+<Stats columns={4} items={items} />
+```
+
+### Accent color
+
+The note line uses `accentColor`, which accepts a theme color token or any CSS color. Items without a `note` render only the label and value.
+
+```tsx
+<Stats accentColor="success" items={items} />
+<Stats accentColor="#7c3aed" items={items} />
+```
+
+## API Reference
+
+### Stats
+
+| Prop          | Type          | Default     |
+| ------------- | ------------- | ----------- |
+| `items`       | `StatItem[]`  | -           |
+| `columns`     | `2 \| 3 \| 4` | `3`         |
+| `accentColor` | `string`      | `'primary'` |
+| `noWrap`      | `boolean`     | `false`     |
+| `style`       | `Style`       | -           |
+
+### StatItem
+
+| Prop    | Type     | Default |
+| ------- | -------- | ------- |
+| `label` | `string` | -       |
+| `value` | `string` | -       |
+| `note`  | `string` | -       |

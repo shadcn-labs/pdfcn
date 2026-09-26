@@ -409,6 +409,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Stats PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/stats/stats.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/stats/stats.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/stats/stats.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/stats/stats.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/stats/stats.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/stats/stats.types.ts"
+        }
+      ],
+      "name": "takumi/stats",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Stats",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Table PDF component (takumi)",
       "files": [
         {
@@ -1714,6 +1739,31 @@
       "name": "forme/stack",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Stack",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Stats PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/stats/stats.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/stats/stats.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/stats/stats.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/stats/stats.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/stats/stats.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/stats/stats.types.ts"
+        }
+      ],
+      "name": "forme/stats",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Stats",
       "type": "registry:ui"
     },
     {
