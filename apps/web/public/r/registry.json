@@ -348,6 +348,31 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Progress PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/progress/progress.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/progress/progress.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/progress/progress.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/progress/progress.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/progress/progress.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/progress/progress.types.ts"
+        }
+      ],
+      "name": "takumi/progress",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Progress",
+      "type": "registry:ui"
+    },
+    {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers", "qrcode"],
       "description": "Qrcode PDF component (takumi)",
       "files": [
@@ -1654,6 +1679,31 @@
       "name": "forme/pdf-image",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Pdf Image",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Progress PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/progress/progress.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/progress/progress.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/progress/progress.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/progress/progress.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/progress/progress.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/progress/progress.types.ts"
+        }
+      ],
+      "name": "forme/progress",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Progress",
       "type": "registry:ui"
     },
     {
