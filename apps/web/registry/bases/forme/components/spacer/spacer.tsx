@@ -21,6 +21,6 @@ const clampSize = (size: number) =>
 // flexShrink: 0 keeps a flex parent from squeezing the space away.
 export const Spacer = ({ size = 24, style }: SpacerProps) => (
   <View
-    style={mergePdfStyles({ flexShrink: 0, height: clampSize(size) }, style)}
+    style={mergePdfStyles(style, { flexShrink: 0, height: clampSize(size) })}
   />
 );

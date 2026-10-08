@@ -20,9 +20,10 @@ const clampSize = (size: number) =>
 
 export const Spacer = ({ size = 24, style }: SpacerProps) => {
   // flexShrink: 0 keeps a flex parent from squeezing the space away.
-  const styleArray: Style[] = [{ flexShrink: 0, height: clampSize(size) }];
-  if (style) {
-    styleArray.push(...[style].flat());
-  }
+  // Applied after caller styles so `size` always sets the height.
+  const styleArray: Style[] = [
+    ...(style ? [style].flat() : []),
+    { flexShrink: 0, height: clampSize(size) },
+  ];
   return <View style={styleArray} />;
 };
