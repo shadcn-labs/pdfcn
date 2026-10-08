@@ -449,6 +449,21 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Title PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/title/title.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/title/title.tsx"
+        }
+      ],
+      "name": "takumi/title",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Title",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Watermark PDF component (takumi)",
       "files": [
         {
@@ -1754,6 +1769,21 @@
       "name": "forme/text",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Text",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Title PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/title/title.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/title/title.tsx"
+        }
+      ],
+      "name": "forme/title",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Title",
       "type": "registry:ui"
     },
     {
