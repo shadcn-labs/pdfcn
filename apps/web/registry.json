@@ -394,6 +394,21 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Spacer PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/spacer/spacer.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/spacer/spacer.tsx"
+        }
+      ],
+      "name": "takumi/spacer",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Spacer",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Stack PDF component (takumi)",
       "files": [
         {
@@ -1699,6 +1714,21 @@
       "name": "forme/signature",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Signature",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Spacer PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/spacer/spacer.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/spacer/spacer.tsx"
+        }
+      ],
+      "name": "forme/spacer",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Spacer",
       "type": "registry:ui"
     },
     {
