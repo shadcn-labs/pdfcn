@@ -94,6 +94,36 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Code PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/code/code.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/code/code.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/code/code.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.types.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/code/code.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.utils.ts"
+        }
+      ],
+      "name": "takumi/code",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Code",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Data Table PDF component (takumi)",
       "files": [
         {
@@ -1399,6 +1429,36 @@
       "name": "forme/card",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Card",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Code PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/code/code.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/code/code.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/code/code.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.types.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/code/code.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/code/code.utils.ts"
+        }
+      ],
+      "name": "forme/code",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Code",
       "type": "registry:ui"
     },
     {

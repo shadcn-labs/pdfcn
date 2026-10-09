@@ -1,0 +1,151 @@
+---
+title: "Code"
+description: "Monospaced code snippet block with syntax highlighting, optional title bar, and line truncation."
+---
+
+<ComponentPreview base="forme" name="code" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/code
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/components/code/code.styles.ts"
+  base="forme"
+  title="components/pdf/code/code.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/code/code.tsx"
+  base="forme"
+  title="components/pdf/code/code.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/code/code.types.ts"
+  base="forme"
+  title="components/pdf/code/code.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/code/code.utils.ts"
+  base="forme"
+  title="components/pdf/code/code.utils.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Code } from "@/components/pdf/code";
+```
+
+```tsx
+<Code
+  title="hello.ts"
+  code={'const greeting = "Hello, pdfcn";\nconsole.log(greeting);'}
+/>
+```
+
+### Syntax highlighting
+
+Keywords, strings, numbers, and comments are painted with theme colors. The
+language is inferred from a filename-like `title` (`"app.ts"` → TypeScript), or
+set explicitly with `language` (`"ts"`, `"js"`, `"jsx"`, `"tsx"`, `"json"`,
+`"py"`, `"sh"`, and aliases). Unknown languages fall back to plain text.
+
+```tsx
+<Code title="hello.ts" code={source} />
+<Code language="shell" title="Install" code="npx shadcn@latest add …" />
+```
+
+### Truncated snippets
+
+```tsx
+<Code title="fib.ts" maxLines={5} code={source} accentColor="primary" />
+```
+
+Long listings are cut after `maxLines` lines and end with an ellipsis line;
+`accentColor` draws a left rule on the block.
+
+## API Reference
+
+### Code
+
+| Prop            | Type                  | Default |
+| --------------- | --------------------- | ------- |
+| `code`          | `string`              | -       |
+| `title`         | `string`              | -       |
+| `language`      | `CodeLanguage`        | -       |
+| `maxLines`      | `number`              | -       |
+| `accentColor`   | `string`              | -       |
+| `renderingBase` | `'takumi' \| 'forme'` | -       |
+| `style`         | `Style`               | -       |
