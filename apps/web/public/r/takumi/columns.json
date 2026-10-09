@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "takumi/columns",
+  "title": "Columns",
+  "description": "Columns PDF component (takumi)",
+  "dependencies": [
+    "takumi-pdf",
+    "@takumi-rs/helpers"
+  ],
+  "registryDependencies": [
+    "@pdfcn/takumi/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/takumi/components/columns/columns.styles.ts",
+      "content": "import { StyleSheet } from \"@/lib/pdf-primitives\";\nimport type { PdfcnTheme } from \"@/types/pdf-themes\";\n\n/**\n * Creates all columns styles derived from the active theme.\n * @param t - The resolved PdfcnTheme instance.\n */\nexport const createColumnsStyles = (t: PdfcnTheme) => {\n  const { spacing, fontWeights } = t.primitives;\n\n  return StyleSheet.create({\n    column: {\n      flexBasis: 0,\n      flexGrow: 1,\n      flexShrink: 1,\n      minWidth: 0,\n    },\n    container: {\n      flexDirection: \"row\",\n      marginBottom: spacing[3],\n    },\n    divider: {\n      flexShrink: 0,\n      width: 0.5,\n    },\n    emphasis: {\n      fontWeight: fontWeights.bold,\n    },\n    line: {\n      color: t.colors.foreground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: t.typography.body.fontSize,\n      lineHeight: t.typography.body.lineHeight,\n    },\n    spacer: {\n      flexShrink: 0,\n    },\n  });\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/columns/columns.styles.ts"
+    },
+    {
+      "path": "registry/bases/takumi/components/columns/columns.tsx",
+      "content": "import {\n  usePdfcnTheme,\n  useSafeMemo,\n} from \"@/components/pdf/theme-provider\";\nimport {\n  View,\n  Text as PDFText,\n} from \"@/lib/pdf-primitives\";\nimport type { Style } from \"@/lib/pdf-primitives\";\nimport { resolveColor } from \"@/lib/resolve-color\";\n\nimport { createColumnsStyles } from \"./columns.styles\";\nimport type { ColumnsProps } from \"./columns.types\";\nimport { parseEmphasis, RATIO_FLEX } from \"./columns.utils\";\n\nconst Column = ({\n  text,\n  flex,\n  lineStyle,\n  emphasisStyle,\n}: {\n  text: string;\n  flex: number;\n  lineStyle: Style;\n  emphasisStyle: Style;\n}) => (\n  <View style={{ flexBasis: 0, flexGrow: flex, flexShrink: 1, minWidth: 0 }}>\n    {text.split(\"\\n\").map((line, i) => (\n      <PDFText key={`${i}-${line.length}`} style={lineStyle}>\n        {line.length === 0\n          ? \" \"\n          : parseEmphasis(line).map((segment, j) =>\n              segment.bold ? (\n                <PDFText key={`${i}-${j}`} style={emphasisStyle}>\n                  {segment.text}\n                </PDFText>\n              ) : (\n                segment.text\n              )\n            )}\n      </PDFText>\n    ))}\n  </View>\n);\n\nexport const Columns = ({\n  left,\n  right,\n  ratio = \"1:1\",\n  gap,\n  accentColor,\n  style,\n}: ColumnsProps) => {\n  const theme = usePdfcnTheme();\n  const styles = useSafeMemo(() => createColumnsStyles(theme), [theme]);\n\n  const [leftFlex, rightFlex] = RATIO_FLEX[ratio];\n  const columnGap = gap ?? theme.primitives.spacing[3];\n  const accent = accentColor\n    ? resolveColor(accentColor, theme.colors)\n    : undefined;\n  const containerStyles: Style[] = [styles.container];\n  if (style) {\n    containerStyles.push(style);\n  }\n\n  return (\n    <View style={containerStyles}>\n      <Column\n        emphasisStyle={styles.emphasis}\n        flex={leftFlex}\n        lineStyle={styles.line}\n        text={left}\n      />\n      {accent ? (\n        <View\n          style={[\n            styles.divider,\n            {\n              alignSelf: \"stretch\",\n              backgroundColor: accent,\n              marginHorizontal: columnGap / 2 - 0.25,\n            },\n          ]}\n        />\n      ) : (\n        <View style={[styles.spacer, { width: columnGap }]} />\n      )}\n      <Column\n        emphasisStyle={styles.emphasis}\n        flex={rightFlex}\n        lineStyle={styles.line}\n        text={right}\n      />\n    </View>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/columns/columns.tsx"
+    },
+    {
+      "path": "registry/bases/takumi/components/columns/columns.types.ts",
+      "content": "import type { Style } from \"@/lib/pdf-primitives\";\n\nimport type { ColumnsRatio } from \"./columns.utils\";\n\n/**\n * Side-by-side two-column text with equal or weighted widths.\n * Each column is multi-line text; `**segment**` renders bold.\n * Props - `left` | `right` | `ratio` | `gap` | `accentColor` | `renderingBase` | `style`\n * @see {@link ColumnsProps}\n */\nexport interface ColumnsProps {\n  /** Left column text. `\\n` splits lines; `**segment**` renders bold. */\n  left: string;\n  /** Right column text. `\\n` splits lines; `**segment**` renders bold. */\n  right: string;\n  /**\n   * Width ratio between the columns.\n   * @default '1:1'\n   */\n  ratio?: ColumnsRatio;\n  /** Horizontal gap between columns in points. Defaults to the theme gap. */\n  gap?: number;\n  /**\n   * Accent color for a vertical rule between the columns. Omit for none.\n   */\n  accentColor?: string;\n  renderingBase?: \"takumi\" | \"forme\";\n  style?: Style;\n}\n",
+      "type": "registry:component",
+      "target": "components/pdf/columns/columns.types.ts"
+    },
+    {
+      "path": "registry/bases/takumi/components/columns/columns.utils.ts",
+      "content": "/**\n * Width ratio between the left and right column.\n * `\"1:1\"` equal, `\"2:1\"` wide left, `\"1:2\"` wide right.\n */\nexport type ColumnsRatio = \"1:1\" | \"2:1\" | \"1:2\";\n\n/** Flex grow factors applied to `[left, right]` for a given ratio. */\nexport const RATIO_FLEX: Record<ColumnsRatio, [number, number]> = {\n  \"1:1\": [1, 1],\n  \"1:2\": [1, 2],\n  \"2:1\": [2, 1],\n};\n\n/** A piece of column text, optionally bold (`**segment**`). */\nexport interface InlineSegment {\n  text: string;\n  bold: boolean;\n}\n\nconst BOLD_RE = /\\*\\*([^*]+)\\*\\*/g;\n\n/**\n * Splits one line of column text into plain and bold segments.\n * `\"Total: **$120**\"` → `[{text:\"Total: \",bold:false},{text:\"$120\",bold:true}]`\n */\nexport const parseEmphasis = (line: string): InlineSegment[] => {\n  const segments: InlineSegment[] = [];\n  let cursor = 0;\n  for (const match of line.matchAll(BOLD_RE)) {\n    const index = match.index ?? 0;\n    if (index > cursor) {\n      segments.push({ bold: false, text: line.slice(cursor, index) });\n    }\n    segments.push({ bold: true, text: match[1] ?? \"\" });\n    cursor = index + match[0].length;\n  }\n  if (cursor < line.length) {\n    segments.push({ bold: false, text: line.slice(cursor) });\n  }\n  return segments;\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/columns/columns.utils.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

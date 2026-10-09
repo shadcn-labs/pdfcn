@@ -1,0 +1,143 @@
+---
+title: "Columns"
+description: "Side-by-side two-column text with equal or weighted widths."
+---
+
+<ComponentPreview base="forme" name="columns" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/columns
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/components/columns/columns.styles.ts"
+  base="forme"
+  title="components/pdf/columns/columns.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/columns/columns.tsx"
+  base="forme"
+  title="components/pdf/columns/columns.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/columns/columns.types.ts"
+  base="forme"
+  title="components/pdf/columns/columns.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/columns/columns.utils.ts"
+  base="forme"
+  title="components/pdf/columns/columns.utils.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Columns } from "@/components/pdf/columns";
+```
+
+```tsx
+<Columns
+  left={"**Highlights**\nEnterprise plan launched in July."}
+  right={"**Watch list**\nSupport response time rose to 6h."}
+/>
+```
+
+Each column is multi-line text: `\n` splits lines and `**segment**` renders
+bold lead-ins. Both columns wrap within their share without overflowing.
+
+### Weighted ratios and accent rule
+
+```tsx
+<Columns ratio="2:1" accentColor="primary" left={details} right={meta} />
+```
+
+`ratio` accepts `"1:1"` (equal), `"2:1"` (wide left), or `"1:2"` (wide right).
+`accentColor` draws a vertical rule between the columns, and `gap` controls
+the horizontal space around it.
+
+## API Reference
+
+### Columns
+
+| Prop            | Type                      | Default |
+| --------------- | ------------------------- | ------- |
+| `left`          | `string`                  | -       |
+| `right`         | `string`                  | -       |
+| `ratio`         | `'1:1' \| '2:1' \| '1:2'` | `'1:1'` |
+| `gap`           | `number`                  | -       |
+| `accentColor`   | `string`                  | -       |
+| `renderingBase` | `'takumi' \| 'forme'`     | -       |
+| `style`         | `Style`                   | -       |
