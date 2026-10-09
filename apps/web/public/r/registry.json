@@ -364,6 +364,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Quote PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/quote/quote.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/quote/quote.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/quote/quote.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/quote/quote.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/quote/quote.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/quote/quote.types.ts"
+        }
+      ],
+      "name": "takumi/quote",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Quote",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Section PDF component (takumi)",
       "files": [
         {
@@ -1669,6 +1694,31 @@
       "name": "forme/qrcode",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Qrcode",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Quote PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/quote/quote.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/quote/quote.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/quote/quote.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/quote/quote.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/quote/quote.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/quote/quote.types.ts"
+        }
+      ],
+      "name": "forme/quote",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Quote",
       "type": "registry:ui"
     },
     {
