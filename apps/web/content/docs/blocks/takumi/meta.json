@@ -1,6 +1,7 @@
 {
   "pages": [
     "index",
+    "certificate",
     "gift-certificate",
     "event-agenda",
     "event-ticket",
