@@ -79,6 +79,36 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Barcode PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.types.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.utils.ts"
+        }
+      ],
+      "name": "takumi/barcode",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Barcode",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Card PDF component (takumi)",
       "files": [
         {
@@ -449,6 +479,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Totals PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/totals/totals.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/totals/totals.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/totals/totals.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.types.ts"
+        }
+      ],
+      "name": "takumi/totals",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Totals",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Watermark PDF component (takumi)",
       "files": [
         {
@@ -790,6 +845,33 @@
         "@pdfcn/takumi/text"
       ],
       "title": "Press Release",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Receipt PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/receipt/receipt.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/receipt/receipt.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/receipt/receipt.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/receipt/receipt.types.ts"
+        }
+      ],
+      "name": "takumi/receipt",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/barcode",
+        "@pdfcn/takumi/pdf-image",
+        "@pdfcn/takumi/table",
+        "@pdfcn/takumi/text",
+        "@pdfcn/takumi/totals"
+      ],
+      "title": "Receipt",
       "type": "registry:block"
     },
     {
@@ -1388,6 +1470,36 @@
     },
     {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Barcode PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.types.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.utils.ts"
+        }
+      ],
+      "name": "forme/barcode",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Barcode",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Card PDF component (forme)",
       "files": [
         {
@@ -1754,6 +1866,31 @@
       "name": "forme/text",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Text",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Totals PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/totals/totals.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/totals/totals.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/totals/totals.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.types.ts"
+        }
+      ],
+      "name": "forme/totals",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Totals",
       "type": "registry:ui"
     },
     {
@@ -2358,6 +2495,33 @@
         "@pdfcn/forme/text"
       ],
       "title": "Lesson Plan",
+      "type": "registry:block"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Receipt PDF block (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/blocks/receipt/receipt.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/receipt/receipt.tsx"
+        },
+        {
+          "path": "registry/bases/forme/blocks/receipt/receipt.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/receipt/receipt.types.ts"
+        }
+      ],
+      "name": "forme/receipt",
+      "registryDependencies": [
+        "@pdfcn/forme/utils",
+        "@pdfcn/forme/barcode",
+        "@pdfcn/forme/pdf-image",
+        "@pdfcn/forme/table",
+        "@pdfcn/forme/text",
+        "@pdfcn/forme/totals"
+      ],
+      "title": "Receipt",
       "type": "registry:block"
     }
   ],

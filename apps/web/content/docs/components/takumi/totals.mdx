@@ -1,0 +1,156 @@
+---
+title: "Totals"
+description: "Subtotal lines with an emphasized grand-total row for invoices, quotes, and receipts."
+---
+
+<ComponentPreview base="takumi" name="totals" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/totals
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/components/totals/totals.tsx"
+  base="takumi"
+  title="components/pdf/totals/totals.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/totals/totals.styles.ts"
+  base="takumi"
+  title="components/pdf/totals/totals.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/totals/totals.types.ts"
+  base="takumi"
+  title="components/pdf/totals/totals.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Totals } from "@/components/pdf/totals/totals";
+```
+
+```tsx
+<Totals
+  items={[
+    { label: "Subtotal", value: "$8,250" },
+    { label: "Tax (20%)", value: "$1,650" },
+  ]}
+  totalLabel="Total due"
+  total="$9,900"
+/>
+```
+
+Use `align="full"` to span the parent's width, for example in a narrow receipt column:
+
+```tsx
+<Totals
+  align="full"
+  items={[
+    { label: "Subtotal", value: "$16.50" },
+    { label: "Tip", value: "$2.00" },
+  ]}
+  totalLabel="Paid by card"
+  total="$18.50"
+/>
+```
+
+## API Reference
+
+### Totals
+
+| Prop          | Type                                 | Default   |
+| ------------- | ------------------------------------ | --------- |
+| `items`       | `{ label: string; value: string }[]` | -         |
+| `totalLabel`  | `string`                             | -         |
+| `total`       | `string`                             | -         |
+| `align`       | `'right' \| 'full'`                  | `'right'` |
+| `accentColor` | `string`                             | `primary` |
+| `style`       | `Style`                              | -         |
+
+The grand-total row uses `accentColor` (a theme token such as `primary` or any colour) for its
+text and top border. The block never splits across pages.

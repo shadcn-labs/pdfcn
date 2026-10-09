@@ -1,0 +1,127 @@
+---
+title: "Receipt"
+description: "Compact printable receipt with line items, totals, payment method, and barcode — proof of payment for A5 / half-page layouts."
+---
+
+<ComponentPreview base="forme" name="receipt" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/receipt
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/receipt/receipt.tsx"
+  base="forme"
+  title="components/pdf/blocks/receipt/receipt.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/blocks/receipt/receipt.types.ts"
+  base="forme"
+  title="components/pdf/blocks/receipt/receipt.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-svg.tsx"
+  base="forme"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ReceiptDocument } from "@/components/pdf/receipt";
+```
+
+```tsx
+<ReceiptDocument
+  companyName="Corner Café"
+  receiptNumber="004812"
+  date="September 13, 2026, 09:42"
+  items={[
+    { name: "Flat white", qty: 2, total: 9.0 },
+    { name: "Almond croissant", qty: 1, total: 4.5 },
+    { name: "Sparkling water", qty: 1, total: 3.0 },
+  ]}
+  subtotal={16.5}
+  fees={[{ label: "Tip", value: 2.0 }]}
+  total={18.5}
+  paymentMethod="card"
+  thankYouNote="Thanks for visiting. See you tomorrow."
+/>
+```
