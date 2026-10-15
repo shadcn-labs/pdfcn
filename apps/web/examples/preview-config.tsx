@@ -34,6 +34,7 @@ const COMPONENT_MARGINS: Record<string, number> = {
   "page-footer": 30,
   "page-header": 30,
   section: 30,
+  spacer: 30,
   stack: 30,
   text: 30,
 };
