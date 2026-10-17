@@ -1,0 +1,196 @@
+---
+title: "Resume"
+description: "Printable one-page resume with summary, experience timeline, skills, and education."
+---
+
+<ComponentPreview base="takumi" name="resume" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/resume
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/resume/resume.tsx"
+  base="takumi"
+  title="components/pdf/blocks/resume/resume.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/resume/resume.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/resume/resume.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/badge/badge.tsx"
+  base="takumi"
+  title="components/pdf/badge/badge.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/pdf-image/pdf-image.tsx"
+  base="takumi"
+  title="components/pdf/pdf-image/pdf-image.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/section/section.tsx"
+  base="takumi"
+  title="components/pdf/section/section.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/text/text.tsx"
+  base="takumi"
+  title="components/pdf/text/text.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ResumeDocument } from "@/components/pdf/blocks/resume/resume";
+```
+
+```tsx
+<ResumeDocument
+  name="Sam Rivera"
+  role="Senior Product Designer"
+  contact={{
+    email: "sam@rivera.design",
+    location: "Lisbon, Portugal",
+    website: "rivera.design",
+  }}
+  summary="Product designer with nine years of experience shipping consumer and B2B software. I turn fuzzy problems into simple, measurable products."
+  experience={[
+    {
+      period: "2022 to now",
+      title: "Lead Designer",
+      company: "Tidewave",
+      details: "Led the redesign of the mobile banking app; activation up 23%.",
+    },
+    {
+      period: "2019 to 2022",
+      title: "Product Designer",
+      company: "Loom & Co",
+      details: "Built the design system used by 40 engineers across 6 teams.",
+    },
+    {
+      period: "2016 to 2019",
+      title: "UX Designer",
+      company: "Fieldnote",
+      details: "Designed onboarding and billing for a 200k-user SaaS.",
+    },
+  ]}
+  skills={[
+    "Product strategy",
+    "Interaction design",
+    "Design systems",
+    "Prototyping",
+    "User research",
+    "Figma",
+  ]}
+  education={[
+    {
+      degree: "BA Communication Design",
+      school: "University of Porto",
+      year: "2016",
+    },
+  ]}
+/>
+```
+
+## One-page fit policy
+
+The Resume block is a single-page document, so it estimates the rendered
+height of your content before rendering and adapts the layout to fit one
+A4 page:
+
+- **Comfortable**: standard spacing and body text for typical resumes.
+- **Compact** and **dense**: progressively tighter page padding, row
+  spacing and body text size, so a long summary or several experience
+  entries still fit.
+- **Oversize**: content beyond the dense budget renders a visible
+  "does not fit on one page" notice with the estimated overflow, instead
+  of spilling onto a second page or clipping silently. Shorten the
+  summary, trim experience details, or remove entries and render again.
