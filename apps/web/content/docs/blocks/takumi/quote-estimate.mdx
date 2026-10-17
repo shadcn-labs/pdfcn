@@ -1,0 +1,148 @@
+---
+title: "Quote Estimate"
+description: "Printable price quote with scope of work, phased pricing, totals, validity terms, and client sign-off."
+---
+
+<ComponentPreview base="takumi" name="quote-estimate" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/quote-estimate
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/quote-estimate/quote-estimate.tsx"
+  base="takumi"
+  title="components/pdf/blocks/quote-estimate/quote-estimate.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/quote-estimate/quote-estimate.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/quote-estimate/quote-estimate.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { QuoteEstimateDocument } from "@/components/pdf/blocks/quote-estimate/quote-estimate";
+```
+
+```tsx
+<QuoteEstimateDocument
+  data={{
+    companyName: "Brightline Builders",
+    companyTagline: "Renovations and extensions",
+    quoteNumber: "Q-3301",
+    projectTitle: "Kitchen renovation",
+    client: "Maya Patel",
+    date: "September 13, 2026",
+    validUntil: "October 13, 2026",
+    scope: [
+      "Remove existing cabinets and worktops",
+      "New electrical circuits for appliances",
+      "Install oak cabinets and quartz worktops",
+      "Tiling, painting and final clean",
+    ],
+    phases: [
+      { phase: "Demolition", duration: "3 days", cost: 2100 },
+      { phase: "Electrical and plumbing", duration: "5 days", cost: 6400 },
+      { phase: "Installation", duration: "8 days", cost: 18900 },
+      { phase: "Finishing", duration: "4 days", cost: 3200 },
+    ],
+    adjustments: [{ label: "Contingency (5%)", value: 1530 }],
+    terms: "Prices include materials and labour.",
+    depositNote: "A 20% deposit confirms your start date.",
+    accentColor: "#0f4c81",
+  }}
+/>
+```
+
+The subtotal is the sum of `phases[].cost`, and the estimated total adds every `adjustments[].value` to it. Use a negative value for discounts.
+
+## Props
+
+| Prop    | Type                 | Description             |
+| ------- | -------------------- | ----------------------- |
+| `data`  | `QuoteEstimateProps` | Quote content           |
+| `theme` | `PdfcnTheme`         | Optional theme override |
