@@ -94,6 +94,36 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Columns PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/columns/columns.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/columns/columns.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/columns/columns.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.types.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/columns/columns.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.utils.ts"
+        }
+      ],
+      "name": "takumi/columns",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Columns",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Data Table PDF component (takumi)",
       "files": [
         {
@@ -1399,6 +1429,36 @@
       "name": "forme/card",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Card",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Columns PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/columns/columns.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/columns/columns.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/columns/columns.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.types.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/columns/columns.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/columns/columns.utils.ts"
+        }
+      ],
+      "name": "forme/columns",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Columns",
       "type": "registry:ui"
     },
     {
