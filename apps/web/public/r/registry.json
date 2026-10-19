@@ -79,6 +79,36 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Barcode PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.types.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/barcode/barcode.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.utils.ts"
+        }
+      ],
+      "name": "takumi/barcode",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Barcode",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Card PDF component (takumi)",
       "files": [
         {
@@ -1384,6 +1414,36 @@
       "name": "forme/badge",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Badge",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Barcode PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.types.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/barcode/barcode.utils.ts",
+          "type": "registry:component",
+          "target": "components/pdf/barcode/barcode.utils.ts"
+        }
+      ],
+      "name": "forme/barcode",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Barcode",
       "type": "registry:ui"
     },
     {

@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 
 import forme_alert from "@/examples/forme/alert";
 import forme_badge from "@/examples/forme/badge";
+import forme_barcode from "@/examples/forme/barcode";
 import forme_card from "@/examples/forme/card";
 import forme_data_table from "@/examples/forme/data-table";
 import forme_divider from "@/examples/forme/divider";
@@ -46,6 +47,7 @@ import forme_watermark from "@/examples/forme/watermark";
 import forme_work_order from "@/examples/forme/work-order";
 import takumi_alert from "@/examples/takumi/alert";
 import takumi_badge from "@/examples/takumi/badge";
+import takumi_barcode from "@/examples/takumi/barcode";
 import takumi_card from "@/examples/takumi/card";
 import takumi_data_table from "@/examples/takumi/data-table";
 import takumi_divider from "@/examples/takumi/divider";
@@ -96,6 +98,7 @@ export const demos: Record<BaseName, DemoMap> = {
   forme: {
     alert: forme_alert,
     badge: forme_badge,
+    barcode: forme_barcode,
     card: forme_card,
     "data-table": forme_data_table,
     divider: forme_divider,
@@ -142,6 +145,7 @@ export const demos: Record<BaseName, DemoMap> = {
   takumi: {
     alert: takumi_alert,
     badge: takumi_badge,
+    barcode: takumi_barcode,
     card: takumi_card,
     "data-table": takumi_data_table,
     divider: takumi_divider,

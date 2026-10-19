@@ -1,0 +1,144 @@
+---
+title: "Barcode"
+description: "Linear barcode (Code 128, Code 39, or EAN-13) with caption, for receipts, packing slips, and tickets."
+---
+
+<ComponentPreview base="forme" name="barcode" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/barcode
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/components/barcode/barcode.tsx"
+  base="forme"
+  title="components/pdf/barcode/barcode.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/barcode/barcode.styles.ts"
+  base="forme"
+  title="components/pdf/barcode/barcode.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/barcode/barcode.types.ts"
+  base="forme"
+  title="components/pdf/barcode/barcode.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/barcode/barcode.utils.ts"
+  base="forme"
+  title="components/pdf/barcode/barcode.utils.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-svg.tsx"
+  base="forme"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Barcode } from "@/components/pdf/barcode/barcode";
+```
+
+```tsx
+<Barcode data="ORB-2026-0042" format="Code128" caption="Order ORB-2026-0042" />
+<Barcode data="RC004812" format="Code39" caption="Receipt RC004812" />
+<Barcode data="5901234123457" format="EAN13" caption="EAN 5901234123457" />
+```
+
+Bars are drawn with PDF-safe SVG primitives. EAN-13 accepts 12 digits (check digit is
+computed) or 13 digits (check digit is verified). Data that is not valid for the chosen
+format renders a dashed placeholder instead of unscannable bars.
+
+## API Reference
+
+### Barcode
+
+| Prop          | Type                               | Default     |
+| ------------- | ---------------------------------- | ----------- |
+| `data`        | `string`                           | -           |
+| `format`      | `'Code128' \| 'Code39' \| 'EAN13'` | `'Code128'` |
+| `caption`     | `string`                           | -           |
+| `height`      | `number`                           | `44`        |
+| `accentColor` | `string`                           | `'primary'` |
+| `style`       | `Style`                            | -           |
