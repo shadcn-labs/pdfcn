@@ -1,0 +1,157 @@
+---
+title: "Title"
+description: "Document cover title with eyebrow, hero title, and subtitle."
+---
+
+<ComponentPreview base="forme" name="title" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/forme/title
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @formepdf/react @formepdf/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/forme/components/title/title.tsx"
+  base="forme"
+  title="components/pdf/title/title.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/title/title.styles.ts"
+  base="forme"
+  title="components/pdf/title/title.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/title/title.types.ts"
+  base="forme"
+  title="components/pdf/title/title.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/components/theme-provider.tsx"
+  base="forme"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/pdf-primitives.tsx"
+  base="forme"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/forme/lib/resolve-color.ts"
+  base="forme"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="forme"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="forme"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="forme"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="forme"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Title } from "@/components/pdf/title";
+```
+
+```tsx
+<Title eyebrow="Invoice" title="#2026-042" />
+```
+
+### Report cover
+
+```tsx
+<Title
+  eyebrow="Q3 2026"
+  title="Quarterly business review"
+  subtitle="Performance, customers and priorities for next quarter."
+  accentColor="primary"
+/>
+```
+
+### Centered
+
+```tsx
+<Title
+  eyebrow="Certificate of completion"
+  title="Priya Shah"
+  subtitle="has successfully completed Advanced Data Visualisation"
+  align="center"
+/>
+```
+
+## Title vs Heading
+
+Use `Title` once at the top of a document as its cover or hero. It renders an
+optional uppercase eyebrow, a title one step larger than the theme's `h1`, and
+an optional muted subtitle. Use [Heading](./heading) for section headings
+inside the document.
+
+## API Reference
+
+### Title
+
+| Prop           | Type                            | Default                    |
+| -------------- | ------------------------------- | -------------------------- |
+| `title`        | `string`                        | -                          |
+| `eyebrow`      | `string`                        | -                          |
+| `subtitle`     | `string`                        | -                          |
+| `align`        | `'left' \| 'center' \| 'right'` | `'left'`                   |
+| `accentColor`  | `string`                        | `'mutedForeground'`        |
+| `color`        | `string`                        | `'foreground'`             |
+| `marginBottom` | `number`                        | `theme.spacing.sectionGap` |
+| `style`        | `Style`                         | -                          |
