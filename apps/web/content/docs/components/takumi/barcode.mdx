@@ -1,0 +1,144 @@
+---
+title: "Barcode"
+description: "Linear barcode (Code 128, Code 39, or EAN-13) with caption, for receipts, packing slips, and tickets."
+---
+
+<ComponentPreview base="takumi" name="barcode" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/barcode
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/components/barcode/barcode.tsx"
+  base="takumi"
+  title="components/pdf/barcode/barcode.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/barcode/barcode.styles.ts"
+  base="takumi"
+  title="components/pdf/barcode/barcode.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/barcode/barcode.types.ts"
+  base="takumi"
+  title="components/pdf/barcode/barcode.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/barcode/barcode.utils.ts"
+  base="takumi"
+  title="components/pdf/barcode/barcode.utils.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Barcode } from "@/components/pdf/barcode/barcode";
+```
+
+```tsx
+<Barcode data="ORB-2026-0042" format="Code128" caption="Order ORB-2026-0042" />
+<Barcode data="RC004812" format="Code39" caption="Receipt RC004812" />
+<Barcode data="5901234123457" format="EAN13" caption="EAN 5901234123457" />
+```
+
+Bars are drawn with PDF-safe SVG primitives. EAN-13 accepts 12 digits (check digit is
+computed) or 13 digits (check digit is verified). Data that is not valid for the chosen
+format renders a dashed placeholder instead of unscannable bars.
+
+## API Reference
+
+### Barcode
+
+| Prop          | Type                               | Default     |
+| ------------- | ---------------------------------- | ----------- |
+| `data`        | `string`                           | -           |
+| `format`      | `'Code128' \| 'Code39' \| 'EAN13'` | `'Code128'` |
+| `caption`     | `string`                           | -           |
+| `height`      | `number`                           | `44`        |
+| `accentColor` | `string`                           | `'primary'` |
+| `style`       | `Style`                            | -           |

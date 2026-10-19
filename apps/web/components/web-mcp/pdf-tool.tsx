@@ -18,6 +18,7 @@ const BLOCK_NAMES = [
   "meeting-minutes",
   "packing-slip",
   "press-release",
+  "receipt",
   "report-financial",
   "report-marketing",
   "report-operations",
