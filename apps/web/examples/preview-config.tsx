@@ -7,6 +7,7 @@ const DEFAULT_MARGIN = 40;
 const BLOCK_NAMES = new Set([
   "event-agenda",
   "event-ticket",
+  "gift-certificate",
   "invoice-classic",
   "invoice-consultant",
   "invoice-corporate",
@@ -46,6 +47,10 @@ const COMPONENT_SIZES: Record<
   "event-ticket": {
     height: pointToCssPixel(252),
     width: pointToCssPixel(504),
+  },
+  "gift-certificate": {
+    height: pointToCssPixel(595),
+    width: pointToCssPixel(841),
   },
   "page-footer": {
     height: pointToCssPixel(300),
