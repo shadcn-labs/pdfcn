@@ -1,0 +1,139 @@
+---
+title: "Certificate"
+description: "Landscape award and completion certificate with centered title, accent divider, and dual signature lines."
+---
+
+<ComponentPreview base="takumi" name="certificate" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/certificate
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/certificate/certificate.tsx"
+  base="takumi"
+  title="components/pdf/blocks/certificate/certificate.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/certificate/certificate.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/certificate/certificate.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { CertificateDocument } from "@/components/pdf/certificate";
+```
+
+```tsx
+<CertificateDocument
+  recipient="Priya Shah"
+  courseTitle="Advanced Data Visualisation"
+  date="13 September 2026"
+  eyebrow="Certificate of completion"
+  message="Awarded in recognition of outstanding work across twelve weeks of study."
+  signers={[
+    { name: "Dr. Helen Moore", role: "Programme Director" },
+    { name: "Marcus Lee", role: "Head of Faculty" },
+  ]}
+/>
+```
+
+### Image watermark
+
+Pass `watermarkImageUrl` to draw a low-opacity image (an org seal or crest)
+behind the certificate content, and `watermarkOpacity` (0–1, default `0.08`)
+to control its strength.
+
+```tsx
+<CertificateDocument
+  watermarkImageUrl="/seal.png"
+  watermarkOpacity={0.1}
+/>
+```
+
+For a gift voucher instead of a formal award certificate, see
+[Gift Certificate](/docs/blocks/takumi/gift-certificate).
