@@ -1,0 +1,209 @@
+---
+title: "Project Proposal"
+description: "Printable multi-section project proposal with stat tiles, deliverables, timeline, budget breakdown, next steps, and sign-off."
+---
+
+<ComponentPreview base="takumi" name="project-proposal" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/project-proposal
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/project-proposal/project-proposal.tsx"
+  base="takumi"
+  title="components/pdf/blocks/project-proposal/project-proposal.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/project-proposal/project-proposal.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/project-proposal/project-proposal.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/graph/graph.tsx"
+  base="takumi"
+  title="components/pdf/graph/graph.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/graph/graph.styles.ts"
+  base="takumi"
+  title="components/pdf/graph/graph.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/graph/graph.types.ts"
+  base="takumi"
+  title="components/pdf/graph/graph.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/graph/graph.utils.ts"
+  base="takumi"
+  title="components/pdf/graph/graph.utils.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/keep-together/keep-together.tsx"
+  base="takumi"
+  title="components/pdf/keep-together/keep-together.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/page-number/page-number.tsx"
+  base="takumi"
+  title="components/pdf/page-number/page-number.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/section/section.tsx"
+  base="takumi"
+  title="components/pdf/section/section.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/signature/signature.tsx"
+  base="takumi"
+  title="components/pdf/signature/signature.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/text/text.tsx"
+  base="takumi"
+  title="components/pdf/text/text.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { ProjectProposalDocument } from "@/components/pdf/blocks/project-proposal/project-proposal";
+```
+
+```tsx
+<ProjectProposalDocument
+  company="Studio Kite"
+  client="Greenleaf Markets"
+  projectTitle="A loyalty app your shoppers will open every week"
+  date="September 2026"
+  stats={[
+    { label: "Timeline", value: "14 weeks", note: "Oct to Jan" },
+    { label: "Investment", value: "$84k", note: "Fixed price" },
+    { label: "Team", value: "5 people", note: "Design and build" },
+  ]}
+  deliverables={[
+    "Research with 20 shoppers across three stores",
+    "Interactive prototype tested in-store",
+    "iOS and Android apps with points and offers",
+    "Launch plan and staff training",
+  ]}
+  milestones={[
+    { date: "Oct 2026", title: "Kick-off", body: "Goals and scope agreed." },
+    { date: "Dec 2026", title: "Beta", body: "First customers onboarded." },
+    { date: "Jan 2027", title: "Launch", body: "Available to everyone." },
+  ]}
+  budget={[
+    { label: "Research", value: 15 },
+    { label: "Design", value: 30 },
+    { label: "Engineering", value: 45 },
+    { label: "Launch", value: 10 },
+  ]}
+  nextSteps={[
+    { text: "Review proposal", done: true },
+    { text: "Agree scope and budget" },
+    { text: "Sign and schedule kick-off" },
+  ]}
+/>
+```
+
+## Notes
+
+- **Repeating chrome.** The header (company and project title) and footer
+  (company, client, date, and `Page X of Y`) are rendered as `fixed` elements,
+  so they repeat on every page of multi-page proposals.
+- **Caller data.** Sample data renders only when no props are passed. When you
+  pass any props, content sections (stats, deliverables, milestones, budget,
+  next steps) render only if you provide them, and identity fields (company,
+  client, title, date) come only from your props.
