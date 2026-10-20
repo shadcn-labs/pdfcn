@@ -44,6 +44,7 @@ import forme_table from "@/examples/forme/table";
 import forme_text from "@/examples/forme/text";
 import forme_watermark from "@/examples/forme/watermark";
 import forme_work_order from "@/examples/forme/work-order";
+import takumi_addresses from "@/examples/takumi/addresses";
 import takumi_alert from "@/examples/takumi/alert";
 import takumi_badge from "@/examples/takumi/badge";
 import takumi_card from "@/examples/takumi/card";
@@ -140,6 +141,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "work-order": forme_work_order,
   },
   takumi: {
+    addresses: takumi_addresses,
     alert: takumi_alert,
     badge: takumi_badge,
     card: takumi_card,

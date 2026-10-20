@@ -49,6 +49,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Addresses PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/addresses/addresses.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/addresses/addresses.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/addresses/addresses.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/addresses/addresses.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/addresses/addresses.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/addresses/addresses.types.ts"
+        }
+      ],
+      "name": "takumi/addresses",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Addresses",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Alert PDF component (takumi)",
       "files": [
         {

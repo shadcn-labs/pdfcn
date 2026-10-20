@@ -1,0 +1,141 @@
+---
+title: "Addresses"
+description: "Sender and recipient address blocks side by side."
+---
+
+<ComponentPreview base="takumi" name="addresses" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/addresses
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/components/addresses/addresses.tsx"
+  base="takumi"
+  title="components/pdf/addresses/addresses.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/addresses/addresses.styles.ts"
+  base="takumi"
+  title="components/pdf/addresses/addresses.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/addresses/addresses.types.ts"
+  base="takumi"
+  title="components/pdf/addresses/addresses.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { PdfAddresses } from "@/components/pdf/addresses/addresses";
+```
+
+```tsx
+<PdfAddresses
+  fromLabel="From"
+  from={"Northwind Studio\n12 Market Street\nLisbon, Portugal"}
+  toLabel="Bill to"
+  to={"Harbour & Co.\n400 Harbour Road\nSydney, Australia"}
+/>
+```
+
+```tsx
+<PdfAddresses
+  fromLabel="Ship from"
+  from={"Tallow Supply\nUnit 4, Dock Road\nRotterdam, NL"}
+  toLabel="Ship to"
+  to={"Jamie Ortiz\n19 Rue des Lilas\nLyon, FR"}
+/>
+```
+
+## API Reference
+
+### PdfAddresses
+
+| Prop          | Type      | Default    |
+| ------------- | --------- | ---------- |
+| `from`        | `string`  | -          |
+| `to`          | `string`  | -          |
+| `fromLabel`   | `string`  | `'From'`   |
+| `toLabel`     | `string`  | `'Bill to'` |
+| `accentColor` | `string`  | theme primary |
+| `style`       | `Style`   | -          |
+| `renderingBase` | `'takumi'` | `'takumi'` |

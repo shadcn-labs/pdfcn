@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "takumi/addresses",
+  "title": "Addresses",
+  "description": "Addresses PDF component (takumi)",
+  "dependencies": [
+    "takumi-pdf",
+    "@takumi-rs/helpers"
+  ],
+  "registryDependencies": [
+    "@pdfcn/takumi/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/takumi/components/addresses/addresses.styles.ts",
+      "content": "import { StyleSheet } from \"@/lib/pdf-primitives\";\nimport type { PdfcnTheme } from \"@/types/pdf-themes\";\n\n/**\n * Creates all addresses styles derived from the active theme.\n * @param t - The resolved PdfcnTheme instance.\n */\nexport const createAddressesStyles = (t: PdfcnTheme) => {\n  const { spacing, fontWeights, typography } = t.primitives;\n\n  return StyleSheet.create({\n    addressText: {\n      // No flex here — Text nodes with flex shorthand get flexBasis:0, which causes\n      // Yoga to under-measure multi-line text height. flex lives on the column View.\n      color: t.colors.foreground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: t.typography.body.fontSize,\n      lineHeight: t.typography.body.lineHeight,\n    },\n    column: {\n      display: \"flex\",\n      flex: 1,\n      flexDirection: \"column\",\n    },\n    columnGap: {\n      width: spacing[8],\n    },\n    container: {\n      display: \"flex\",\n      flexDirection: \"row\",\n      marginBottom: t.spacing.componentGap,\n      width: \"100%\",\n    },\n    label: {\n      color: t.colors.primary,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: typography.xs,\n      fontWeight: fontWeights.semibold,\n      letterSpacing: 1,\n      marginBottom: spacing[1],\n    },\n  });\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/addresses/addresses.styles.ts"
+    },
+    {
+      "path": "registry/bases/takumi/components/addresses/addresses.tsx",
+      "content": "import type React from \"react\";\n\nimport {\n  usePdfcnTheme,\n  useSafeMemo,\n} from \"@/components/pdf/theme-provider\";\nimport {\n  View,\n  Text as PDFText,\n} from \"@/lib/pdf-primitives\";\nimport type { Style } from \"@/lib/pdf-primitives\";\n\nimport { createAddressesStyles } from \"./addresses.styles\";\nimport type { AddressesProps } from \"./addresses.types\";\n\ntype Styles = ReturnType<typeof createAddressesStyles>;\n\nconst splitLines = (address: string): string[] => address.split(/\\r?\\n/);\n\nconst renderAddressColumn = (\n  label: string,\n  address: string,\n  accent: string,\n  styles: Styles,\n  columnKey: string,\n  columnStyle?: Style\n): React.ReactElement => (\n  <View key={columnKey} style={columnStyle ? [styles.column, columnStyle] : styles.column}>\n    <PDFText style={[styles.label, { color: accent }]}>\n      {label.toUpperCase()}\n    </PDFText>\n    <View>\n      {splitLines(address).map((line, index) => (\n        <PDFText\n          key={\n            line ? `${columnKey}-line-${index}-${line}` : `${columnKey}-blank-${index}`\n          }\n          style={styles.addressText}\n        >\n          {line}\n        </PDFText>\n      ))}\n    </View>\n  </View>\n);\n\nexport const PdfAddresses = ({\n  from,\n  to,\n  fromLabel = \"From\",\n  toLabel = \"Bill to\",\n  accentColor,\n  style,\n}: AddressesProps) => {\n  const theme = usePdfcnTheme();\n  const styles = useSafeMemo(() => createAddressesStyles(theme), [theme]);\n  const accent = accentColor ?? theme.colors.primary;\n\n  const containerStyles: Style[] = [styles.container];\n  if (style) {\n    containerStyles.push(style);\n  }\n\n  return (\n    <View style={containerStyles}>\n      {renderAddressColumn(fromLabel, from, accent, styles, \"from\")}\n      <View style={styles.columnGap} />\n      {renderAddressColumn(toLabel, to, accent, styles, \"to\")}\n    </View>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/addresses/addresses.tsx"
+    },
+    {
+      "path": "registry/bases/takumi/components/addresses/addresses.types.ts",
+      "content": "import type { Style } from \"@/lib/pdf-primitives\";\n\n/**\n * Sender and recipient address blocks side by side (\"From\" / \"Bill to\",\n * \"Ship from\" / \"Ship to\"). Used by invoice, quote, and packing-slip blocks.\n * Props - `from` | `to` | `fromLabel` | `toLabel` | `accentColor` | `style` | `renderingBase`\n * @see {@link PdfAddresses}\n */\nexport interface AddressesProps {\n  /** Sender address. Multiline strings render as stacked lines. */\n  from: string;\n  /** Recipient address. Multiline strings render as stacked lines. */\n  to: string;\n  /**\n   * Label above the sender address.\n   * @default 'From'\n   */\n  fromLabel?: string;\n  /**\n   * Label above the recipient address.\n   * @default 'Bill to'\n   */\n  toLabel?: string;\n  /**\n   * Color of the labels. Falls back to the theme primary color.\n   */\n  accentColor?: string;\n  style?: Style;\n  /**\n   * @default 'takumi'\n   * Forme rendering ships as a follow-up (shadcn-labs/pdfcn#71).\n   */\n  renderingBase?: \"takumi\";\n}\n",
+      "type": "registry:component",
+      "target": "components/pdf/addresses/addresses.types.ts"
+    }
+  ],
+  "type": "registry:ui"
+}
