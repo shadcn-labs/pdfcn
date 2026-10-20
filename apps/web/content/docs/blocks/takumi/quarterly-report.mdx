@@ -1,0 +1,210 @@
+---
+title: "Quarterly Report"
+description: "Printable quarterly business review with KPI tiles, trend and breakdown charts, highlights vs. watch list, and next-quarter priorities."
+---
+
+<ComponentPreview base="takumi" name="quarterly-report" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/quarterly-report
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/quarterly-report/quarterly-report.tsx"
+  base="takumi"
+  title="components/pdf/blocks/quarterly-report/quarterly-report.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/quarterly-report/quarterly-report.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/quarterly-report/quarterly-report.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/graph/graph.tsx"
+  base="takumi"
+  title="components/pdf/graph/graph.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/keep-together/keep-together.tsx"
+  base="takumi"
+  title="components/pdf/keep-together/keep-together.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/list/list.tsx"
+  base="takumi"
+  title="components/pdf/list/list.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/page-footer/page-footer.tsx"
+  base="takumi"
+  title="components/pdf/page-footer/page-footer.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/page-header/page-header.tsx"
+  base="takumi"
+  title="components/pdf/page-header/page-header.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/page-number/page-number.tsx"
+  base="takumi"
+  title="components/pdf/page-number/page-number.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/section/section.tsx"
+  base="takumi"
+  title="components/pdf/section/section.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/stack/stack.tsx"
+  base="takumi"
+  title="components/pdf/stack/stack.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/text/text.tsx"
+  base="takumi"
+  title="components/pdf/text/text.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { QuarterlyReportDocument } from "@/components/pdf/blocks/quarterly-report/quarterly-report";
+```
+
+```tsx
+<QuarterlyReportDocument
+  company="Aurora Analytics"
+  quarter="Q3 2026"
+  subtitle="Performance, customers and priorities for next quarter."
+  stats={[
+    { label: "Revenue", value: "$1.2M", note: "+18% vs Q2" },
+    { label: "Customers", value: "3,480", note: "+412 new" },
+    { label: "Churn", value: "1.9%", note: "-0.4 pts" },
+  ]}
+  trend={{
+    title: "Monthly recurring revenue ($k)",
+    seriesName: "MRR",
+    data: [
+      { label: "Apr", value: 310 },
+      { label: "May", value: 335 },
+      { label: "Jun", value: 362 },
+      { label: "Jul", value: 380 },
+      { label: "Aug", value: 404 },
+      { label: "Sep", value: 431 },
+    ],
+  }}
+  highlights={[
+    "Enterprise plan launched in July.",
+    "Three new partners in APAC.",
+  ]}
+  watchList={[
+    "Support response time rose to 6h.",
+    "Two large renewals due in Q4.",
+  ]}
+  breakdown={{
+    title: "Customers by region",
+    data: [
+      { label: "North America", value: 1420 },
+      { label: "Europe", value: 1180 },
+      { label: "APAC", value: 610 },
+      { label: "LATAM", value: 270 },
+    ],
+  }}
+  priorities={[
+    { label: "Self-serve onboarding", value: 70 },
+    { label: "SOC 2 Type II", value: 45 },
+    { label: "Mobile app beta", value: 20 },
+  ]}
+/>
+```
