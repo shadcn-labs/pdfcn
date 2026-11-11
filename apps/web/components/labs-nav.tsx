@@ -314,7 +314,10 @@ const LabsNavDesktop = () => {
                 <div className="flex gap-8 py-4 pl-3">
                   <div className="flex w-64 flex-col gap-3">
                     <SectionTitle>Latest</SectionTitle>
-                    <LatestCard item={LABS_LATEST} nameClassName="min-h-8">
+                    <LatestCard
+                      item={LABS_LATEST}
+                      nameClassName="min-h-8 flex-1"
+                    >
                       {({ content, onMouseEnter, onMouseLeave }) => (
                         <NavigationMenuLink
                           href={addQueryParams(
@@ -323,7 +326,10 @@ const LabsNavDesktop = () => {
                           )}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={cn(latestCardClassName, "w-60 gap-2 p-3")}
+                          className={cn(
+                            latestCardClassName,
+                            "w-60 flex-1 gap-2 p-3"
+                          )}
                           onMouseEnter={onMouseEnter}
                           onMouseLeave={onMouseLeave}
                         >
