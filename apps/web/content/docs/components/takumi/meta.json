@@ -2,6 +2,7 @@
   "pages": [
     "index",
     "alert",
+    "addresses",
     "badge",
     "card",
     "data-table",
