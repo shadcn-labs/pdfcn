@@ -1307,6 +1307,32 @@
       "type": "registry:theme"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Resume PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/resume/resume.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/resume/resume.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/resume/resume.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/resume/resume.types.ts"
+        }
+      ],
+      "name": "takumi/resume",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/badge",
+        "@pdfcn/takumi/pdf-image",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Resume",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Theme provider for the forme base",
       "files": [

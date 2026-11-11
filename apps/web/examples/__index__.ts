@@ -80,6 +80,7 @@ import takumi_report_financial from "@/examples/takumi/report-financial";
 import takumi_report_marketing from "@/examples/takumi/report-marketing";
 import takumi_report_operations from "@/examples/takumi/report-operations";
 import takumi_report_security from "@/examples/takumi/report-security";
+import takumi_resume from "@/examples/takumi/resume";
 import takumi_section from "@/examples/takumi/section";
 import takumi_shipping_label from "@/examples/takumi/shipping-label";
 import takumi_signature from "@/examples/takumi/signature";
@@ -176,6 +177,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "report-marketing": takumi_report_marketing,
     "report-operations": takumi_report_operations,
     "report-security": takumi_report_security,
+    resume: takumi_resume,
     section: takumi_section,
     "shipping-label": takumi_shipping_label,
     signature: takumi_signature,

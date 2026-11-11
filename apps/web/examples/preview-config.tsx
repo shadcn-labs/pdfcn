@@ -22,6 +22,7 @@ const BLOCK_NAMES = new Set([
   "report-marketing",
   "report-operations",
   "report-security",
+  "resume",
   "shipping-label",
   "work-order",
 ]);
