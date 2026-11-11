@@ -20,7 +20,8 @@
     "report-operations",
     "report-security",
     "shipping-label",
-    "work-order"
+    "work-order",
+    "business-letter"
   ],
   "title": "Takumi"
 }

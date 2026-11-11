@@ -1307,6 +1307,32 @@
       "type": "registry:theme"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Business Letter PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/business-letter/business-letter.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/business-letter/business-letter.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/business-letter/business-letter.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/business-letter/business-letter.types.ts"
+        }
+      ],
+      "name": "takumi/business-letter",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/pdf-image",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Business Letter",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Theme provider for the forme base",
       "files": [

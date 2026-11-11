@@ -1,0 +1,153 @@
+---
+title: "Business Letter"
+description: "Printable business letter on company letterhead with recipient block, body paragraphs, and signature."
+---
+
+<ComponentPreview base="takumi" name="business-letter" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/business-letter
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/business-letter/business-letter.tsx"
+  base="takumi"
+  title="components/pdf/blocks/business-letter/business-letter.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/business-letter/business-letter.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/business-letter/business-letter.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/page-footer/page-footer.tsx"
+  base="takumi"
+  title="components/pdf/page-footer/page-footer.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/pdf-image/pdf-image.tsx"
+  base="takumi"
+  title="components/pdf/pdf-image/pdf-image.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/section/section.tsx"
+  base="takumi"
+  title="components/pdf/section/section.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/text/text.tsx"
+  base="takumi"
+  title="components/pdf/text/text.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { BusinessLetterDocument } from "@/components/pdf/blocks/business-letter/business-letter";
+```
+
+```tsx
+<BusinessLetterDocument
+  companyName="Hartwell & Reed LLP"
+  companyTagline="Advisors since 1987"
+  companyAddress="1 Fleet Place, London · info@hartwellreed.com"
+  date="13 September 2026"
+  recipient={{
+    name: "Jordan Alvarez",
+    company: "Orion Logistics Ltd",
+    address: "88 Canal Street, Manchester",
+  }}
+  body={[
+    "Thank you for meeting with us last week. As discussed, we are pleased to confirm our engagement to review your supplier contracts ahead of the renewal period.",
+    "Our review will cover pricing terms, liability clauses and termination rights, and we will share a written summary with recommended changes within three weeks.",
+    "Please let us know if there is anything else you would like us to consider.",
+  ]}
+  sender={{ name: "Eleanor Hartwell", role: "Partner" }}
+/>
+```
