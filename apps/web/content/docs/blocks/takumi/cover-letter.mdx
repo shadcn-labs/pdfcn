@@ -1,0 +1,145 @@
+---
+title: "Cover Letter"
+description: "Printable one-page cover letter with greeting, body paragraphs, and a pull-quote highlight."
+---
+
+<ComponentPreview base="takumi" name="cover-letter" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/cover-letter
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/cover-letter/cover-letter.tsx"
+  base="takumi"
+  title="components/pdf/blocks/cover-letter/cover-letter.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/blocks/cover-letter/cover-letter.types.ts"
+  base="takumi"
+  title="components/pdf/blocks/cover-letter/cover-letter.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/page-footer/page-footer.tsx"
+  base="takumi"
+  title="components/pdf/page-footer/page-footer.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/section/section.tsx"
+  base="takumi"
+  title="components/pdf/section/section.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/text/text.tsx"
+  base="takumi"
+  title="components/pdf/text/text.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { CoverLetterDocument } from "@/components/pdf/blocks/cover-letter/cover-letter";
+```
+
+```tsx
+<CoverLetterDocument
+  applicantName="Sam Rivera"
+  role="Design Lead"
+  company="Lumen Health"
+  body={[
+    "I have followed Lumen Health since your first clinic app launched, and the care you put into making health information understandable is exactly why I want to join as Design Lead.",
+    "At Tidewave I led a team of four designers through a full redesign that lifted activation by 23%. I would love to bring that same mix of research, craft and patience to your patients.",
+    "Thank you for your time. I would be glad to talk whenever suits you.",
+  ]}
+  highlight={{
+    quote: "Good design in healthcare is measured in anxiety removed.",
+    cite: "A principle I design by",
+  }}
+  closing="Warm regards,"
+/>
+```

@@ -1307,6 +1307,31 @@
       "type": "registry:theme"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Cover Letter PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/cover-letter/cover-letter.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/cover-letter/cover-letter.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/cover-letter/cover-letter.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/cover-letter/cover-letter.types.ts"
+        }
+      ],
+      "name": "takumi/cover-letter",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Cover Letter",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Theme provider for the forme base",
       "files": [
