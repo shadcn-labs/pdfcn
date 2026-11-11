@@ -1307,6 +1307,37 @@
       "type": "registry:theme"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Quarterly Report PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/quarterly-report/quarterly-report.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/quarterly-report/quarterly-report.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/quarterly-report/quarterly-report.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/quarterly-report/quarterly-report.types.ts"
+        }
+      ],
+      "name": "takumi/quarterly-report",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/graph",
+        "@pdfcn/takumi/keep-together",
+        "@pdfcn/takumi/list",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/page-header",
+        "@pdfcn/takumi/page-number",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/stack",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Quarterly Report",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Theme provider for the forme base",
       "files": [
