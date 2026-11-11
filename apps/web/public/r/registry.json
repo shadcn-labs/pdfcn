@@ -1307,6 +1307,34 @@
       "type": "registry:theme"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Project Proposal PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/project-proposal/project-proposal.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/project-proposal/project-proposal.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/project-proposal/project-proposal.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/project-proposal/project-proposal.types.ts"
+        }
+      ],
+      "name": "takumi/project-proposal",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/graph",
+        "@pdfcn/takumi/keep-together",
+        "@pdfcn/takumi/page-number",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/signature",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Project Proposal",
+      "type": "registry:block"
+    },
+    {
       "dependencies": ["@formepdf/react", "@formepdf/core"],
       "description": "Theme provider for the forme base",
       "files": [
