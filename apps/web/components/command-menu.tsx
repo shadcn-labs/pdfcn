@@ -279,6 +279,7 @@ export const CommandMenu = ({
       }
 
       if (
+        open &&
         e.key === "c" &&
         (e.metaKey || e.ctrlKey) &&
         copyPayload.includes("shadcn@latest")
@@ -292,7 +293,7 @@ export const CommandMenu = ({
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [copyPayload, runCommand, copyToClipboard, copyFeedback]);
+  }, [open, copyPayload, runCommand, copyToClipboard, copyFeedback]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen} sounds>
