@@ -1,0 +1,165 @@
+---
+title: "Quote"
+description: "Pull quote with attribution for testimonials, press citations, and epigraphs."
+---
+
+<ComponentPreview base="takumi" name="quote" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/quote
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/components/quote/quote.tsx"
+  base="takumi"
+  title="components/pdf/quote/quote.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/quote/quote.styles.ts"
+  base="takumi"
+  title="components/pdf/quote/quote.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/quote/quote.types.ts"
+  base="takumi"
+  title="components/pdf/quote/quote.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Quote } from "@/components/pdf/quote";
+```
+
+```tsx
+<Quote
+  text="Every household should be able to choose clean power, whether they own a roof or not."
+  cite="Rosa Delgado, CEO of Solace Energy"
+/>
+```
+
+### Centered
+
+A centered quote replaces the accent bar with an oversized quotation mark,
+which suits epigraphs and cover letters.
+
+```tsx
+<Quote
+  text="Good design in healthcare is measured in anxiety removed."
+  cite="A principle I design by"
+  align="center"
+/>
+```
+
+### Accent color
+
+```tsx
+<Quote
+  text="Orbit turned a two-hour chore into a five-minute task."
+  cite="A happy customer"
+  accentColor="success"
+/>
+```
+
+## Quote vs Text
+
+Use `Quote` to set a single statement apart from body copy, such as a CEO quote
+in a press release or a customer testimonial in a proposal. The quote renders
+in larger type with an accent bar (or an oversized quotation mark when
+centered) and an optional muted `— cite` attribution line. Use
+[Text](./text) for regular paragraphs.
+
+## API Reference
+
+### Quote
+
+| Prop          | Type                 | Default     |
+| ------------- | -------------------- | ----------- |
+| `text`        | `string`             | -           |
+| `cite`        | `string`             | -           |
+| `align`       | `'left' \| 'center'` | `'left'`    |
+| `accentColor` | `string`             | `'primary'` |
+| `style`       | `Style`              | -           |
