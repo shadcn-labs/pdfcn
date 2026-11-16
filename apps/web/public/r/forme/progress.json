@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "forme/progress",
+  "title": "Progress",
+  "description": "Progress PDF component (forme)",
+  "dependencies": [
+    "@formepdf/react",
+    "@formepdf/core"
+  ],
+  "registryDependencies": [
+    "@pdfcn/forme/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/forme/components/progress/progress.styles.ts",
+      "content": "import { StyleSheet } from \"@formepdf/react\";\n\nimport type { PdfcnTheme } from \"@/types/pdf-themes\";\n\n/**\n * Creates all progress styles derived from the active theme.\n * @param t - The resolved PdfcnTheme instance.\n */\nexport const createProgressStyles = (t: PdfcnTheme) => {\n  const { borderRadius, spacing, fontWeights, typography } = t.primitives;\n\n  return StyleSheet.create({\n    container: {\n      display: \"flex\",\n      flexDirection: \"column\",\n      gap: spacing[3],\n      marginBottom: t.spacing.componentGap,\n      width: \"100%\",\n    },\n    fill: {\n      borderRadius: borderRadius.full,\n      height: spacing[2],\n    },\n    item: {\n      display: \"flex\",\n      flexDirection: \"column\",\n      gap: spacing[1],\n    },\n    label: {\n      color: t.colors.foreground,\n      flex: 1,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: typography.sm,\n      fontWeight: fontWeights.medium,\n    },\n    labelRow: {\n      alignItems: \"center\",\n      display: \"flex\",\n      flexDirection: \"row\",\n    },\n    track: {\n      backgroundColor: t.colors.muted,\n      borderRadius: borderRadius.full,\n      height: spacing[2],\n      width: \"100%\",\n    },\n    value: {\n      color: t.colors.mutedForeground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: typography.sm,\n      marginLeft: spacing[3],\n    },\n  });\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/progress/progress.styles.ts"
+    },
+    {
+      "path": "registry/bases/forme/components/progress/progress.tsx",
+      "content": "import {\n  usePdfcnTheme,\n  useSafeMemo,\n} from \"@/components/pdf/theme-provider\";\nimport {\n  Text as PDFText,\n  View,\n} from \"@/lib/pdf-primitives\";\nimport type { Style } from \"@/lib/pdf-primitives\";\nimport { resolveColor } from \"@/lib/resolve-color\";\n\nimport { createProgressStyles } from \"./progress.styles\";\nimport type { PdfProgressProps } from \"./progress.types\";\n\n/** Clamps a percentage to 0-100; non-finite values render as an empty bar. */\nconst clampPercent = (value: number): number =>\n  Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0;\n\nexport const PdfProgress = ({\n  items,\n  showValues = true,\n  accentColor = \"primary\",\n  style,\n  noWrap = false,\n}: PdfProgressProps) => {\n  const theme = usePdfcnTheme();\n  const styles = useSafeMemo(() => createProgressStyles(theme), [theme]);\n  const fillColor = resolveColor(accentColor, theme.colors);\n\n  const containerStyles: Style[] = style\n    ? [styles.container, style]\n    : [styles.container];\n\n  return (\n    <View wrap={!noWrap} style={containerStyles as never}>\n      {items.map((item, index) => {\n        const percent = clampPercent(item.value);\n        const valueLabel = `${Math.round(percent)}%`;\n        return (\n          // Keep each label with its bar when the list breaks across pages.\n          <View key={`${item.label}-${index}`} wrap={false} style={styles.item}>\n            <View style={styles.labelRow}>\n              <PDFText style={styles.label}>{item.label}</PDFText>\n              {showValues ? (\n                <PDFText style={styles.value}>{valueLabel}</PDFText>\n              ) : null}\n            </View>\n            <View style={styles.track}>\n              {/* A zero-width fill still draws a hairline, so skip it at 0%. */}\n              {percent > 0 ? (\n                <View\n                  style={\n                    [\n                      styles.fill,\n                      { backgroundColor: fillColor, width: `${percent}%` },\n                    ] as never\n                  }\n                />\n              ) : null}\n            </View>\n          </View>\n        );\n      })}\n    </View>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/progress/progress.tsx"
+    },
+    {
+      "path": "registry/bases/forme/components/progress/progress.types.ts",
+      "content": "import type { Style } from \"@formepdf/react\";\n\n/**\n * A single labeled progress bar.\n * Props - `label` | `value`\n * @see {@link ProgressItem}\n */\nexport interface ProgressItem {\n  label: string;\n  /** Percentage from 0 to 100. Values outside that range are clamped. */\n  value: number;\n}\n\n/**\n * Labeled percentage bars for skills, goals, and initiative tracking.\n * Props - `items` | `showValues` | `accentColor` | `style` | `noWrap`\n * @see {@link PdfProgressProps}\n */\nexport interface PdfProgressProps {\n  items: ProgressItem[];\n  /**\n   * @default true\n   */\n  showValues?: boolean;\n  /**\n   * Theme color key (e.g. `'success'`) or any CSS color.\n   * @default 'primary'\n   */\n  accentColor?: string;\n  style?: Style;\n  /**\n   * @default false\n   */\n  noWrap?: boolean;\n}\n",
+      "type": "registry:component",
+      "target": "components/pdf/progress/progress.types.ts"
+    }
+  ],
+  "type": "registry:ui"
+}
