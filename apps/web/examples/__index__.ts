@@ -86,6 +86,7 @@ import takumi_signature from "@/examples/takumi/signature";
 import takumi_stack from "@/examples/takumi/stack";
 import takumi_table from "@/examples/takumi/table";
 import takumi_text from "@/examples/takumi/text";
+import takumi_timeline from "@/examples/takumi/timeline";
 import takumi_watermark from "@/examples/takumi/watermark";
 import takumi_work_order from "@/examples/takumi/work-order";
 import type { BaseName } from "@/registry/bases";
@@ -182,6 +183,7 @@ export const demos: Record<BaseName, DemoMap> = {
     stack: takumi_stack,
     table: takumi_table,
     text: takumi_text,
+    timeline: takumi_timeline,
     watermark: takumi_watermark,
     "work-order": takumi_work_order,
   },

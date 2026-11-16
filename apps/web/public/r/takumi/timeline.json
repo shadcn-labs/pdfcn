@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "takumi/timeline",
+  "title": "Timeline",
+  "description": "Timeline PDF component (takumi)",
+  "dependencies": [
+    "takumi-pdf",
+    "@takumi-rs/helpers"
+  ],
+  "registryDependencies": [
+    "@pdfcn/takumi/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/takumi/components/timeline/timeline.styles.ts",
+      "content": "import { StyleSheet } from \"@/lib/pdf-primitives\";\nimport type { PdfcnTheme } from \"@/types/pdf-themes\";\n\n/**\n * Creates all timeline styles derived from the active theme.\n * @param t - The resolved PdfcnTheme instance.\n */\nexport const createTimelineStyles = (t: PdfcnTheme) => {\n  const { spacing, fontWeights, typography } = t.primitives;\n\n  return StyleSheet.create({\n    body: {\n      color: t.colors.mutedForeground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: typography.sm,\n      lineHeight: t.typography.body.lineHeight,\n      marginTop: spacing[1],\n    },\n    container: {\n      display: \"flex\",\n      flexDirection: \"column\",\n      marginBottom: t.spacing.componentGap,\n      width: \"100%\",\n    },\n    content: {\n      flex: 1,\n      paddingBottom: spacing[4],\n      paddingLeft: spacing[3],\n    },\n    contentLast: {\n      paddingBottom: 0,\n    },\n    date: {\n      color: t.colors.mutedForeground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: typography.sm,\n      lineHeight: t.typography.body.lineHeight,\n      width: 80,\n    },\n    dot: {\n      borderRadius: 4,\n      height: 8,\n      width: 8,\n    },\n    rail: {\n      alignItems: \"center\",\n      alignSelf: \"stretch\",\n      paddingTop: spacing[1],\n      width: spacing[4],\n    },\n    row: {\n      alignItems: \"flex-start\",\n      flexDirection: \"row\",\n    },\n    spine: {\n      flex: 1,\n      marginTop: spacing[1],\n      width: 2,\n    },\n    title: {\n      color: t.colors.foreground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: t.typography.body.fontSize,\n      fontWeight: fontWeights.semibold,\n      lineHeight: t.typography.body.lineHeight,\n    },\n  });\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/timeline/timeline.styles.ts"
+    },
+    {
+      "path": "registry/bases/takumi/components/timeline/timeline.tsx",
+      "content": "import type React from \"react\";\n\nimport {\n  usePdfcnTheme,\n  useSafeMemo,\n} from \"@/components/pdf/theme-provider\";\nimport {\n  View,\n  Text as PDFText,\n} from \"@/lib/pdf-primitives\";\nimport type { Style } from \"@/lib/pdf-primitives\";\nimport { resolveColor } from \"@/lib/resolve-color\";\n\nimport { createTimelineStyles } from \"./timeline.styles\";\nimport type { TimelineItem, TimelineProps } from \"./timeline.types\";\n\ntype Styles = ReturnType<typeof createTimelineStyles>;\n\nconst renderItem = (\n  item: TimelineItem,\n  index: number,\n  total: number,\n  accent: string,\n  styles: Styles\n): React.ReactElement => {\n  const isLast = index === total - 1;\n  return (\n    <View key={index} wrap={false} style={styles.row}>\n      <PDFText style={styles.date}>{item.date}</PDFText>\n      <View style={styles.rail}>\n        <View style={[styles.dot, { backgroundColor: accent }]} />\n        {isLast ? null : (\n          <View style={[styles.spine, { backgroundColor: accent }]} />\n        )}\n      </View>\n      <View style={[styles.content, isLast ? styles.contentLast : {}]}>\n        <PDFText style={styles.title}>{item.title}</PDFText>\n        {item.body ? <PDFText style={styles.body}>{item.body}</PDFText> : null}\n      </View>\n    </View>\n  );\n};\n\nexport const Timeline = ({\n  items,\n  accentColor = \"primary\",\n  style,\n  noWrap = false,\n}: TimelineProps) => {\n  const theme = usePdfcnTheme();\n  const styles = useSafeMemo(() => createTimelineStyles(theme), [theme]);\n  const accent = resolveColor(accentColor, theme.colors);\n\n  const containerStyles: Style[] = [styles.container];\n  if (style) {\n    containerStyles.push(...[style].flat());\n  }\n\n  return (\n    <View wrap={!noWrap} style={containerStyles}>\n      {items.map((item, index) =>\n        renderItem(item, index, items.length, accent, styles)\n      )}\n    </View>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/timeline/timeline.tsx"
+    },
+    {
+      "path": "registry/bases/takumi/components/timeline/timeline.types.ts",
+      "content": "import type { Style } from \"@/lib/pdf-primitives\";\n\n/**\n * A single dated milestone on the timeline.\n * Props - `date` | `title` | `body`\n * @see {@link TimelineItem}\n */\nexport interface TimelineItem {\n  date: string;\n  title: string;\n  body?: string;\n}\n\n/**\n * Vertical timeline of dated milestones with an accent spine and dot markers.\n * Props - `items` | `accentColor` | `style` | `noWrap`\n * @see {@link TimelineProps}\n */\nexport interface TimelineProps {\n  items: TimelineItem[];\n  /**\n   * Theme color token or CSS color applied to the spine and dot markers.\n   * @default 'primary'\n   */\n  accentColor?: string;\n  style?: Style;\n  /**\n   * @default false\n   */\n  noWrap?: boolean;\n}\n",
+      "type": "registry:component",
+      "target": "components/pdf/timeline/timeline.types.ts"
+    }
+  ],
+  "type": "registry:ui"
+}
