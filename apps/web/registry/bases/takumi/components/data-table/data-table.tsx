@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 import {
   Table,
   TableBody,
@@ -63,8 +61,7 @@ export const DataTable = <T extends Record<string, unknown>>({
       <TableBody>
         {data.map((row, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: DataTable has no row id; order is stable for static data
-          <Fragment key={i}>
-            <TableRow>
+            <TableRow key={i}>
               {columns.map((col) => {
                 const value = row[col.key];
                 const rendered = col.render ? col.render(value, row) : null;
@@ -94,7 +91,6 @@ export const DataTable = <T extends Record<string, unknown>>({
                 );
               })}
             </TableRow>
-          </Fragment>
         ))}
       </TableBody>
       {footer && (

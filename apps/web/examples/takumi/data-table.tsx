@@ -9,7 +9,7 @@ const DemoBody = () => (
     <Heading level={3}>Team Directory</Heading>
     <DataTable
       size="compact"
-      variant="striped"
+      variant="grid"
       columns={[
         { align: "center", header: "ID", key: "id" },
         { header: "Name", key: "name" },
