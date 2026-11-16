@@ -5,6 +5,7 @@ import { useWebMCP } from "use-webmcp-tool";
 import { SITE } from "@/constants/site";
 
 const BLOCK_NAMES = [
+  "event-agenda",
   "event-ticket",
   "gift-certificate",
   "invoice-classic",
