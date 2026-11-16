@@ -449,6 +449,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Timeline PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/timeline/timeline.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/timeline/timeline.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/timeline/timeline.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/timeline/timeline.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/timeline/timeline.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/timeline/timeline.types.ts"
+        }
+      ],
+      "name": "takumi/timeline",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Timeline",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Watermark PDF component (takumi)",
       "files": [
         {

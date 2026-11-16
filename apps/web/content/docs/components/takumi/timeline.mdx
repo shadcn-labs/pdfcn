@@ -1,0 +1,156 @@
+---
+title: "Timeline"
+description: "Dated milestones on a vertical accent spine."
+---
+
+<ComponentPreview base="takumi" name="timeline" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @pdfcn/takumi/timeline
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install takumi-pdf @takumi-rs/helpers
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/bases/takumi/components/timeline/timeline.tsx"
+  base="takumi"
+  title="components/pdf/timeline/timeline.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/timeline/timeline.styles.ts"
+  base="takumi"
+  title="components/pdf/timeline/timeline.styles.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/timeline/timeline.types.ts"
+  base="takumi"
+  title="components/pdf/timeline/timeline.types.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/components/theme-provider.tsx"
+  base="takumi"
+  title="components/pdf/theme-provider.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/resolve-color.ts"
+  base="takumi"
+  title="lib/resolve-color.ts"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-primitives.tsx"
+  base="takumi"
+  title="lib/pdf-primitives.tsx"
+/>
+
+<ComponentSource
+  src="registry/bases/takumi/lib/pdf-svg.tsx"
+  base="takumi"
+  title="lib/pdf-svg.tsx"
+/>
+
+<ComponentSource
+  src="registry/themes/professional.ts"
+  base="takumi"
+  title="lib/pdf-themes/professional.ts"
+/>
+
+<ComponentSource
+  src="registry/themes/primitives.ts"
+  base="takumi"
+  title="lib/pdf-themes/primitives.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-themes.ts"
+  base="takumi"
+  title="types/pdf-themes.ts"
+/>
+
+<ComponentSource
+  src="registry/types/pdf-components.ts"
+  base="takumi"
+  title="types/pdf-components.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Timeline } from "@/components/pdf/timeline";
+```
+
+```tsx
+<Timeline
+  items={[
+    { date: "2022 to now", title: "Lead Designer, Tidewave" },
+    {
+      date: "2019 to 2022",
+      title: "Product Designer, Loom & Co",
+      body: "Built the design system used by 40 engineers across 6 teams.",
+    },
+  ]}
+/>
+```
+
+### Accent color
+
+`accentColor` accepts a theme color token or any CSS color.
+
+```tsx
+<Timeline accentColor="success" items={items} />
+<Timeline accentColor="#8b5cf6" items={items} />
+```
+
+## API Reference
+
+### Timeline
+
+| Prop          | Type             | Default     |
+| ------------- | ---------------- | ----------- |
+| `items`       | `TimelineItem[]` | -           |
+| `accentColor` | `string`         | `'primary'` |
+| `noWrap`      | `boolean`        | `false`     |
+| `style`       | `Style`          | -           |
+
+### TimelineItem
+
+| Prop    | Type     | Default |
+| ------- | -------- | ------- |
+| `date`  | `string` | -       |
+| `title` | `string` | -       |
+| `body`  | `string` | -       |
