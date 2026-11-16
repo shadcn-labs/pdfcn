@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "takumi/stats",
+  "title": "Stats",
+  "description": "Stats PDF component (takumi)",
+  "dependencies": [
+    "takumi-pdf",
+    "@takumi-rs/helpers"
+  ],
+  "registryDependencies": [
+    "@pdfcn/takumi/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/bases/takumi/components/stats/stats.styles.ts",
+      "content": "import { StyleSheet } from \"@/lib/pdf-primitives\";\nimport type { PdfcnTheme } from \"@/types/pdf-themes\";\n\n/**\n * Creates all stats styles derived from the active theme.\n * @param t - The resolved PdfcnTheme instance.\n */\nexport const createStatsStyles = (t: PdfcnTheme) => {\n  const { borderRadius, spacing, fontWeights, lineHeights, typography } =\n    t.primitives;\n  const valueBase = {\n    color: t.colors.foreground,\n    fontFamily: t.typography.heading.fontFamily,\n    fontWeight: fontWeights.semibold,\n    lineHeight: lineHeights.tight,\n    // Lets long values without spaces break inside the tile instead of\n    // pushing past its edge.\n    overflowWrap: \"anywhere\",\n  };\n\n  return StyleSheet.create({\n    container: {\n      display: \"flex\",\n      flexDirection: \"column\",\n      marginBottom: t.spacing.componentGap,\n      width: \"100%\",\n    },\n    label: {\n      color: t.colors.mutedForeground,\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: 8,\n      fontWeight: fontWeights.semibold,\n      letterSpacing: 0.8,\n      lineHeight: lineHeights.tight,\n      marginBottom: spacing[1],\n      overflowWrap: \"anywhere\",\n      textTransform: \"uppercase\",\n    },\n    note: {\n      fontFamily: t.typography.body.fontFamily,\n      fontSize: 9,\n      lineHeight: lineHeights.normal,\n      marginTop: spacing[1],\n      overflowWrap: \"anywhere\",\n    },\n    row: {\n      flexDirection: \"row\",\n      gap: spacing[2],\n    },\n    rowGap: {\n      marginBottom: spacing[2],\n    },\n    spacer: {\n      // Keeps a short last row aligned to the same tile width as full rows.\n      flexBasis: 0,\n      flexGrow: 1,\n      minWidth: 0,\n    },\n    tile: {\n      backgroundColor: t.colors.muted,\n      borderRadius: borderRadius.md,\n      // A zero basis splits the row evenly regardless of content length, and\n      // minWidth: 0 keeps long unbroken values from widening their tile much.\n      flexBasis: 0,\n      flexGrow: 1,\n      minWidth: 0,\n      padding: spacing[3],\n    },\n    valueLg: { ...valueBase, fontSize: typography.xl },\n    valueMd: { ...valueBase, fontSize: typography.lg },\n    valueSm: { ...valueBase, fontSize: typography.base },\n  });\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/stats/stats.styles.ts"
+    },
+    {
+      "path": "registry/bases/takumi/components/stats/stats.tsx",
+      "content": "import {\n  usePdfcnTheme,\n  useSafeMemo,\n} from \"@/components/pdf/theme-provider\";\nimport {\n  View,\n  Text as PDFText,\n} from \"@/lib/pdf-primitives\";\nimport type { Style } from \"@/lib/pdf-primitives\";\nimport { resolveColor } from \"@/lib/resolve-color\";\n\nimport { createStatsStyles } from \"./stats.styles\";\nimport type { StatItem, StatsColumns, StatsProps } from \"./stats.types\";\n\ntype Styles = ReturnType<typeof createStatsStyles>;\n\nconst getValueStyle = (columns: StatsColumns, styles: Styles): Style => {\n  if (columns === 2) {\n    return styles.valueLg;\n  }\n  if (columns === 4) {\n    return styles.valueSm;\n  }\n  return styles.valueMd;\n};\n\nconst chunkItems = (items: StatItem[], size: number): StatItem[][] => {\n  const rows: StatItem[][] = [];\n  for (let index = 0; index < items.length; index += size) {\n    rows.push(items.slice(index, index + size));\n  }\n  return rows;\n};\n\nexport const Stats = ({\n  items,\n  columns = 3,\n  accentColor = \"primary\",\n  noWrap = false,\n  style,\n}: StatsProps) => {\n  const theme = usePdfcnTheme();\n  const styles = useSafeMemo(() => createStatsStyles(theme), [theme]);\n\n  if (items.length === 0) {\n    return null;\n  }\n\n  const rows = chunkItems(items, columns);\n  const valueStyle = getValueStyle(columns, styles);\n  const noteStyle: Style[] = [\n    styles.note,\n    { color: resolveColor(accentColor, theme.colors) },\n  ];\n  const containerStyles: Style[] = [styles.container];\n  if (style) {\n    containerStyles.push(style);\n  }\n\n  return (\n    <View wrap={!noWrap} style={containerStyles}>\n      {rows.map((row, rowIndex) => (\n        <View\n          key={rowIndex}\n          wrap={false}\n          style={\n            rowIndex === rows.length - 1\n              ? styles.row\n              : [styles.row, styles.rowGap]\n          }\n        >\n          {row.map((item, index) => (\n            <View key={index} style={styles.tile}>\n              <PDFText style={styles.label}>{item.label}</PDFText>\n              <PDFText style={valueStyle}>{item.value}</PDFText>\n              {item.note ? (\n                <PDFText style={noteStyle}>{item.note}</PDFText>\n              ) : null}\n            </View>\n          ))}\n          {Array.from({ length: columns - row.length }, (_, index) => (\n            <View key={`spacer-${index}`} style={styles.spacer} />\n          ))}\n        </View>\n      ))}\n    </View>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/pdf/stats/stats.tsx"
+    },
+    {
+      "path": "registry/bases/takumi/components/stats/stats.types.ts",
+      "content": "import type { Style } from \"@/lib/pdf-primitives\";\n\n/** Number of tiles rendered per row. */\nexport type StatsColumns = 2 | 3 | 4;\n\n/**\n * A single metric tile with a label, a headline value and an optional note.\n * Props - `label` | `value` | `note`\n * @see {@link StatItem}\n */\nexport interface StatItem {\n  label: string;\n  value: string;\n  note?: string;\n}\n\n/**\n * Row of KPI metric tiles for reports and proposals.\n * Props - `items` | `columns` | `accentColor` | `noWrap` | `style`\n * @see {@link StatsProps}\n */\nexport interface StatsProps {\n  items: StatItem[];\n  /**\n   * Tiles per row. Extra items wrap onto a new row with the same tile width.\n   * @default 3\n   */\n  columns?: StatsColumns;\n  /**\n   * Theme color token or CSS color used for the note line.\n   * @default 'primary'\n   */\n  accentColor?: string;\n  /**\n   * @default false\n   */\n  noWrap?: boolean;\n  style?: Style;\n}\n",
+      "type": "registry:component",
+      "target": "components/pdf/stats/stats.types.ts"
+    }
+  ],
+  "type": "registry:ui"
+}
