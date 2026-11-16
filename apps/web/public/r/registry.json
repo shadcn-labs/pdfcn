@@ -449,6 +449,31 @@
     },
     {
       "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Totals PDF component (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/components/totals/totals.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.styles.ts"
+        },
+        {
+          "path": "registry/bases/takumi/components/totals/totals.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/components/totals/totals.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.types.ts"
+        }
+      ],
+      "name": "takumi/totals",
+      "registryDependencies": ["@pdfcn/takumi/utils"],
+      "title": "Totals",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
       "description": "Watermark PDF component (takumi)",
       "files": [
         {
@@ -1754,6 +1779,31 @@
       "name": "forme/text",
       "registryDependencies": ["@pdfcn/forme/utils"],
       "title": "Text",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@formepdf/react", "@formepdf/core"],
+      "description": "Totals PDF component (forme)",
+      "files": [
+        {
+          "path": "registry/bases/forme/components/totals/totals.styles.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.styles.ts"
+        },
+        {
+          "path": "registry/bases/forme/components/totals/totals.tsx",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.tsx"
+        },
+        {
+          "path": "registry/bases/forme/components/totals/totals.types.ts",
+          "type": "registry:component",
+          "target": "components/pdf/totals/totals.types.ts"
+        }
+      ],
+      "name": "forme/totals",
+      "registryDependencies": ["@pdfcn/forme/utils"],
+      "title": "Totals",
       "type": "registry:ui"
     },
     {
