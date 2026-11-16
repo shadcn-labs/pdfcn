@@ -18,6 +18,7 @@ const BLOCK_NAMES = new Set([
   "meeting-minutes",
   "packing-slip",
   "press-release",
+  "receipt",
   "report-financial",
   "report-marketing",
   "report-operations",
@@ -54,6 +55,10 @@ const COMPONENT_SIZES: Record<
   "page-header": {
     height: pointToCssPixel(240),
     width: pointToCssPixel(595),
+  },
+  receipt: {
+    height: pointToCssPixel(595),
+    width: pointToCssPixel(420),
   },
   "shipping-label": {
     height: pointToCssPixel(432),

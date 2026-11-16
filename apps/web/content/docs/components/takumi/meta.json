@@ -3,6 +3,7 @@
     "index",
     "alert",
     "badge",
+    "barcode",
     "card",
     "data-table",
     "divider",
@@ -24,6 +25,7 @@
     "stack",
     "table",
     "text",
+    "totals",
     "watermark"
   ],
   "title": "Takumi"

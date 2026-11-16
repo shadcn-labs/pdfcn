@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 
 import forme_alert from "@/examples/forme/alert";
 import forme_badge from "@/examples/forme/badge";
+import forme_barcode from "@/examples/forme/barcode";
 import forme_card from "@/examples/forme/card";
 import forme_data_table from "@/examples/forme/data-table";
 import forme_divider from "@/examples/forme/divider";
@@ -32,6 +33,7 @@ import forme_page_number from "@/examples/forme/page-number";
 import forme_pdf_image from "@/examples/forme/pdf-image";
 import forme_press_release from "@/examples/forme/press-release";
 import forme_qrcode from "@/examples/forme/qrcode";
+import forme_receipt from "@/examples/forme/receipt";
 import forme_report_financial from "@/examples/forme/report-financial";
 import forme_report_marketing from "@/examples/forme/report-marketing";
 import forme_report_operations from "@/examples/forme/report-operations";
@@ -42,10 +44,12 @@ import forme_signature from "@/examples/forme/signature";
 import forme_stack from "@/examples/forme/stack";
 import forme_table from "@/examples/forme/table";
 import forme_text from "@/examples/forme/text";
+import forme_totals from "@/examples/forme/totals";
 import forme_watermark from "@/examples/forme/watermark";
 import forme_work_order from "@/examples/forme/work-order";
 import takumi_alert from "@/examples/takumi/alert";
 import takumi_badge from "@/examples/takumi/badge";
+import takumi_barcode from "@/examples/takumi/barcode";
 import takumi_card from "@/examples/takumi/card";
 import takumi_data_table from "@/examples/takumi/data-table";
 import takumi_divider from "@/examples/takumi/divider";
@@ -76,6 +80,7 @@ import takumi_page_number from "@/examples/takumi/page-number";
 import takumi_pdf_image from "@/examples/takumi/pdf-image";
 import takumi_press_release from "@/examples/takumi/press-release";
 import takumi_qrcode from "@/examples/takumi/qrcode";
+import takumi_receipt from "@/examples/takumi/receipt";
 import takumi_report_financial from "@/examples/takumi/report-financial";
 import takumi_report_marketing from "@/examples/takumi/report-marketing";
 import takumi_report_operations from "@/examples/takumi/report-operations";
@@ -86,6 +91,7 @@ import takumi_signature from "@/examples/takumi/signature";
 import takumi_stack from "@/examples/takumi/stack";
 import takumi_table from "@/examples/takumi/table";
 import takumi_text from "@/examples/takumi/text";
+import takumi_totals from "@/examples/takumi/totals";
 import takumi_watermark from "@/examples/takumi/watermark";
 import takumi_work_order from "@/examples/takumi/work-order";
 import type { BaseName } from "@/registry/bases";
@@ -96,6 +102,7 @@ export const demos: Record<BaseName, DemoMap> = {
   forme: {
     alert: forme_alert,
     badge: forme_badge,
+    barcode: forme_barcode,
     card: forme_card,
     "data-table": forme_data_table,
     divider: forme_divider,
@@ -126,6 +133,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "pdf-image": forme_pdf_image,
     "press-release": forme_press_release,
     qrcode: forme_qrcode,
+    receipt: forme_receipt,
     "report-financial": forme_report_financial,
     "report-marketing": forme_report_marketing,
     "report-operations": forme_report_operations,
@@ -136,12 +144,14 @@ export const demos: Record<BaseName, DemoMap> = {
     stack: forme_stack,
     table: forme_table,
     text: forme_text,
+    totals: forme_totals,
     watermark: forme_watermark,
     "work-order": forme_work_order,
   },
   takumi: {
     alert: takumi_alert,
     badge: takumi_badge,
+    barcode: takumi_barcode,
     card: takumi_card,
     "data-table": takumi_data_table,
     divider: takumi_divider,
@@ -172,6 +182,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "pdf-image": takumi_pdf_image,
     "press-release": takumi_press_release,
     qrcode: takumi_qrcode,
+    receipt: takumi_receipt,
     "report-financial": takumi_report_financial,
     "report-marketing": takumi_report_marketing,
     "report-operations": takumi_report_operations,
@@ -182,6 +193,7 @@ export const demos: Record<BaseName, DemoMap> = {
     stack: takumi_stack,
     table: takumi_table,
     text: takumi_text,
+    totals: takumi_totals,
     watermark: takumi_watermark,
     "work-order": takumi_work_order,
   },
