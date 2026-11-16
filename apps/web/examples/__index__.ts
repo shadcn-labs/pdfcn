@@ -39,6 +39,7 @@ import forme_report_security from "@/examples/forme/report-security";
 import forme_section from "@/examples/forme/section";
 import forme_shipping_label from "@/examples/forme/shipping-label";
 import forme_signature from "@/examples/forme/signature";
+import forme_spacer from "@/examples/forme/spacer";
 import forme_stack from "@/examples/forme/stack";
 import forme_table from "@/examples/forme/table";
 import forme_text from "@/examples/forme/text";
@@ -83,6 +84,7 @@ import takumi_report_security from "@/examples/takumi/report-security";
 import takumi_section from "@/examples/takumi/section";
 import takumi_shipping_label from "@/examples/takumi/shipping-label";
 import takumi_signature from "@/examples/takumi/signature";
+import takumi_spacer from "@/examples/takumi/spacer";
 import takumi_stack from "@/examples/takumi/stack";
 import takumi_table from "@/examples/takumi/table";
 import takumi_text from "@/examples/takumi/text";
@@ -133,6 +135,7 @@ export const demos: Record<BaseName, DemoMap> = {
     section: forme_section,
     "shipping-label": forme_shipping_label,
     signature: forme_signature,
+    spacer: forme_spacer,
     stack: forme_stack,
     table: forme_table,
     text: forme_text,
@@ -179,6 +182,7 @@ export const demos: Record<BaseName, DemoMap> = {
     section: takumi_section,
     "shipping-label": takumi_shipping_label,
     signature: takumi_signature,
+    spacer: takumi_spacer,
     stack: takumi_stack,
     table: takumi_table,
     text: takumi_text,
