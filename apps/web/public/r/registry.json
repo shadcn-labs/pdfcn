@@ -1055,6 +1055,36 @@
       "type": "registry:block"
     },
     {
+      "dependencies": ["takumi-pdf", "@takumi-rs/helpers"],
+      "description": "Quote Estimate PDF block (takumi)",
+      "files": [
+        {
+          "path": "registry/bases/takumi/blocks/quote-estimate/quote-estimate.tsx",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/quote-estimate/quote-estimate.tsx"
+        },
+        {
+          "path": "registry/bases/takumi/blocks/quote-estimate/quote-estimate.types.ts",
+          "type": "registry:block",
+          "target": "components/pdf/blocks/quote-estimate/quote-estimate.types.ts"
+        }
+      ],
+      "name": "takumi/quote-estimate",
+      "registryDependencies": [
+        "@pdfcn/takumi/utils",
+        "@pdfcn/takumi/key-value",
+        "@pdfcn/takumi/list",
+        "@pdfcn/takumi/page-footer",
+        "@pdfcn/takumi/pdf-image",
+        "@pdfcn/takumi/section",
+        "@pdfcn/takumi/signature",
+        "@pdfcn/takumi/table",
+        "@pdfcn/takumi/text"
+      ],
+      "title": "Quote Estimate",
+      "type": "registry:block"
+    },
+    {
       "description": "professional theme tokens",
       "files": [
         {

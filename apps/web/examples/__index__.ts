@@ -76,6 +76,7 @@ import takumi_page_number from "@/examples/takumi/page-number";
 import takumi_pdf_image from "@/examples/takumi/pdf-image";
 import takumi_press_release from "@/examples/takumi/press-release";
 import takumi_qrcode from "@/examples/takumi/qrcode";
+import takumi_quote_estimate from "@/examples/takumi/quote-estimate";
 import takumi_report_financial from "@/examples/takumi/report-financial";
 import takumi_report_marketing from "@/examples/takumi/report-marketing";
 import takumi_report_operations from "@/examples/takumi/report-operations";
@@ -172,6 +173,7 @@ export const demos: Record<BaseName, DemoMap> = {
     "pdf-image": takumi_pdf_image,
     "press-release": takumi_press_release,
     qrcode: takumi_qrcode,
+    "quote-estimate": takumi_quote_estimate,
     "report-financial": takumi_report_financial,
     "report-marketing": takumi_report_marketing,
     "report-operations": takumi_report_operations,
